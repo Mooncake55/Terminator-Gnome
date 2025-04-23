@@ -16,11 +16,11 @@ public class InputController : MonoBehaviour
     private void FixedUpdate()
     {
         //Debug.Log("Hello");
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        if(input != Vector2.zero)
+        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        if(moveInput != Vector2.zero)
         {
             Debug.Log("Should Move");
-            OnMoveInput?.Invoke(input.normalized);
+            OnMoveInput?.Invoke(moveInput.normalized);
         }
     }
 

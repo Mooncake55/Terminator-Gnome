@@ -1,18 +1,36 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     int moveCount = 0;
+    [SerializeField] private float speed = 5f;
+    private Rigidbody2D rb;
+    private bool isPaused = false;
+    
     void Start()
     {
-        InputController.Instance.OnMoveInput += MovePlayer;
+        rb = GetComponent<Rigidbody2D>();
+        InputController.Instance.OnMoveInput += HandleMoveInput;
     }
 
-    void MovePlayer(Vector2 direction)
+    void MovePlayer(Vector2 moveInput)
     {
-        Debug.Log(direction.x);
-        Debug.Log(direction.y);
+        Debug.Log($"Horizontal: " + moveInput.x);
+        Debug.Log($"Vertical: " + moveInput.y);
         moveCount++;
+        Debug.Log($"move count" + moveCount);
+        rb.velocity = moveInput * speed; //rb.volocity
+        moveInput = Vector2.zero;
     }
+    void HandleMoveInput(Vector2 moveInput)
+    {
+        if (isPaused) return;
+        else 
+        {
+            MovePlayer(moveInput);
+            //moveInput = Vector2.zero;
+        }
+    }
+
 }

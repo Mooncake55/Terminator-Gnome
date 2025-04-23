@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5306ea520f53724cb8e1520ba943b3f, type: 3}
   m_Name: Entities_Data_Gnome
   m_EditorClassIdentifier: 
-  _movementSpeed: 0
+  _movementSpeed: 20
+  _maxHealth: 0
+  _attackDamage: 0
+  _attackSpeed: 0

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Health_System
+public class Health_System:MonoBehaviour
 {
     public int _maxHealth;
     public int _actualHealth;
@@ -14,7 +14,7 @@ public class Health_System
     //Heals the entity
     public void Heal(int amount)
     {
-        Debug.Log("The entity Heal");
+        Debug.Log("The entity Heals");
 
         _actualHealth += amount;
 
@@ -33,7 +33,7 @@ public class Health_System
 
         if (_actualHealth < 0) 
         {
-            _actualHealth = 0;
+            Death();
         }
     }
 

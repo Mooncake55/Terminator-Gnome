@@ -189,7 +189,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1284004698}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1284004700
 Camera:
   m_ObjectHideFlags: 0
@@ -413,8 +413,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 855feb84e5fc421459f6ee371d1dba64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  dashSpeed: 5
+  speed: 5
+  dashSpeed: 1
+  dashDuration: 0.2
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &1686189004
 Transform:
   m_ObjectHideFlags: 0

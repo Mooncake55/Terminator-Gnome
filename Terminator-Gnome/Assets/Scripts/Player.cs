@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
         lastDirection = Vector2.zero;
         InputController.Instance.OnMoveInput += HandleMoveInput;
         InputController.Instance.OnShiftPressed += HandleDashInput;
+        //InputController.Instance.OnLeftClickPressed += HandleRangeAttack;
     }
 
     void HandleMoveInput(Vector2 direction)
@@ -22,13 +23,15 @@ public class Player : MonoBehaviour
     }
     void HandleDashInput(bool isDashing) 
     {
+        Debug.Log("Deberia dashear");
         isDashing = true;
         playerDash.Dash(lastDirection, false);
+        isDashing = false;
     }
-    void PlayerMove()
-    {
-
-    }
+    //void HandleRangeAttack()
+    //{
+    //    playerDash.Dash(lastDirection, true);
+    //}
     private void OnDestroy()
     {
         InputController.Instance.OnMoveInput -= HandleMoveInput;

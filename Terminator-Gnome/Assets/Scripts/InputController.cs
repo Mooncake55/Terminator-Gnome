@@ -9,7 +9,7 @@ public class InputController : MonoBehaviour
     public static InputController Instance;
     public event Action<Vector2> OnMoveInput;
     public event Action<bool> OnShiftPressed;
-    //public event Action OnLeftClickPressed;
+    public event Action OnRightClickPressed;
 
     void Awake()
     {
@@ -24,10 +24,10 @@ public class InputController : MonoBehaviour
             Debug.Log("SHIFT");
             OnShiftPressed?.Invoke(true);
         }
-        //if (Input.GetKeyDown(KeyCode.Mouse0))
-        //{
-        //    OnLeftClickPressed?.Invoke();
-        //}
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            OnRightClickPressed?.Invoke();
+        }
 
     }
 }

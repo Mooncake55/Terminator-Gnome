@@ -1,10 +1,16 @@
+using System.Collections;
 using UnityEngine;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class Player : MonoBehaviour
 {
     private PlayerMovement playerMovement;
     private PlayerDash playerDash;
-    private MeleeAttack playerMeleeAttack;
+    private MeleeAttack horizontalPlayerMeleeAttack;
+    private MeleeAttack verticallPlayerMeleeAttack;
+    private MeleeAttack activeMeleeAttack;
+    [SerializeField] float meleeAtkDuration = 1f;
+
 
     [SerializeField] bool isDashing;
     private Vector2 lastDirection;
@@ -14,7 +20,9 @@ public class Player : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerMovement = GetComponent<PlayerMovement>();
-        playerMeleeAttack = GetComponentInChildren<MeleeAttack>();
+        horizontalPlayerMeleeAttack = transform.Find("MeleeAtk(Horizontal)").GetComponent<MeleeAttack>();
+        verticallPlayerMeleeAttack = transform.Find("MeleeAtk(Vertical)").GetComponent<MeleeAttack>();
+
         playerDash = GetComponent<PlayerDash>();
         lastDirection = Vector2.zero;
         InputController.Instance.OnMoveInput += HandleMoveInput;
@@ -25,7 +33,7 @@ public class Player : MonoBehaviour
     void HandleMoveInput(Vector2 direction)
     {
         FlipRender(direction);
-        lastDirection = direction;
+        if (direction != Vector2.zero) { lastDirection = direction; }
         if (!isDashing) { playerMovement.MovePlayer(direction); }  
     }
     void HandleDashInput(bool isDashing) 
@@ -38,7 +46,19 @@ public class Player : MonoBehaviour
     }
     void HandleMeleeAttack()
     {
-        playerMeleeAttack.ActivateAttack(lastDirection, transform);
+        activeMeleeAttack = horizontalPlayerMeleeAttack;
+        
+        if (lastDirection == Vector2.up || lastDirection == Vector2.down)
+        {
+            activeMeleeAttack = verticallPlayerMeleeAttack;
+        }
+        else if (lastDirection == Vector2.right || lastDirection == Vector2.left)
+        {
+            activeMeleeAttack = horizontalPlayerMeleeAttack;
+        }
+        //activeMeleeAttack.transform.localPosition.Set(activeMeleeAttack.transform.localPosition.x * lastDirection.x, activeMeleeAttack.transform.localPosition.y * lastDirection.y, 0);//orienta arriba o abajo segun la direccion
+        activeMeleeAttack.ActivateAttack(lastDirection, meleeAtkDuration);
+        StartCoroutine(WaitSeconds(meleeAtkDuration));
     }
     private void OnDestroy()
     {
@@ -56,5 +76,9 @@ public class Player : MonoBehaviour
         {
             spriteRenderer.flipX = true;
         }
+    }
+    IEnumerator WaitSeconds(float duration)
+    {
+        yield return new WaitForSeconds(duration);
     }
 }

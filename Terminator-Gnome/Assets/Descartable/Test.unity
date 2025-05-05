@@ -319,13 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d175978c68470f049b5cfc7e25b147ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 5
-  gizmoColor: {r: 1, g: 0, b: 0, a: 1}
-  meleeEnemyPrefab: {fileID: 7135566369507148361, guid: a54ecfb2ccfcc2d4097e668c2b6836ab, type: 3}
-  rangeEnemyPrefab: {fileID: 7135566369507148361, guid: a54ecfb2ccfcc2d4097e668c2b6836ab, type: 3}
-  spawnInterval: 3
-  maxEnemies: 3
-  spawnPoints: []
+  enemySpawner: {fileID: 898751731}
 --- !u!1 &668387023
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,6 +373,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 898751730}
+  - component: {fileID: 898751731}
   m_Layer: 0
   m_Name: EnemySpawns
   m_TagString: Untagged
@@ -403,6 +398,20 @@ Transform:
   - {fileID: 40298154}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &898751731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898751729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dc079fd0324ac6498165d30e418702a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeEnemyPrefab: {fileID: 7135566369507148361, guid: a54ecfb2ccfcc2d4097e668c2b6836ab, type: 3}
+  rangeEnemyPrefab: {fileID: 7135566369507148361, guid: a54ecfb2ccfcc2d4097e668c2b6836ab, type: 3}
 --- !u!1 &1284004698
 GameObject:
   m_ObjectHideFlags: 0

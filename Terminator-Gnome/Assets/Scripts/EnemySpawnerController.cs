@@ -6,103 +6,64 @@ using System.Collections.Generic;
 
 public class EnemySpawnerController : MonoBehaviour
 {
-    public float radius = 5f;
-    public Color gizmoColor = Color.red;
-    public GameObject meleeEnemyPrefab;
-    public GameObject rangeEnemyPrefab;
-    [SerializeField]private float spawnInterval = 3f;
-    [SerializeField] private int maxEnemies = 3;
-    private int currentEnemyCount = 0;
-    private bool spawningActive = false;
-    private float spawnTimer;
+    float height;
+    float width;
+    public EnemySpawner enemySpawner;
+    bool isSpawning = false;
+    Vector2 center;
+    Coroutine enemyPrepareCorrutine;
 
-    public Transform[] spawnPoints;
-    List<Collider2D> meleeSpawns = new List<Collider2D>();
-    List<Collider2D> rangeSpawns = new List<Collider2D>();
-    List<GameObject> enemiesList = new List<GameObject>();
-    void Update()
+    private void Start()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius); //despues cambiar por overlaparea
-        foreach (var col in colliders)
+        enemySpawner = enemySpawner.GetComponent<EnemySpawner>();
+        Camera cam = Camera.main;
+        // Altura y ancho en unidades del mundo
+        height = 2f * cam.orthographicSize;
+        width = height * cam.aspect;
+        // Posición del centro (puede ser cam.transform.position si no se mueve en Z)
+        center = cam.transform.position;
+        enemySpawner.OnSpawning += Spawning;
+        enemySpawner.DesSpawning += DesSpawning;
+
+    }
+
+    private void Update() //cambiar por un evento de la camara
+    {
+        if (isSpawning) {return; }
+        Collider2D[] enemyColliders = Physics2D.OverlapBoxAll(center, new Vector2(width, height), 0f);
+        if (enemyPrepareCorrutine == null)
         {
-            if (col.CompareTag("MeleeEnemySpawn"))
-            {
-                Debug.Log("MeleeSpawnPoint detectado: " + col.name);
-                meleeSpawns.Add(col);
-                
-            }
-            else if (col.CompareTag("MeleeEnemySpawn"))
-            {
-                Debug.Log("MeleeSpawnPoint detectado: " + col.name);
-                rangeSpawns.Add(col);
-            }
+            enemyPrepareCorrutine = StartCoroutine(PrepareEnemySpawn(enemyColliders));
         }
-        StartCoroutine(WaitSeconds(spawnInterval));
-        spawnEnemyHandler();
-
-
     }
-    void OnDrawGizmosSelected()
+    void Spawning()
     {
-        Gizmos.color = gizmoColor;
-        Gizmos.DrawWireSphere(transform.position, radius);
+        isSpawning = true;
     }
-    private void spawnEnemyHandler()
+    void DesSpawning()
     {
-        if(maxEnemies < currentEnemyCount) { return; }  
-        foreach (var melee in meleeSpawns)
-        {
-            GameObject enemy = Instantiate(meleeEnemyPrefab, melee.transform.position, Quaternion.identity);
-            enemiesList.Add(enemy);
-            currentEnemyCount = currentEnemyCount + 1;
-        }
-        foreach (var range in meleeSpawns)
-        {
-            GameObject enemy = Instantiate(meleeEnemyPrefab, range.transform.position, Quaternion.identity);
-            enemiesList.Add(enemy);
-            currentEnemyCount = currentEnemyCount + 1;
-        }
-        HandleEnemyDeath();
+        isSpawning = false;
     }
-    //public void StartSpawning()
-    //{
-    //    spawningActive = true;
-    //    spawnTimer = spawnInterval;
-    //}
-
-    //public void StopSpawning()
-    //{
-    //    spawningActive = false;
-    //}
-
-    //void SpawnEnemy()
-    //{
-    //    if (spawnPoints.Length == 0) return;
-
-    //    int index = Random.Range(0, spawnPoints.Length);
-    //    Transform spawnPoint = spawnPoints[index];
-
-    //    GameObject newEnemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
-    //    currentEnemyCount++;
-    //    newEnemy.GetComponent<Enemy>().OnEnemyDeath += HandleEnemyDeath;
-    //}
-    IEnumerator WaitSeconds(float seconds)
+    void OnDrawGizmos()
     {
-        yield return new WaitForSeconds(seconds);  
+        if (Camera.main == null) return;
+
+        float height = 2f * Camera.main.orthographicSize;
+        float width = height * Camera.main.aspect;
+        Vector2 center = Camera.main.transform.position;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(center, new Vector3(width, height, 0));
     }
-    void HandleEnemyDeath()
+    public IEnumerator PrepareEnemySpawn(Collider2D[] enemyColliders)
     {
-        StartCoroutine(DestroyAllEnemies());
+        yield return null;
+        enemySpawner.SpawnEnemies(enemyColliders);
+        isSpawning = true ;
+        enemyPrepareCorrutine = null;
     }
-    public IEnumerator DestroyAllEnemies()
-    {
-        yield return new WaitForSeconds(3f);
-        foreach (var enemy in enemiesList)
-        {
-            enemy.SetActive(false);
-        }
-        
-    }
+
+   
 }
 
   

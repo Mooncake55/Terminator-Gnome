@@ -1,30 +1,31 @@
+using TMPro;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    float screenHeight; //alura pantalla (camerasizex2)
+    float screenWidth; //ancho pantalla
     public Transform character;
-    private float cameraSize;
-    private float screenHeight;
-    private float screenWidth;  
-
     private void Start()
     {
-        cameraSize = Camera.main.orthographicSize;
-        screenHeight = cameraSize * 2;
-        screenWidth = screenHeight * Screen.width / Screen.height;
-
+        screenHeight = Camera.main.orthographicSize * 2f;
+        screenWidth = screenHeight * Camera.main.aspect;
     }
     private void Update()
     {
-        CalculateCameraPosition();
+        CalculatePositionCamera();
     }
-    void CalculateCameraPosition()
+    void CalculatePositionCamera()
     {
-        int yCharacterScreen = (int)(character.position.y / screenHeight);
-        int xCharacterScreen = (int)(character.position.x / screenWidth);
-        float yCameraHeight = (yCharacterScreen * screenHeight) + cameraSize;
-        float xCameraHeight = (xCharacterScreen * screenWidth) + cameraSize/2;
+        //la pantalla empieza entre npantalla x altura o anchura (si le sumo size o width/2 es la mitad)
+        int characterScreenY = Mathf.FloorToInt(character.position.y / screenHeight);
+        int characterScreenX = Mathf.FloorToInt(character.position.x / screenWidth);
 
-        transform.position = new Vector3(xCameraHeight, yCameraHeight, transform.position.z);
+        float cameraY = (characterScreenY * screenHeight) + (screenHeight / 2);
+        float cameraX = (characterScreenX * screenWidth) + (screenWidth / 2);
+
+        transform.position = new Vector3(cameraX, cameraY, transform.position.z);
+        Debug.Log($"ScrrenY: "+ characterScreenY);
+        Debug.Log($"ScrrenX: "+ characterScreenX);
     }
 }

@@ -11,16 +11,18 @@ namespace EnemyMelee
 
         private Transform _target;
         private NavMeshAgent _agent;
+        private Vector2 _startPosition;
 
         void Start()
         {
             _agent = GetComponent<NavMeshAgent>();
             _agent.updateRotation = false;
             _agent.updateUpAxis = false;
+            _startPosition = transform.position;
         }
         void Update()
         {
-            if (target == null) return;
+            if (_target == null) return;
             _agent.SetDestination(target.position);
         
         }
@@ -29,15 +31,18 @@ namespace EnemyMelee
         {
             if (other.CompareTag("Player"))
             {
-                target = other.transform;
+                _target = other.transform;
                 Debug.Log("Attack Player!");
             }
         }
 
         public void SetTarget(Transform newTarget)
         {
-            _target = target; 
-            
+            _target = target;
+            if (_target == null)
+            {
+                _agent.SetDestination (_startPosition);
+            }
         }
     }
 }

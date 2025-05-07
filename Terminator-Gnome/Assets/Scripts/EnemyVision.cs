@@ -1,6 +1,7 @@
 using System;
 using EnemyMelee;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace EnemyMelee
 {
@@ -8,10 +9,12 @@ namespace EnemyMelee
     public class EnemyVision : MonoBehaviour
     {
         [SerializeField] private EnemyController _enemyController;
+        [SerializeField] private Transform target;
         private CircleCollider2D _circleCollider2D;
 
         private void Start()
         {
+            _enemyController = GetComponent<EnemyController>();
             _circleCollider2D = GetComponent<CircleCollider2D>();
         }
 
@@ -32,6 +35,13 @@ namespace EnemyMelee
 
                
             }
+        }
+
+        public void OnTriggerExit2D(Collider2D other)
+        {
+            if (!other.CompareTag("Player")) return;
+            
+            _enemyController.SetTarget(null);
         }
     }
 }

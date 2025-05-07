@@ -37,11 +37,11 @@ namespace EnemyMelee
             }
         }
 
-        public void OnTriggerExit2D(Collider2D other)
-        {
-            if (!other.CompareTag("Player")) return;
+        //public void OnTriggerExit2D(Collider2D other)
+        //{
+        //    if (!other.CompareTag("Player")) return;
             
-            _enemyController.SetTarget(null);
-        }
+        //    _enemyController.SetTarget(null);
+        //}
     }
 }

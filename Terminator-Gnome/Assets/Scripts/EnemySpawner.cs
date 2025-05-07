@@ -31,19 +31,19 @@ public class EnemySpawner : MonoBehaviour
             if (enemy.CompareTag("MeleeEnemySpawn"))
             {
                 InstantiateMeleeEnemy(enemy);
+                Destroy(enemy);
             }
             else if (enemy.CompareTag("RangeEnemySpawn"))
             {
                 InstantiateRangeEnemy(enemy);
+                Destroy(enemy);
             }
-            Destroy(enemy);
         }
         //if (enemyEndCorrutine == null)
         //{
         //    enemyEndCorrutine = StartCoroutine(DestroyEnemies());
         //}
     }
-
     void InstantiateMeleeEnemy(Collider2D meleeCollider)
     {
         GameObject enemy =  Instantiate(meleeEnemyPrefab, meleeCollider.transform.position, Quaternion.identity);

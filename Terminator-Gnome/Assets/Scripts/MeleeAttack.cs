@@ -3,14 +3,8 @@ using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class MeleeAttack : MonoBehaviour
 {
-    //private GameObject attackArea;
     private SpriteRenderer meleeSprite;
     private BoxCollider2D meleeBoxCollider;
-
-    //private Vector2 horizontalHit = new Vector2(0.16f, 0f);
-    //private Vector2 verticallHit = new Vector2(0f, 21f);
-    //private Vector2 lastHitArea;
-    //float duration = 2f;
 
     float posX;
     float posY;
@@ -27,79 +21,30 @@ public class MeleeAttack : MonoBehaviour
         posY = transform.localPosition.y;
 
     }
-    void SetPosition(Vector2 playerDir)
+    void SetPosition(Vector2 Dir)
     {
-        if (playerDir == Vector2.up)
+        if (Dir == Vector2.up)
         {
             posY = Mathf.Abs(posY);
         }
-        else if (playerDir == Vector2.down)
+        else if (Dir == Vector2.down)
         {
             posY = -Mathf.Abs(posY);
         }
-        else if (playerDir == Vector2.left)
+        else if (Dir == Vector2.left)
         {
             posX = -Mathf.Abs(posX);
         }
-        else if (playerDir == Vector2.right) { posX = Mathf.Abs(posX); }
+        else if (Dir == Vector2.right) { posX = Mathf.Abs(posX); }
 
         transform.localPosition = new Vector3(posX, posY, 0);
     }
-    //void SetPosition(Vector2 PlayerDir, Transform playerTransform)
-    //{
-    //    //Vector2 playerPos = new Vector2(playerTransform.position.x, playerTransform.position.y);
-    //    //Vector2 horizontal = playerPos + horizontalHit * PlayerDir;
-    //    //Vector2 verticall = playerPos + verticallHit * PlayerDir;
 
-    //    //if (PlayerDir == Vector2.up || PlayerDir == Vector2.down)
-    //    //{
-    //    //    transform.position = verticall;
-    //    //    lastHitArea = verticall;
-    //    //    transform.eulerAngles = new Vector3(0, 0, 90);
-
-    //    //}
-    //    //else if (PlayerDir == Vector2.right || PlayerDir == Vector2.left)
-    //    //{
-    //    //    transform.position = horizontal;
-    //    //    lastHitArea = horizontal;
-    //    //    transform.eulerAngles = new Vector3(0, 0, 0);
-    //    //}
-    //    //else { transform.position = lastHitArea; }
-
-
-
-    //    //if (PlayerDir == Vector2.up)
-    //    //{
-            
-    //    //}
-    //    //else if (PlayerDir == Vector2.down)
-    //    //{
-    //    //    transform.position = -VerticallHit;
-    //    //    transform.eulerAngles = new Vector3(0, 0, 90);
-    //    //    lastHitArea = -VerticallHit;
-    //    //}
-    //    //else if (PlayerDir == Vector2.right)
-    //    //{
-    //    //    transform.position = horizontalHit;
-    //    //    transform.eulerAngles = Vector3.zero;
-    //    //    lastHitArea = -horizontalHit;
-    //    //}
-    //    //else if (PlayerDir == Vector2.left)
-    //    //{
-    //    //    transform.position = horizontalHit;
-    //    //    transform.eulerAngles = Vector3.zero;
-    //    //    lastHitArea = -horizontalHit;
-    //    //}
-    //    //else { transform.position = lastHitArea; }
-
-    //}
-
-    public void ActivateAttack(Vector2 playerDir, float duration)
+    public void ActivateAttack(Vector2 Dir, float duration)
     {
         gameObject.SetActive(true);
-        SetPosition(playerDir);
-        StartCoroutine(DoAttack(duration));
-        
+        SetPosition(Dir);
+        StartCoroutine(DoAttack(duration)); 
     }
 
     private System.Collections.IEnumerator DoAttack(float duration)

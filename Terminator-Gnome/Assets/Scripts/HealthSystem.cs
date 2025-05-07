@@ -1,15 +1,29 @@
 using UnityEngine;
 
-public class Health_System : MonoBehaviour
+public class HealthSystem : MonoBehaviour
 {
     [SerializeField] public int _maxHealth;
     [SerializeField] public int _actualHealth;
+    //Collider2D collider;
 
-    public Health_System(int maxHealth, int actualHealth)
+    public HealthSystem(int maxHealth, int actualHealth)
     {
         _maxHealth = maxHealth;
         _actualHealth = actualHealth;
     }
+    private void Start()
+    {
+        //collider = GetComponent<Collider2D>();
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("MeleeEnemySpawn"))
+        {
+            Debug.Log("Entré en el trigger de: " + other.name);
+        }
+        Debug.Log("Entré en el trigger de: " + other.name);
+    }
+
 
     //Heals the entity
     public void Heal(int amount)

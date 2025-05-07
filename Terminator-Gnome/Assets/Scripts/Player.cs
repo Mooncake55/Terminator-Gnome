@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     private MeleeAttack verticallPlayerMeleeAttack;
     private MeleeAttack activeMeleeAttack;
     [SerializeField] float meleeAtkDuration = 1f;
-    private Health_System healthSystem;
+    private HealthSystem healthSystem;
     bool isTakingDamage = false;
     Coroutine damageCoroutine;
 
@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        healthSystem = GetComponent<Health_System>();
+        healthSystem = GetComponent<HealthSystem>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerMovement = GetComponent<PlayerMovement>();
         horizontalPlayerMeleeAttack = transform.Find("MeleeAtk(Horizontal)").GetComponent<MeleeAttack>();
@@ -105,4 +105,5 @@ public class Player : MonoBehaviour
         damageCoroutine = null;
 
     }
+
 }

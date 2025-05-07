@@ -3,6 +3,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using System.Linq;
 using System.Collections.Generic;
+using UnityEditor.Rendering.LookDev;
 
 public class EnemySpawnerController : MonoBehaviour
 {
@@ -13,10 +14,18 @@ public class EnemySpawnerController : MonoBehaviour
     Vector2 center;
     Coroutine enemyPrepareCorrutine;
 
-    private void Start()
+    public Camera cam;
+    public CameraController camController;
+
+    private void Start() //setea la camara/tamaño del area a detectar
     {
+
+        cam = GetComponent<Camera>();
+        camController = cam.GetComponent<CameraController>();
+        camController.OnCameraMoved += CameraUpdate;
+
         enemySpawner = enemySpawner.GetComponent<EnemySpawner>();
-        Camera cam = Camera.main;
+        //Camera cam = Camera.main;
         // Altura y ancho en unidades del mundo
         height = 2f * cam.orthographicSize;
         width = height * cam.aspect;
@@ -26,10 +35,11 @@ public class EnemySpawnerController : MonoBehaviour
         enemySpawner.DesSpawning += DesSpawning;
 
     }
-
-    private void Update() //cambiar por un evento de la camara
+    //antes era solo el update
+    public void CameraUpdate() //cambiar por un evento de la camara
     {
         if (isSpawning) {return; }
+        center = cam.transform.position;
         Collider2D[] enemyColliders = Physics2D.OverlapBoxAll(center, new Vector2(width, height), 0f);
         if (enemyPrepareCorrutine == null)
         {
@@ -61,6 +71,7 @@ public class EnemySpawnerController : MonoBehaviour
         enemySpawner.SpawnEnemies(enemyColliders);
         isSpawning = true ;
         enemyPrepareCorrutine = null;
+        isSpawning = false ;
     }
 
    

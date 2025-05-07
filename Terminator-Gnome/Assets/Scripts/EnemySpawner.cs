@@ -19,7 +19,13 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnEnemies(Collider2D[] enemyColliders)
     {
+
         if(enemyColliders.Length != 0) { OnSpawning?.Invoke(); }
+        else
+        {
+            return;
+        }
+
         foreach (var enemy in enemyColliders)
         {
             if (enemy.CompareTag("MeleeEnemySpawn"))
@@ -30,11 +36,12 @@ public class EnemySpawner : MonoBehaviour
             {
                 InstantiateRangeEnemy(enemy);
             }
+            Destroy(enemy);
         }
-        if (enemyEndCorrutine == null)
-        {
-            enemyEndCorrutine = StartCoroutine(DestroyEnemies());
-        }
+        //if (enemyEndCorrutine == null)
+        //{
+        //    enemyEndCorrutine = StartCoroutine(DestroyEnemies());
+        //}
     }
 
     void InstantiateMeleeEnemy(Collider2D meleeCollider)
@@ -48,17 +55,16 @@ public class EnemySpawner : MonoBehaviour
         enemiesList.Add(enemy);
     }
     
-    public IEnumerator DestroyEnemies()
-    {
-        yield return new WaitForSeconds(3f);
-        foreach (var enemy in enemiesList)
-        {
-            Destroy(enemy);
+    //public IEnumerator DestroyEnemies()
+    //{
+    //    yield return new WaitForSeconds(3f);
+    //    foreach (var enemy in enemiesList)
+    //    {
+    //        Destroy(enemy);
 
-        }
-        yield return new WaitForSeconds(2f);
-        DesSpawning?.Invoke();
-    }
-
+    //    }
+    //    yield return new WaitForSeconds(2f);
+    //    DesSpawning?.Invoke();
+    //}
     
 }

@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     private MeleeAttack verticallPlayerMeleeAttack;
     private MeleeAttack activeMeleeAttack;
     [SerializeField] float meleeAtkDuration = 1f;
+    private Health_System healthSystem;
+    bool isTakingDamage = false;
+    Coroutine damageCoroutine;
 
 
     [SerializeField] bool isDashing;
@@ -18,6 +21,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        healthSystem = GetComponent<Health_System>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerMovement = GetComponent<PlayerMovement>();
         horizontalPlayerMeleeAttack = transform.Find("MeleeAtk(Horizontal)").GetComponent<MeleeAttack>();
@@ -80,5 +84,25 @@ public class Player : MonoBehaviour
     IEnumerator WaitSeconds(float duration)
     {
         yield return new WaitForSeconds(duration);
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(!isTakingDamage)
+        {
+            healthSystem.TakeDamage(3);
+            damageCoroutine = StartCoroutine(ChangeColour(2f));
+        }
+        
+    }
+    public IEnumerator ChangeColour(float seconds)
+    {
+        isTakingDamage = true;
+        Color originColor = spriteRenderer.color;
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(seconds);
+        spriteRenderer.color = originColor;
+        isTakingDamage = true;
+        damageCoroutine = null;
+
     }
 }

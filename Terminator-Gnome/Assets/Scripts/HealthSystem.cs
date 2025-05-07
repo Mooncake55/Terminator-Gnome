@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Health_System : MonoBehaviour
 {
-    public int _maxHealth;
-    public int _actualHealth;
+    [SerializeField] public int _maxHealth;
+    [SerializeField] public int _actualHealth;
 
     public Health_System(int maxHealth, int actualHealth)
     {
@@ -42,6 +42,7 @@ public class Health_System : MonoBehaviour
     {
         Debug.Log("The entity Dies");
         _actualHealth = 0;
+        Destroy(gameObject);
     }
 
     //The entity respawn

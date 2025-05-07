@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -6,6 +7,11 @@ public class CameraController : MonoBehaviour
     float screenHeight; //alura pantalla (camerasizex2)
     float screenWidth; //ancho pantalla
     public Transform character;
+    Vector3 currentPos;
+    Vector3 newPos;
+    float cameraSpeed = 5f;
+    public event Action OnCameraMoved;
+
     private void Start()
     {
         screenHeight = Camera.main.orthographicSize * 2f;
@@ -13,7 +19,9 @@ public class CameraController : MonoBehaviour
     }
     private void Update()
     {
+        currentPos = transform.position;
         CalculatePositionCamera();
+        //ScreenHasChanged();
     }
     void CalculatePositionCamera()
     {
@@ -24,8 +32,21 @@ public class CameraController : MonoBehaviour
         float cameraY = (characterScreenY * screenHeight) + (screenHeight / 2);
         float cameraX = (characterScreenX * screenWidth) + (screenWidth / 2);
 
-        transform.position = new Vector3(cameraX, cameraY, transform.position.z);
-        Debug.Log($"ScrrenY: "+ characterScreenY);
-        Debug.Log($"ScrrenX: "+ characterScreenX);
+        //transform.position = new Vector3(cameraX, cameraY, transform.position.z);
+        //Debug.Log($"ScrrenY: "+ characterScreenY);
+        //Debug.Log($"ScrrenX: "+ characterScreenX);
+        newPos = new Vector3(cameraX, cameraY, transform.position.z);
+        transform.position = Vector3.Lerp(transform.position, newPos, Time.deltaTime * cameraSpeed);
+        ScreenHasChanged();
+    }
+    void ScreenHasChanged()
+    {
+        if (Vector3.Distance(transform.position, newPos) < 0.01f && currentPos != newPos)
+        {
+            transform.position = newPos;
+            currentPos = newPos;
+            Debug.Log("Cambio de pantalla");
+            OnCameraMoved?.Invoke();
+        }
     }
 }

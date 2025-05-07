@@ -85,25 +85,25 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(!isTakingDamage)
-        {
-            healthSystem.TakeDamage(3);
-            damageCoroutine = StartCoroutine(ChangeColour(2f));
-        }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if(!isTakingDamage)
+    //    {
+    //        healthSystem.TakeDamage(3);
+    //        damageCoroutine = StartCoroutine(ChangeColour(2f));
+    //    }
         
-    }
-    public IEnumerator ChangeColour(float seconds)
-    {
-        isTakingDamage = true;
-        Color originColor = spriteRenderer.color;
-        spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(seconds);
-        spriteRenderer.color = originColor;
-        isTakingDamage = true;
-        damageCoroutine = null;
+    //}
+    //public IEnumerator ChangeColour(float seconds)
+    //{
+    //    isTakingDamage = true;
+    //    Color originColor = spriteRenderer.color;
+    //    spriteRenderer.color = Color.red;
+    //    yield return new WaitForSeconds(seconds);
+    //    spriteRenderer.color = originColor;
+    //    isTakingDamage = true;
+    //    damageCoroutine = null;
 
-    }
+    //}
 
 }

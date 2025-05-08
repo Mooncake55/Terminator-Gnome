@@ -14,8 +14,8 @@ public class EnemySpawnerController : MonoBehaviour
     Vector2 center;
     Coroutine enemyPrepareCorrutine;
 
-    public Camera cam;
-    public CameraController camController;
+    private Camera cam;
+    private CameraController camController;
 
     private void Start() //setea la camara/tamaño del area a detectar
     {

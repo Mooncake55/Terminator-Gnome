@@ -116,10 +116,10 @@ public class Player : MonoBehaviour, IDamageable
 
     void HandleDeath()
     {
+        //StartCoroutine(WaitSeconds(3f));
+        transform.position = spawnPoint.position;
         gameObject.SetActive(false);
-        StartCoroutine(WaitSeconds(3f));
         GameManager.instance.ScheduleReactivation(gameObject, 3f);
-        gameObject.SetActive(false);
     }
     public IEnumerator ChangeColour(float seconds)
     {
@@ -130,7 +130,5 @@ public class Player : MonoBehaviour, IDamageable
         spriteRenderer.color = originColor;
         isTakingDamage = true;
         damageCoroutine = null;
-
     }
-
 }

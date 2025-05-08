@@ -55,7 +55,6 @@ public class MeleeAttack : MonoBehaviour
 
     private System.Collections.IEnumerator DoAttack(float duration)
     {
-        Debug.Log(transform.localPosition);
         meleeSprite.color = Color.red;
         yield return new WaitForSeconds(duration);
         //meleeSprite.color = Color.white;

@@ -16,7 +16,7 @@ namespace EnemyMelee
         HealthSystem healthSystem;
 
 
-        private Transform _target;
+        //private Transform _target;
         private NavMeshAgent _agent;
         private Vector2 _startPosition;
         private Vector2 direction;
@@ -30,13 +30,13 @@ namespace EnemyMelee
             SearchMeleeAttack();
             healthSystem = GetComponent<HealthSystem>();
             meleeAttack = GetComponent<MeleeAttack>();
-            
+            _agent.SetDestination(target.position);
             healthSystem.OnDeath += HandelDeath;
         }
         void Update()
         {
-            if (_target == null) return;
             _agent.SetDestination(target.position);
+            if (target == null) { return; }
             direction = _agent.velocity.normalized;
             CheckForAttack();
 
@@ -81,11 +81,11 @@ namespace EnemyMelee
 
         public void SetTarget(Transform newTarget)
         {
-            _target = target;
-            if (_target == null)
-            {
-                _agent.SetDestination (_startPosition);
-            }
+            //_target = target;
+            //if (_target == null)
+            //{
+            //    _agent.SetDestination (_startPosition);
+            //}
         }
 
         public void HandleDamage(int amount)

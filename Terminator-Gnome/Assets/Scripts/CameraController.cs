@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
     public Transform character;
     Vector3 currentPos;
     Vector3 newPos;
-    float cameraSpeed = 5f;
+    [SerializeField] private float cameraSpeed = 6f;
     public event Action OnCameraMoved;
 
     private void Start()

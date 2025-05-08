@@ -109,7 +109,7 @@ public class Player : MonoBehaviour, IDamageable
 
     public void HandleDamage(int amount)
     {
-        //logica de daño que falte 
+        //logica de daï¿½o que falte 
         healthSystem.TakeDamage(10);
         ChangeColour(2f);
     }

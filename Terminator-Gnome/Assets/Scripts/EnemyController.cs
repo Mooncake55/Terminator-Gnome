@@ -43,7 +43,7 @@ namespace EnemyMelee
         }
         public void CheckForAttack()
         {
-            SearchMeleeAttack();
+            //SearchMeleeAttack();
             if (direction != Vector2.zero)
             {
                 // Dibuja la línea de detección (solo visual)

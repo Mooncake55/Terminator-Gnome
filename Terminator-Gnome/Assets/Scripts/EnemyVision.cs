@@ -20,21 +20,22 @@ namespace EnemyMelee
 
         public void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.CompareTag("Player")) return;
+            //if (!other.CompareTag("Player")) return;
+            if (other.CompareTag("Player"))
             {
                 Vector3 playerDirection = other.transform.position - transform.position;
                 RaycastHit2D rayCast = Physics2D.Raycast(transform.position, playerDirection, _circleCollider2D.radius);
-                
+
                 if (rayCast.collider == null) return;
-                
+
                 if (rayCast.collider.CompareTag("Player"))
                 {
-                   _enemyController.SetTarget(other.transform);
+                    _enemyController.SetTarget(other.transform);
                     Debug.Log("Player Detected!");
                 }
 
-               
             }
+            else { return; }
         }
 
         //public void OnTriggerExit2D(Collider2D other)

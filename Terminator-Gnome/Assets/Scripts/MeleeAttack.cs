@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
@@ -6,8 +7,8 @@ public class MeleeAttack : MonoBehaviour
     private SpriteRenderer meleeSprite;
     private BoxCollider2D meleeBoxCollider;
 
-    float posX;
-    float posY;
+    float posX;//quitable
+    float posY;//quitable
 
     private void Start()
     {
@@ -17,8 +18,8 @@ public class MeleeAttack : MonoBehaviour
     {
         meleeSprite = GetComponent<SpriteRenderer>();
         meleeBoxCollider = GetComponent<BoxCollider2D>();
-        posX = transform.localPosition.x;
-        posY = transform.localPosition.y;
+        posX = transform.localPosition.x; //quitable
+        posY = transform.localPosition.y;//quitable
 
     }
     //void SetPosition(Vector2 Dir)
@@ -60,19 +61,13 @@ public class MeleeAttack : MonoBehaviour
         //meleeSprite.color = Color.white;
         gameObject.SetActive(false);
     }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        IDamageable enemy = other.GetComponent<IDamageable>();
+        if (enemy != null)
+        {
+            enemy.HandleDamage(10);
+        }
+    }
 
-    //analizar despues
-    //void CreateMeleeHitbox()
-    //{
-    //    attackArea = new GameObject("AttackArea");
-    //    attackArea.transform.parent = transform; // que siga al jugador
-    //    attackArea.transform.localPosition = new Vector2(1f, 0f); // adelante del jugador
-
-    //    BoxCollider2D collider = attackArea.AddComponent<BoxCollider2D>();
-    //    collider.isTrigger = true;
-    //    collider.size = new Vector2(1f, 0.5f);
-
-    //    attackArea.tag = "PlayerAttack";
-    //    attackArea.SetActive(false); // para activar solo cuando atacás
-    //}
 }

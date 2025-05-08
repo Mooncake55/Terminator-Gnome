@@ -2,16 +2,15 @@ using System.Collections;
 using UnityEngine;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     private PlayerMovement playerMovement;
     private PlayerDash playerDash;
-    //private MeleeAttack horizontalPlayerMeleeAttack;
-    //private MeleeAttack verticallPlayerMeleeAttack;
     [SerializeField] Transform joint; 
     private MeleeAttack meleeAttack;
     [SerializeField] float meleeAtkDuration = 1f;
     private HealthSystem healthSystem;
+    [SerializeField] Transform spawnPoint;
     bool isTakingDamage = false;
     Coroutine damageCoroutine;
 
@@ -23,6 +22,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         healthSystem = GetComponent<HealthSystem>(); //vida
+        healthSystem.OnDeath += HandleDeath;
         spriteRenderer = GetComponent<SpriteRenderer>(); 
         playerMovement = GetComponent<PlayerMovement>(); //movimiento
         //horizontalPlayerMeleeAttack = transform.Find("MeleeAtk(Horizontal)").GetComponent<MeleeAttack>();
@@ -102,33 +102,35 @@ public class Player : MonoBehaviour
             spriteRenderer.flipX = true;
         }
     }
-    void HandleDamage()
-    {
-
-    }
     IEnumerator WaitSeconds(float duration)
     {
         yield return new WaitForSeconds(duration);
     }
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if(!isTakingDamage)
-    //    {
-    //        healthSystem.TakeDamage(3);
-    //        damageCoroutine = StartCoroutine(ChangeColour(2f));
-    //    }
-        
-    //}
-    //public IEnumerator ChangeColour(float seconds)
-    //{
-    //    isTakingDamage = true;
-    //    Color originColor = spriteRenderer.color;
-    //    spriteRenderer.color = Color.red;
-    //    yield return new WaitForSeconds(seconds);
-    //    spriteRenderer.color = originColor;
-    //    isTakingDamage = true;
-    //    damageCoroutine = null;
 
-    //}
+    public void HandleDamage(int amount)
+    {
+        //logica de daño que falte 
+        healthSystem.TakeDamage(10);
+        ChangeColour(2f);
+    }
+
+    void HandleDeath()
+    {
+        gameObject.SetActive(false);
+        StartCoroutine(WaitSeconds(3f));
+        GameManager.instance.ScheduleReactivation(gameObject, 3f);
+        gameObject.SetActive(false);
+    }
+    public IEnumerator ChangeColour(float seconds)
+    {
+        isTakingDamage = true;
+        Color originColor = spriteRenderer.color;
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(seconds);
+        spriteRenderer.color = originColor;
+        isTakingDamage = true;
+        damageCoroutine = null;
+
+    }
 
 }

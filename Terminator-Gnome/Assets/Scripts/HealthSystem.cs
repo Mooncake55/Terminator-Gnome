@@ -1,10 +1,11 @@
+using System;
 using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
     [SerializeField] public int _maxHealth;
     [SerializeField] public int _actualHealth;
-    //Collider2D collider;
+    public event Action OnDeath;
 
     public HealthSystem(int maxHealth, int actualHealth)
     {
@@ -15,15 +16,6 @@ public class HealthSystem : MonoBehaviour
     {
         //collider = GetComponent<Collider2D>();
     }
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("MeleeEnemySpawn"))
-        {
-            Debug.Log("Entré en el trigger de: " + other.name);
-        }
-        Debug.Log("Entré en el trigger de: " + other.name);
-    }
-
 
     //Heals the entity
     public void Heal(int amount)
@@ -47,17 +39,18 @@ public class HealthSystem : MonoBehaviour
 
         if (_actualHealth < 0)
         {
-            Death();
+            //Death();
+            OnDeath?.Invoke();
         }
     }
 
     //The entity dies
-    public void Death()
-    {
-        Debug.Log("The entity Dies");
-        _actualHealth = 0;
-        Destroy(gameObject);
-    }
+    //public void Death()
+    //{
+    //    Debug.Log("The entity Dies");
+    //    _actualHealth = 0;
+    //    Destroy(gameObject);
+    //}
 
     //The entity respawn
     public void Respawn()

@@ -6,9 +6,10 @@ public class Player : MonoBehaviour
 {
     private PlayerMovement playerMovement;
     private PlayerDash playerDash;
-    private MeleeAttack horizontalPlayerMeleeAttack;
-    private MeleeAttack verticallPlayerMeleeAttack;
-    private MeleeAttack activeMeleeAttack;
+    //private MeleeAttack horizontalPlayerMeleeAttack;
+    //private MeleeAttack verticallPlayerMeleeAttack;
+    [SerializeField] Transform joint; 
+    private MeleeAttack meleeAttack;
     [SerializeField] float meleeAtkDuration = 1f;
     private HealthSystem healthSystem;
     bool isTakingDamage = false;
@@ -21,13 +22,14 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        healthSystem = GetComponent<HealthSystem>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        playerMovement = GetComponent<PlayerMovement>();
-        horizontalPlayerMeleeAttack = transform.Find("MeleeAtk(Horizontal)").GetComponent<MeleeAttack>();
-        verticallPlayerMeleeAttack = transform.Find("MeleeAtk(Vertical)").GetComponent<MeleeAttack>();
-
-        playerDash = GetComponent<PlayerDash>();
+        healthSystem = GetComponent<HealthSystem>(); //vida
+        spriteRenderer = GetComponent<SpriteRenderer>(); 
+        playerMovement = GetComponent<PlayerMovement>(); //movimiento
+        //horizontalPlayerMeleeAttack = transform.Find("MeleeAtk(Horizontal)").GetComponent<MeleeAttack>();
+        //verticallPlayerMeleeAttack = transform.Find("MeleeAtk(Vertical)").GetComponent<MeleeAttack>();
+        //joint = transform.Find("Joint"); //ataque  
+        //meleeAttack = joint.GetComponent<MeleeAttack>();
+        playerDash = GetComponent<PlayerDash>(); //dash
         lastDirection = Vector2.zero;
         InputController.Instance.OnMoveInput += HandleMoveInput;
         InputController.Instance.OnShiftPressed += HandleDashInput;
@@ -48,21 +50,40 @@ public class Player : MonoBehaviour
         playerDash.Dash(lastDirection, false);
         isDashing = false;
     }
+    //void HandleMeleeAttack()
+    //{
+    //    activeMeleeAttack = horizontalPlayerMeleeAttack;
+
+    //    if (lastDirection == Vector2.up || lastDirection == Vector2.down)
+    //    {
+    //        activeMeleeAttack = verticallPlayerMeleeAttack;
+    //    }
+    //    else if (lastDirection == Vector2.right || lastDirection == Vector2.left)
+    //    {
+    //        activeMeleeAttack = horizontalPlayerMeleeAttack;
+    //    }
+    //    //activeMeleeAttack.transform.localPosition.Set(activeMeleeAttack.transform.localPosition.x * lastDirection.x, activeMeleeAttack.transform.localPosition.y * lastDirection.y, 0);//orienta arriba o abajo segun la direccion
+    //    activeMeleeAttack.ActivateAttack(lastDirection, meleeAtkDuration);
+    //    StartCoroutine(WaitSeconds(meleeAtkDuration));
+
+    //}
     void HandleMeleeAttack()
     {
-        activeMeleeAttack = horizontalPlayerMeleeAttack;
-        
-        if (lastDirection == Vector2.up || lastDirection == Vector2.down)
-        {
-            activeMeleeAttack = verticallPlayerMeleeAttack;
-        }
-        else if (lastDirection == Vector2.right || lastDirection == Vector2.left)
-        {
-            activeMeleeAttack = horizontalPlayerMeleeAttack;
-        }
-        //activeMeleeAttack.transform.localPosition.Set(activeMeleeAttack.transform.localPosition.x * lastDirection.x, activeMeleeAttack.transform.localPosition.y * lastDirection.y, 0);//orienta arriba o abajo segun la direccion
-        activeMeleeAttack.ActivateAttack(lastDirection, meleeAtkDuration);
+        SearchMeleeAttack();
+        //checkear validaciones 
+        meleeAttack.ActivateAttack(lastDirection, meleeAtkDuration, joint);
         StartCoroutine(WaitSeconds(meleeAtkDuration));
+    }
+    void  SearchMeleeAttack()
+    {
+        if (joint != null)
+        {
+            Transform meleeAttackObj = joint.Find("MeleeAtk");
+            if (meleeAttackObj != null)
+            {
+                meleeAttack = meleeAttackObj.GetComponent<MeleeAttack>();
+            }
+        }
     }
     private void OnDestroy()
     {
@@ -80,6 +101,10 @@ public class Player : MonoBehaviour
         {
             spriteRenderer.flipX = true;
         }
+    }
+    void HandleDamage()
+    {
+
     }
     IEnumerator WaitSeconds(float duration)
     {

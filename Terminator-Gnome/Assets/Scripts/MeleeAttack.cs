@@ -21,29 +21,34 @@ public class MeleeAttack : MonoBehaviour
         posY = transform.localPosition.y;
 
     }
-    void SetPosition(Vector2 Dir)
+    //void SetPosition(Vector2 Dir)
+    //{
+    //    if (Dir == Vector2.up)
+    //    {
+    //        posY = Mathf.Abs(posY);
+    //    }
+    //    else if (Dir == Vector2.down)
+    //    {
+    //        posY = -Mathf.Abs(posY);
+    //    }
+    //    else if (Dir == Vector2.left)
+    //    {
+    //        posX = -Mathf.Abs(posX);
+    //    }
+    //    else if (Dir == Vector2.right) { posX = Mathf.Abs(posX); }
+
+    //    transform.localPosition = new Vector3(posX, posY, 0);
+    //}
+
+    void SetPosition(Vector2 dir, Transform joint)
     {
-        if (Dir == Vector2.up)
-        {
-            posY = Mathf.Abs(posY);
-        }
-        else if (Dir == Vector2.down)
-        {
-            posY = -Mathf.Abs(posY);
-        }
-        else if (Dir == Vector2.left)
-        {
-            posX = -Mathf.Abs(posX);
-        }
-        else if (Dir == Vector2.right) { posX = Mathf.Abs(posX); }
-
-        transform.localPosition = new Vector3(posX, posY, 0);
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        joint.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
-
-    public void ActivateAttack(Vector2 Dir, float duration)
+    public void ActivateAttack(Vector2 dir, float duration, Transform joint)
     {
         gameObject.SetActive(true);
-        SetPosition(Dir);
+        SetPosition(dir, joint);
         StartCoroutine(DoAttack(duration)); 
     }
 

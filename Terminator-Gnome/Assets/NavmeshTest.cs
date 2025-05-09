@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.GraphicsBuffer;
+
 
 public class NavmeshTest : MonoBehaviour
 {

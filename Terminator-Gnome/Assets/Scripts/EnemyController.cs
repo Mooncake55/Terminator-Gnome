@@ -20,7 +20,7 @@ namespace EnemyMelee
         private NavMeshAgent _agent;
         private Vector2 _startPosition;
         private Vector2 direction;
-
+        private Vector2 lastTargetPosition;
         void Start()
         {
             _agent = GetComponent<NavMeshAgent>();
@@ -33,9 +33,27 @@ namespace EnemyMelee
             _agent.SetDestination(target.position);
             healthSystem.OnDeath += HandelDeath;
         }
+        private void Awake()
+        {
+            if (target == null)
+            {
+                GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+                if (playerObj != null)
+                {
+                    target = playerObj.transform;
+                    lastTargetPosition = target.position;
+                }
+            }
+        }
         void Update()
         {
-            _agent.SetDestination(target.position);
+            //_agent.SetDestination(target.position);
+            float distance = Vector3.Distance(lastTargetPosition, target.position);
+            if (distance > 0.5f)
+            {
+                _agent.SetDestination(target.position);
+                lastTargetPosition = target.position;
+            }
             if (target == null) { return; }
             direction = _agent.velocity.normalized;
             CheckForAttack();
@@ -77,15 +95,15 @@ namespace EnemyMelee
             yield return new WaitForSeconds(atkDuration);
             attackCoroutine = null;
         }
-        
+
 
         public void SetTarget(Transform newTarget)
         {
-            //_target = target;
-            //if (_target == null)
-            //{
-            //    _agent.SetDestination (_startPosition);
-            //}
+            target = newTarget;
+            if (target == null)
+            {
+                _agent.SetDestination(_startPosition);
+            }
         }
 
         public void HandleDamage(int amount)

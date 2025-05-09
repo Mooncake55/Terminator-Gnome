@@ -35,7 +35,7 @@ namespace EnemyMelee
                 }
 
             }
-            else { return; }
+            //else { return; }
         }
 
         //public void OnTriggerExit2D(Collider2D other)

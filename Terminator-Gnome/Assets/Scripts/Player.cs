@@ -118,6 +118,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         //StartCoroutine(WaitSeconds(3f));
         transform.position = spawnPoint.position;
+        healthSystem.Heal(20);
         gameObject.SetActive(false);
         GameManager.instance.ScheduleReactivation(gameObject, 3f);
     }

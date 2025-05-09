@@ -33,7 +33,7 @@ public class HealthSystem : MonoBehaviour
     //The entity take damage
     public void TakeDamage(int damage)
     {
-        Debug.Log("The entity is Wounded");
+        Debug.Log($"The"+gameObject+ "is Wounded");
 
         _actualHealth -= damage;
 

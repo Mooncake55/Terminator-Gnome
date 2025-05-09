@@ -33128,26 +33128,6 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 951676376}
-    - target: {fileID: 6455330887933849051, guid: 0121c995cb7da0d4aa412cfa8956f739, type: 3}
-      propertyPath: m_Speed
-      value: 3.27
-      objectReference: {fileID: 0}
-    - target: {fileID: 6455330887933849051, guid: 0121c995cb7da0d4aa412cfa8956f739, type: 3}
-      propertyPath: m_Height
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6455330887933849051, guid: 0121c995cb7da0d4aa412cfa8956f739, type: 3}
-      propertyPath: m_Radius
-      value: 0.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 6455330887933849051, guid: 0121c995cb7da0d4aa412cfa8956f739, type: 3}
-      propertyPath: m_BaseOffset
-      value: 0.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 6455330887933849051, guid: 0121c995cb7da0d4aa412cfa8956f739, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 0.09
-      objectReference: {fileID: 0}
     - target: {fileID: 6976577164291330204, guid: 0121c995cb7da0d4aa412cfa8956f739, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.46

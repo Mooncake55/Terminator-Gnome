@@ -16,26 +16,34 @@ namespace EnemyMelee
 
         Coroutine attackCoroutine;
         HealthSystem healthSystem;
-
+        IEnemyState movementState;
+        IEnemyState currentState;
+        IEnemyState attackState;
 
 
         //private Transform _target;
-        private NavMeshAgent _agent;
-        private Vector2 _startPosition;
-        private Vector2 direction;
-        private Vector2 lastTargetPosition;
+        //private NavMeshAgent _agent;
+        //private Vector2 _startPosition;
+        //private Vector2 direction;
+        //private Vector2 lastTargetPosition;
+        //void Start()
+        //{
+        //    _agent = GetComponent<NavMeshAgent>();
+        //    _agent.updateRotation = false;
+        //    _agent.updateUpAxis = false;
+        //    _startPosition = transform.position;
+        //    SearchMeleeAttack();
+        //    healthSystem = GetComponent<HealthSystem>();
+        //    meleeAttack = GetComponent<MeleeAttack>();
+        //    _agent.SetDestination(target.position);
+        //    healthSystem.OnDeath += HandelDeath;
+        //}
         void Start()
         {
-            _agent = GetComponent<NavMeshAgent>();
-            _agent.updateRotation = false;
-            _agent.updateUpAxis = false;
-            _startPosition = transform.position;
-            SearchMeleeAttack();
-            healthSystem = GetComponent<HealthSystem>();
-            meleeAttack = GetComponent<MeleeAttack>();
-            _agent.SetDestination(target.position);
-            healthSystem.OnDeath += HandelDeath;
+
         }
+
+
         //private void Awake()
         //{
         //    if (target == null)
@@ -47,39 +55,27 @@ namespace EnemyMelee
         //            lastTargetPosition = target.position;
         //        }
         //    }
-        //    SearchMeleeAttack();
+
+        //    if (joint == null)
+        //    {
+        //        joint = transform.Find("EnemyJoint"); // Cambiar por el nombre real del hijo si aplica
+        //    }
+
+        //    //SearchMeleeAttack();
         //}
-        private void Awake()
-        {
-            if (target == null)
-            {
-                GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-                if (playerObj != null)
-                {
-                    target = playerObj.transform;
-                    lastTargetPosition = target.position;
-                }
-            }
-
-            if (joint == null)
-            {
-                joint = transform.Find("EnemyJoint"); // Cambiar por el nombre real del hijo si aplica
-            }
-
-            //SearchMeleeAttack();
-        }
         void Update()
         {
-            //_agent.SetDestination(target.position);
-            float distance = Vector3.Distance(lastTargetPosition, target.position);
-            if (distance > 0.5f)
-            {
-                _agent.SetDestination(target.position);
-                lastTargetPosition = target.position;
-            }
-            if (target == null) { return; }
-            direction = _agent.velocity.normalized;
-            CheckForAttack();
+            ////_agent.SetDestination(target.position);
+            //float distance = Vector3.Distance(lastTargetPosition, target.position);
+            //if (distance > 0.5f)
+            //{
+            //    _agent.SetDestination(target.position);
+            //    lastTargetPosition = target.position;
+            //}
+            //if (target == null) { return; }
+            //direction = _agent.velocity.normalized;
+            //CheckForAttack();
+            currentState.Update();
 
         }
         //public void CheckForAttack()
@@ -107,6 +103,10 @@ namespace EnemyMelee
         //        attackCoroutine = StartCoroutine(Attack());
         //    }
         //}
+        public void SetState(IEnemyState newState)
+        {
+            currentState = newState;
+        }
         public void CheckForAttack()
         {
             if (target == null) return;

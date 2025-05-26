@@ -1,30 +1,28 @@
 using EnemyMelee;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.XR;
+
 //using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class MeleeMovementState : MonoBehaviour, IEnemyState
 {
-    EnemyController enemyController;
+    EnemyController context;
     IEnemyState attackState;
+    private Transform target;
+
     private NavMeshAgent _agent;
     private Vector2 _startPosition;
-    //private Vector2 direction;
+    private Vector2 direction;
     private Vector2 lastTargetPosition;
     private float distanceToTarget;
-    private Transform target;
-    private float attackRange = 0.16f; //valor por defecto, se puede cambiar
 
-    //public MeleeMovementState(EnemyController controller, NavMeshAgent navMeshAgent, Transform player)
-    //{
-    //    enemyController = controller;
-    //    _agent = navMeshAgent;
-    //    target = player;
-    //}
-    public MeleeMovementState(EnemyController controller, Transform player)
+    [SerializeField]private float attackRange = 0.16f; //valor por defecto, se puede cambiar
+    [SerializeField] private LayerMask playerLayer;
+
+    public void Enter()
     {
-        target = player;
-        enemyController = controller;
+        target = context.GetTarget();
         _agent = GetComponent<NavMeshAgent>();
         _agent.updateRotation = false;
         _agent.updateUpAxis = false;
@@ -33,16 +31,7 @@ public class MeleeMovementState : MonoBehaviour, IEnemyState
         lastTargetPosition = target.position;
     }
 
-    //public void Enter()
-    //{
-    //    _agent.updateRotation = false;
-    //    _agent.updateUpAxis = false;
-    //    _startPosition = transform.position;
-    //    _agent.SetDestination(target.position);
-    //    lastTargetPosition = target.position;
-    //}
-
-    public void Update()
+    public void UpdateAction()
     {
         if (target == null) { return; }
         distanceToTarget = Vector2.Distance(lastTargetPosition, target.position);
@@ -51,6 +40,8 @@ public class MeleeMovementState : MonoBehaviour, IEnemyState
             _agent.SetDestination(target.position);
             lastTargetPosition = target.position;
         }
+        if (target == null) { return; }
+        direction = _agent.velocity.normalized; //creo que no lo necesito
         CheckForAttack();
     }
 
@@ -60,10 +51,11 @@ public class MeleeMovementState : MonoBehaviour, IEnemyState
         if (distanceToTarget <= attackRange)
         {
             Debug.Log("¡En rango para atacar!");
-            attackState = new MeleeAttackState(); //o lo creo antes y uso uno solo?
+            //attackState = new MeleeAttackState(); //o lo creo antes y uso uno solo?
+            context.SetState("MeleeAttackState");
         }
     }
-    public void SetAtkRange(float range)
+    public void SetAtkRange(float range) //borrable, creo que esta al pedo
     {
         attackRange = range;
     }
@@ -74,5 +66,10 @@ public class MeleeMovementState : MonoBehaviour, IEnemyState
             enemyController.SetState(attackState);
         }
         //this = null;??
+    }
+
+    public void SetContext(EnemyController contextenemyController)
+    {
+        context = contextenemyController;
     }
 }

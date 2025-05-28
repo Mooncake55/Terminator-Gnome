@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MeleeEnemySpawner : MonoBehaviour
 {
-    public GameObject meleeEnemyPrefab;
+    [SerializeField]private GameObject meleeEnemyPrefab;
     public event Action OnSpawning;
     public event Action DesSpawning;
     public IEnemyState enemyState;
@@ -12,7 +12,6 @@ public class MeleeEnemySpawner : MonoBehaviour
     private void Start()
     {
         enemySpawnerController.OnPreparigToSpawn += SpawnEnemies;
-
     }
     public void SpawnEnemies(Collider2D[] enemyColliders)
     {
@@ -40,5 +39,6 @@ public class MeleeEnemySpawner : MonoBehaviour
         EnemyController enemyController = enemy.GetComponent<EnemyController>();
         //enemyState.SetContext(enemyController);
         enemyController.SetState("InitialState");
+        Debug.Log("NACE UN NUEVO ENEMIGO");
     }
 }

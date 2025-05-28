@@ -31,9 +31,8 @@ public class MeleeMovementState : MonoBehaviour, IEnemyState
         if (AttackStateComponent == null) { FindStateByTag(nextStateTag); }
         Debug.Log("ENTRE AL ESTADO MOVEMENT");
         target = context.GetTarget();
+
         _agent = context.GetComponent<NavMeshAgent>();
-        _agent.updateRotation = false;
-        _agent.updateUpAxis = false;
         _agent.SetDestination(target.position);
         //_circleCollider2D = GetComponent<CircleCollider2D>();
     }

@@ -11,7 +11,12 @@ public class EnemyController : MonoBehaviour, IDamageable
     HealthSystem healthSystem;
     IEnemyState currentState;
 
-
+    void Awake()
+    {
+        var agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+    }
     void Start()
     {
         healthSystem = GetComponent<HealthSystem>();

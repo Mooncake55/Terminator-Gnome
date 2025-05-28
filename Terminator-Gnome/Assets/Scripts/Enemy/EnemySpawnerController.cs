@@ -3,19 +3,21 @@ using System.Collections;
 using Unity.VisualScripting;
 using System.Linq;
 using System.Collections.Generic;
+using System;
 
 
 public class EnemySpawnerController : MonoBehaviour
 {
     float height;
     float width;
-    public EnemySpawner enemySpawner;
+    //public EnemySpawner enemySpawner;
     bool isSpawning = false;
     Vector2 center;
     Coroutine enemyPrepareCorrutine;
 
     private Camera cam;
     private CameraController camController;
+    public event Action<Collider2D[]> OnPreparigToSpawn;
 
     private void Start() //setea la camara/tamaño del area a detectar
     {
@@ -24,16 +26,15 @@ public class EnemySpawnerController : MonoBehaviour
         camController = cam.GetComponent<CameraController>();
         camController.OnCameraMoved += CameraUpdate;
 
-        enemySpawner = enemySpawner.GetComponent<EnemySpawner>();
+        //enemySpawner = enemySpawner.GetComponent<MeleeEnemySpawner>();
         //Camera cam = Camera.main;
         // Altura y ancho en unidades del mundo
         height = 2f * cam.orthographicSize;
         width = height * cam.aspect;
         // Posición del centro (puede ser cam.transform.position si no se mueve en Z)
         center = cam.transform.position;
-        enemySpawner.OnSpawning += Spawning;
-        enemySpawner.DesSpawning += DesSpawning;
-
+        //enemySpawner.OnSpawning += Spawning;
+        //enemySpawner.DesSpawning += DesSpawning;
     }
     //antes era solo el update
     public void CameraUpdate() //cambiar por un evento de la camara
@@ -68,8 +69,10 @@ public class EnemySpawnerController : MonoBehaviour
     public IEnumerator PrepareEnemySpawn(Collider2D[] enemyColliders)
     {
         yield return null;
-        enemySpawner.SpawnEnemies(enemyColliders);
+        //enemySpawner.SpawnEnemies(enemyColliders);
+        OnPreparigToSpawn?.Invoke(enemyColliders);
         isSpawning = true ;
+        yield return null;
         enemyPrepareCorrutine = null;
         isSpawning = false ;
     }

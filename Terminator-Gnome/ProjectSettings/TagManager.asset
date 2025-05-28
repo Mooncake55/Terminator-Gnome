@@ -8,6 +8,9 @@ TagManager:
   - RangeEnemySpawn
   - MeleeEnemySpawn
   - EnemyMelee
+  - InitialState
+  - MeleeEnemyMovementState
+  - MeleeEnemyAttackState
   layers:
   - Default
   - TransparentFX

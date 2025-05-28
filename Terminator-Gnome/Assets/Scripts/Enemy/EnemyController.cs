@@ -7,44 +7,22 @@ using UnityEngine.InputSystem.LowLevel;
 public class EnemyController : MonoBehaviour, IDamageable
 {
     [SerializeField] private List<MonoBehaviour> stateComponents; // Para asignar en el inspector
-    private List<IEnemyState> statesList = new List<IEnemyState>();
-
     [SerializeField] private Transform target;
-    //[SerializeField] Transform joint; //ataque  
-    //private MeleeAttack meleeAttack; //ataque
-    //[SerializeField] private LayerMask playerLayer;
-    //[SerializeField] private float atkDuration;
-    //[SerializeField] private float attackRange = 0.5f;
-    //private NavMeshAgent _agent;
-
-    //Coroutine attackCoroutine;
     HealthSystem healthSystem;
-    //IEnemyState movementState;
     IEnemyState currentState;
-    //IEnemyState attackState;
 
-    void Awake()
-    {
-        //foreach (var stateComponent in stateComponents)
-        //{
-        //    if (stateComponent is IEnemyState state)
-        //    {
-        //        statesList.Add(state);
-        //    }
-        //    else
-        //    {
-        //        Debug.LogWarning($"{stateComponent.name} no implementa IEnemyState");
-        //    }
-        //}
-    }
 
     void Start()
     {
+        healthSystem = GetComponent<HealthSystem>();
+        healthSystem.OnDeath += HandelDeath;
+        Debug.Log("ENTRANDO AL ENEMIGO");
         SetState("InitialState");
     }
 
     public void SetState(string stateTag)
     {
+        Debug.Log($"Tratando de entra al Estado: " + stateTag);
         foreach (var state in stateComponents)
         {
             if (state != null && state.CompareTag(stateTag))
@@ -53,38 +31,55 @@ public class EnemyController : MonoBehaviour, IDamageable
                 if (newState != null)
                 {
                     currentState = newState;
+                    Debug.Log($"Entrando  al Estado: " + stateTag);
+                    currentState.SetContext(this);
                     currentState.Enter();
                     break; // Opcional: rompe el bucle al encontrar el primer estado
                 }
+                Debug.Log($"No se encontro el estado: " + stateTag);
             }
         }
+        Debug.Log($"Estado Actual: " + currentState);
         //algo para crear un estado por el caso de que no haya uno
+    }
+    public void AddState(MonoBehaviour newState) //por si las dudas :p
+    {
+        stateComponents.Add(newState);
     }
 
     void Update()
+
     {
-        currentState.UpdateAction(); //para que no sea el estsado quien tenga el update (monobehaviour)
+        if(currentState != null) { currentState.UpdateAction(); }
+        //currentState.UpdateAction(); //para que no sea el estsado quien tenga el update (monobehaviour)
     }
 
-    //public void SetState(IEnemyState newState)
-    //{
-    //    currentState = newState;
-    //    currentState.Enter();
-    //}
-    //public void SetState(string newStateTag)
-    //{
 
-    //    currentState = newState;
-    //    currentState.Enter();
-    //}
-
-    public void HandleDamage(int amount)
-    {
-        throw new System.NotImplementedException();
-    }
     public Transform GetTarget()
     {
         return target;
+    }
+    public void HandleDamage(int amount)
+    {
+        Debug.Log("Daño");
+        healthSystem.TakeDamage(5);
+        ChangeColour(2f);
+    }
+    public IEnumerator ChangeColour(float seconds)
+    {
+        //isTakingDamage = true;
+        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        Color original = sprite.color;
+        sprite.color = Color.red;
+        yield return new WaitForSeconds(seconds);
+        sprite.color = original;
+        //isTakingDamage = true;
+        //damageCoroutine = null;
+    }
+    void HandelDeath()
+    {
+        Debug.Log("Muerto");
+        gameObject.SetActive(false);
     }
 }
 

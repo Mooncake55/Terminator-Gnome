@@ -7,7 +7,13 @@ public class MeleeEnemySpawner : MonoBehaviour
     public event Action OnSpawning;
     public event Action DesSpawning;
     public IEnemyState enemyState;
+    [SerializeField] EnemySpawnerController enemySpawnerController;
 
+    private void Start()
+    {
+        enemySpawnerController.OnPreparigToSpawn += SpawnEnemies;
+
+    }
     public void SpawnEnemies(Collider2D[] enemyColliders)
     {
 
@@ -17,22 +23,22 @@ public class MeleeEnemySpawner : MonoBehaviour
             return;
         }
 
-        foreach (var enemy in enemyColliders)
+        foreach (var enemySpawn in enemyColliders)
         {
-            if (enemy.CompareTag("MeleeEnemySpawn"))
+            if (enemySpawn.CompareTag("MeleeEnemySpawn"))
             {
-                InstantiateMeleeEnemy(enemy);
-                Destroy(enemy);
+                InstantiateMeleeEnemy(enemySpawn);
+                Destroy(enemySpawn);
             }
-        }
-        void InstantiateMeleeEnemy(Collider2D meleeCollider)
-        {
-            enemyState = new EnemyIdleState();
-            GameObject enemy = Instantiate(meleeEnemyPrefab, meleeCollider.transform.position, Quaternion.identity);
-            EnemyController enemyController = enemy.GetComponent<EnemyController>();
-            enemyState.SetContext(enemyController);
-            enemyController.SetState(enemyState);
-        }
+        }     
 
+    }
+    void InstantiateMeleeEnemy(Collider2D meleeCollider)
+    {
+        enemyState = new EnemyIdleState();
+        GameObject enemy = Instantiate(meleeEnemyPrefab, meleeCollider.transform.position, Quaternion.identity);
+        EnemyController enemyController = enemy.GetComponent<EnemyController>();
+        //enemyState.SetContext(enemyController);
+        enemyController.SetState("InitialState");
     }
 }

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class EnemyIdleState : MonoBehaviour, IEnemyState //si no es monoBehav
 {
-    //public event Action OnStateChange;
+    //TAG: InitialState
     EnemyController context;
-    IEnemyState enemyMovevement;
     Coroutine animationCoroutine;
 
     public void Enter()
     {
+        Debug.Log($"Entrando al estado Idle");
         if (animationCoroutine == null) { animationCoroutine = StartCoroutine(IdleAnimation()); }
         return;
 
@@ -18,12 +18,8 @@ public class EnemyIdleState : MonoBehaviour, IEnemyState //si no es monoBehav
 
     public void Exit()
     {
-        if (animationCoroutine != null) ;
-        //enemyMovevement = new MeleeMovementState();
-        //enemyMovevement.SetContext(context);
-        //context.SetState(enemyMovevement);
-        context.SetState("MeleeEnemyMovementState");
-        //Destroy(this);
+        Debug.Log($"Saliendo del estado Idle");
+        if (animationCoroutine == null) { context.SetState("MeleeEnemyMovementState"); }
     }
 
     public void UpdateAction()
@@ -32,6 +28,7 @@ public class EnemyIdleState : MonoBehaviour, IEnemyState //si no es monoBehav
     }
     public IEnumerator IdleAnimation()
     {
+        Debug.Log("IdleAnimation");
         //aca deberia ir alguna animacion de inicio o idle
         yield return new WaitForSeconds(1);
         animationCoroutine = null;
@@ -40,7 +37,7 @@ public class EnemyIdleState : MonoBehaviour, IEnemyState //si no es monoBehav
 
     public void SetContext(EnemyController enemyController)
     {
-        if (context != null) { context = enemyController; }
+        if (context == null) { context = enemyController; }
     }
 
 }

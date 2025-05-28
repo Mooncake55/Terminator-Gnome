@@ -1,20 +1,20 @@
 using System;
-using EnemyMelee;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace EnemyMelee
+namespace EnemyMeleeb
 {
-    [RequireComponent(typeof(CircleCollider2D))]
-    public class EnemyVision : MonoBehaviour
+    [RequireComponent(typeof(CircleCollider2D))] //
+    public class EnemyVision : MonoBehaviour //BORRABLE
     {
-        [SerializeField] private EnemyController _enemyController;
+        //[SerializeField] private EnemyController _enemyController;
         [SerializeField] private Transform target;
+        [SerializeField] private IEnemyState enemyMove;
         private CircleCollider2D _circleCollider2D;
 
         private void Start()
         {
-            _enemyController = GetComponent<EnemyController>();
+            //_enemyController = GetComponent<EnemyController>();
             _circleCollider2D = GetComponent<CircleCollider2D>();
         }
 
@@ -30,7 +30,7 @@ namespace EnemyMelee
 
                 if (rayCast.collider.CompareTag("Player"))
                 {
-                    _enemyController.SetTarget(other.transform);
+                    //_enemyController.SetTarget(other.transform);
                     Debug.Log("Player Detected!");
                 }
 

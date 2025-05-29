@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class Player : MonoBehaviour, IDamageable
@@ -10,6 +11,7 @@ public class Player : MonoBehaviour, IDamageable
     private MeleeAttack meleeAttack;
     [SerializeField] float meleeAtkDuration = 1f;
     private HealthSystem healthSystem;
+    [SerializeField] HealthBar healthBar; 
     [SerializeField] Transform spawnPoint;
     bool isTakingDamage = false;
     Coroutine damageCoroutine;
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour, IDamageable
 
     void Start()
     {
+        healthBar.slider = GetComponentInChildren<Slider>();
         healthSystem = GetComponent<HealthSystem>(); //vida
         healthSystem.OnDeath += HandleDeath;
         spriteRenderer = GetComponent<SpriteRenderer>(); 
@@ -110,7 +113,7 @@ public class Player : MonoBehaviour, IDamageable
     public void HandleDamage(int amount)
     {
         //logica de da�o que falte 
-        healthSystem.TakeDamage(10);
+        healthSystem.TakeDamage(5);
         ChangeColour(2f);
     }
 
@@ -118,6 +121,8 @@ public class Player : MonoBehaviour, IDamageable
     {
         //StartCoroutine(WaitSeconds(3f));
         transform.position = spawnPoint.position;
+        healthBar.SetMaxHealth(healthSystem._maxHealth);
+        healthBar.slider.value = healthSystem._maxHealth;
         healthSystem.Heal(20);
         gameObject.SetActive(false);
         GameManager.instance.ScheduleReactivation(gameObject, 3f);

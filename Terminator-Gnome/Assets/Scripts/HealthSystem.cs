@@ -5,6 +5,7 @@ public class HealthSystem : MonoBehaviour
 {
     [SerializeField] public int _maxHealth;
     [SerializeField] public int _actualHealth;
+    [SerializeField] HealthBar healthBar;
     public event Action OnDeath;
 
     public HealthSystem(int maxHealth, int actualHealth)
@@ -14,6 +15,7 @@ public class HealthSystem : MonoBehaviour
     }
     private void Start()
     {
+        healthBar.UpdateHealth(_actualHealth, _maxHealth);
         //collider = GetComponent<Collider2D>();
     }
 
@@ -23,6 +25,9 @@ public class HealthSystem : MonoBehaviour
         Debug.Log("The entity Heals");
 
         _actualHealth += amount;
+
+        //healthBar.SetCurrentHealth(_actualHealth);
+        //healthBar.SetMaxHealth(_maxHealth);
 
         if (_actualHealth > _maxHealth)
         {
@@ -36,6 +41,9 @@ public class HealthSystem : MonoBehaviour
         Debug.Log($"The"+gameObject+ "is Wounded");
 
         _actualHealth -= damage;
+
+        healthBar.SetCurrentHealth(_actualHealth);
+        healthBar.SetMaxHealth(_maxHealth);
 
         if (_actualHealth < 0)
         {

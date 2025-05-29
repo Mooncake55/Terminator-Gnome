@@ -6,6 +6,7 @@ using UnityEngine.InputSystem.LowLevel;
 
 public class EnemyController : MonoBehaviour, IDamageable
 {
+    public EnemyData enemyData;
 
     //MovementState
     private NavMeshAgent _agent;
@@ -31,6 +32,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.OnDeath += HandelDeath;
+        healthSystem.SetLifePoints(enemyData.lifePoints);
         Debug.Log("NUEVO ENEMIGO");
         if(currentState == null)
         {
@@ -78,6 +80,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     public Transform GetJoint() { return joint; }
     public void SetFaceTo(Vector2 direction) { facingTo = direction; }
     public Vector2 GetFaceTo() { return facingTo; }
+    public EnemyData GetEnemyData() { return enemyData; }   
 
     //MANEJO DE CORRUTINAS 
     

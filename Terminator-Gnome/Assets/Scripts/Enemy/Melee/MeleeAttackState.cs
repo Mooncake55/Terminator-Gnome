@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class MeleeAttackState : IEnemyState
 {
-    //TAG: MeleeAttackState
-
-    private float atkDuration = 1f;
+    private EnemyData meleeEnemy;
+    private float atkDuration;
     private Transform joint;
     private MeleeAttack meleeAttack;
     private Vector2 direction;
@@ -16,23 +15,21 @@ public class MeleeAttackState : IEnemyState
     IEnemyState nextState;
     //private string nextStateTag = "MeleeEnemyMovementState";
 
-    Coroutine attackCoroutine;
+    //Coroutine attackCoroutine;
 
     public MeleeAttackState(EnemyController enemy)
     {
         Debug.Log("Entrando e ATTACK");
         context = enemy;
+        meleeEnemy = context.GetEnemyData();
         joint = context.GetJoint();
+        Enter();
         GetMeleeAttack();
-        
     }
 
     public void Enter()
     {
-        //target = context.GetTarget();
-        //meleeAttack = GetComponent<MeleeAttack>();
-        //GetTarget();
-        //GetMeleeAttack();
+        atkDuration = meleeEnemy.attackkDuration;
     }
     //void GetTarget()
     //{

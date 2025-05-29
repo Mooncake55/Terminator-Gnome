@@ -4,8 +4,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f; 
+    //[SerializeField] private float speed = 5f; 
+    private float speed;
     private Rigidbody2D rb;
+    private Player player;
 
 
     void Start()
@@ -16,7 +18,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void MovePlayer(Vector2 direction)
     {
+        speed = player.GetPlayerData().moveSpeed;
         rb.linearVelocity = direction * speed;
+    }
+    public void SetPlayer(Player p)
+    {
+        player = p;
     }
 }
 

@@ -8,12 +8,13 @@ public class Player : MonoBehaviour, IDamageable
     private PlayerDash playerDash;
     [SerializeField] Transform joint; 
     private MeleeAttack meleeAttack;
-    [SerializeField] float meleeAtkDuration = 1f;
+    //[SerializeField] float meleeAtkDuration = 1f;
+    float meleeAtkDuration;
     private HealthSystem healthSystem;
     [SerializeField] Transform spawnPoint;
     bool isTakingDamage = false;
     Coroutine damageCoroutine;
-
+    public PlayerData data;
 
     [SerializeField] bool isDashing;
     private Vector2 lastDirection;
@@ -22,20 +23,19 @@ public class Player : MonoBehaviour, IDamageable
     void Start()
     {
         healthSystem = GetComponent<HealthSystem>(); //vida
+        healthSystem.SetLifePoints(data.lifePoints);
         healthSystem.OnDeath += HandleDeath;
         spriteRenderer = GetComponent<SpriteRenderer>(); 
         playerMovement = GetComponent<PlayerMovement>(); //movimiento
-        //horizontalPlayerMeleeAttack = transform.Find("MeleeAtk(Horizontal)").GetComponent<MeleeAttack>();
-        //verticallPlayerMeleeAttack = transform.Find("MeleeAtk(Vertical)").GetComponent<MeleeAttack>();
-        //joint = transform.Find("Joint"); //ataque  
-        //meleeAttack = joint.GetComponent<MeleeAttack>();
+        playerMovement.SetPlayer(this);
         playerDash = GetComponent<PlayerDash>(); //dash
+        playerDash.SetPlayer(this);
         lastDirection = Vector2.zero;
         InputController.Instance.OnMoveInput += HandleMoveInput;
         InputController.Instance.OnShiftPressed += HandleDashInput;
         InputController.Instance.OnRightClickPressed += HandleMeleeAttack;
     }
-
+    public PlayerData GetPlayerData() { return data; }
     void HandleMoveInput(Vector2 direction)
     {
         FlipRender(direction);
@@ -50,29 +50,13 @@ public class Player : MonoBehaviour, IDamageable
         playerDash.Dash(lastDirection, false);
         isDashing = false;
     }
-    //void HandleMeleeAttack()
-    //{
-    //    activeMeleeAttack = horizontalPlayerMeleeAttack;
-
-    //    if (lastDirection == Vector2.up || lastDirection == Vector2.down)
-    //    {
-    //        activeMeleeAttack = verticallPlayerMeleeAttack;
-    //    }
-    //    else if (lastDirection == Vector2.right || lastDirection == Vector2.left)
-    //    {
-    //        activeMeleeAttack = horizontalPlayerMeleeAttack;
-    //    }
-    //    //activeMeleeAttack.transform.localPosition.Set(activeMeleeAttack.transform.localPosition.x * lastDirection.x, activeMeleeAttack.transform.localPosition.y * lastDirection.y, 0);//orienta arriba o abajo segun la direccion
-    //    activeMeleeAttack.ActivateAttack(lastDirection, meleeAtkDuration);
-    //    StartCoroutine(WaitSeconds(meleeAtkDuration));
-
-    //}
     void HandleMeleeAttack()
     {
+        float atkDuration = data.meleeAtkDuration;
         SearchMeleeAttack();
         //checkear validaciones 
-        meleeAttack.ActivateAttack(lastDirection, meleeAtkDuration, joint);
-        StartCoroutine(WaitSeconds(meleeAtkDuration));
+        meleeAttack.ActivateAttack(lastDirection, atkDuration, joint);
+        StartCoroutine(WaitSeconds(atkDuration));
     }
     void  SearchMeleeAttack()
     {
@@ -91,6 +75,7 @@ public class Player : MonoBehaviour, IDamageable
         InputController.Instance.OnShiftPressed -= HandleDashInput;
         InputController.Instance.OnRightClickPressed -= HandleMeleeAttack;
     }
+
     void FlipRender(Vector2 direction)
     {
         if (direction == Vector2.left)

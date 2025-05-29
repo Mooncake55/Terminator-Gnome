@@ -8,6 +8,7 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] private float dashDuration = 0.2f; //dash normal
     public LayerMask obstacleLayer;
     private Rigidbody2D rb;
+    private Player player;
 
     void Start()
     {
@@ -17,6 +18,8 @@ public class PlayerDash : MonoBehaviour
 
     public void Dash(Vector2 direction, bool changeDirection)
     {
+        dashSpeed = player.GetPlayerData().dashSpeed;
+        dashDuration = player.GetPlayerData().dashDuration;
         if (changeDirection) { direction = -direction; }
         Vector2 dashTarget = rb.position + direction * dashSpeed;
         Debug.Log($"DashTarget: " + dashTarget);
@@ -30,5 +33,9 @@ public class PlayerDash : MonoBehaviour
     private IEnumerator WaitForSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
+    }
+    public void SetPlayer(Player p)
+    {
+        player = p;
     }
 }

@@ -3,22 +3,19 @@ using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
-    [SerializeField] public int _maxHealth;
-    [SerializeField] public int _actualHealth;
-    public event Action OnDeath;
+    //[SerializeField] public int _maxHealth;
+    public float _maxHealth;
+    [SerializeField] public float _actualHealth;
 
-    public HealthSystem(int maxHealth, int actualHealth)
+    public event Action OnDeath;
+    
+    public void SetLifePoints(float lifePoints)
     {
-        _maxHealth = maxHealth;
-        _actualHealth = actualHealth;
-    }
-    private void Start()
-    {
-        //collider = GetComponent<Collider2D>();
+        _maxHealth = lifePoints;
     }
 
     //Heals the entity
-    public void Heal(int amount)
+    public void Heal(float amount)
     {
         Debug.Log("The entity Heals");
 
@@ -31,7 +28,7 @@ public class HealthSystem : MonoBehaviour
     }
 
     //The entity take damage
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         Debug.Log($"The"+gameObject+ "is Wounded");
 
@@ -43,16 +40,6 @@ public class HealthSystem : MonoBehaviour
             OnDeath?.Invoke();
         }
     }
-
-    //The entity dies
-    //public void Death()
-    //{
-    //    Debug.Log("The entity Dies");
-    //    _actualHealth = 0;
-    //    Destroy(gameObject);
-    //}
-
-    //The entity respawn
     public void Respawn()
     {
         Debug.Log("The entity Arise");

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b41b296041d399f4d80fe0318d640633
+guid: 720a8e20876078948943f2a5e8ba9b3b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7852077892343169363
-    second: EnemyMelee_0
+      213: 3116565454428046965
+    second: RangeEnemy_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EnemyMelee_0
+      name: RangeEnemy_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 53
-        height: 48
+        width: 21
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 35100d1bd3f28fc60800000000000000
-      internalID: 7852077892343169363
+      spriteID: 576007eb4c3404b20800000000000000
+      internalID: 3116565454428046965
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      EnemyMelee_0: 7852077892343169363
+      RangeEnemy_0: 3116565454428046965
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

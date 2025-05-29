@@ -17,13 +17,11 @@ public class MeleeEnemyIdleState : IEnemyState
         Debug.Log($"Entrando al estado Idle");
     }
 
-    //public void Enter()
-    //{
-    //    Debug.Log($"Entrando al estado Idle");
-    //    if (animationCoroutine == null) { animationCoroutine = StartCoroutine(IdleAnimation()); }
-    //    return;
+    public void Enter()
+    {
+        return;
 
-    //}
+    }
 
     public void UpdateAction()
     {      

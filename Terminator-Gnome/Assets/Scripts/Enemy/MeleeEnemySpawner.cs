@@ -34,11 +34,16 @@ public class MeleeEnemySpawner : MonoBehaviour
     }
     void InstantiateMeleeEnemy(Collider2D meleeCollider)
     {
-        enemyState = new EnemyIdleState();
+        //enemyState = new EnemyIdleState();
+        //GameObject enemy = Instantiate(meleeEnemyPrefab, meleeCollider.transform.position, Quaternion.identity);
+        //EnemyController enemyController = enemy.GetComponent<EnemyController>();
+        ////enemyState.SetContext(enemyController);
+        //enemyController.SetState("InitialState");
+        //Debug.Log("NACE UN NUEVO ENEMIGO");
         GameObject enemy = Instantiate(meleeEnemyPrefab, meleeCollider.transform.position, Quaternion.identity);
         EnemyController enemyController = enemy.GetComponent<EnemyController>();
-        //enemyState.SetContext(enemyController);
-        enemyController.SetState("InitialState");
-        Debug.Log("NACE UN NUEVO ENEMIGO");
+        enemyState = new MeleeEnemyIdleState(enemyController);
+        //enemyController.SetState(enemyState);
+
     }
 }

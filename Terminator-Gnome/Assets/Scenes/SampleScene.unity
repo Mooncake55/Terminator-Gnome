@@ -333,6 +333,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a54ecfb2ccfcc2d4097e668c2b6836ab, type: 3}
+--- !u!4 &181358539 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 580851718575383808, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
+  m_PrefabInstance: {fileID: 8266724179760820690}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &284412785
 GameObject:
   m_ObjectHideFlags: 0
@@ -52409,6 +52414,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyMelee (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1687353475730096042, guid: 0121c995cb7da0d4aa412cfa8956f739, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3816203362541660833, guid: 0121c995cb7da0d4aa412cfa8956f739, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -85352,32 +85361,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 177377873481278445, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
+      propertyPath: joint
+      value: 
+      objectReference: {fileID: 181358539}
+    - target: {fileID: 177377873481278445, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 951676376}
-    - target: {fileID: 886075056884811210, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1353612973932080860, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
       propertyPath: m_Name
       value: MeleeEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 1353612973932080860, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
-      propertyPath: m_Layer
-      value: 0
+    - target: {fileID: 3344630228102737979, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
+      propertyPath: m_Height
+      value: 1.54
       objectReference: {fileID: 0}
-    - target: {fileID: 2901946530265219620, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3152012238300979671, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4710770965812016060, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
-      propertyPath: m_Enabled
-      value: 0
+    - target: {fileID: 3344630228102737979, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0.46
       objectReference: {fileID: 0}
     - target: {fileID: 4826684164988776960, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
       propertyPath: m_LocalPosition.x
@@ -85419,20 +85420,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7616584658544502526, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8449094661877134676, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9005441216760104875, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4710770965812016060, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

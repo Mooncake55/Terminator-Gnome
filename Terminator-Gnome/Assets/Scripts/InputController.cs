@@ -6,15 +6,25 @@ using UnityEngine.SceneManagement;
 
 public class InputController : MonoBehaviour
 {
-    public static InputController Instance;
+    //this class is a Singleton
+    public static InputController instance;
+
     public event Action<Vector2> OnMoveInput;
     public event Action<bool> OnShiftPressed;
     public event Action OnRightClickPressed;
 
     void Awake()
     {
-        Instance = this;
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
+
+    //notifies the diferent user´s inputs through events
     private void Update()
     {
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -28,6 +38,5 @@ public class InputController : MonoBehaviour
         {
             OnRightClickPressed?.Invoke();
         }
-
     }
 }

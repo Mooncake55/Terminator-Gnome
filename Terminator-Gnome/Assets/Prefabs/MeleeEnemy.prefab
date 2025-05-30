@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 7b0d9b0b9df29b74da0c8204925fc60a, type: 2}
-  target: {fileID: 0}
+  target: {fileID: 2159010336666192989, guid: a54ecfb2ccfcc2d4097e668c2b6836ab, type: 3}
   joint: {fileID: 580851718575383808}
 --- !u!114 &5242021671444742921
 MonoBehaviour:

@@ -3,10 +3,8 @@ using UnityEngine;
 
 public class PlayerDash : MonoBehaviour
 {
-    //[SerializeField] private float speed = 5f;
-    [SerializeField] private float dashSpeed = 2f;//also dashDistance
-    [SerializeField] private float dashDuration = 0.2f; //dash normal
-    public LayerMask obstacleLayer;
+    private float dashSpeed;//also dashDistance
+    private float dashDuration; 
     private Rigidbody2D rb;
     private Player player;
 
@@ -16,19 +14,16 @@ public class PlayerDash : MonoBehaviour
         rb.gravityScale = 0f;
     }
 
+    //changeDirection is for range attack (not implemented, but it moves the player backward)
+    //is implemented as a POINT A to POINT B "teleportation"
     public void Dash(Vector2 direction, bool changeDirection)
-    {
-        dashSpeed = player.GetPlayerData().dashSpeed;
-        dashDuration = player.GetPlayerData().dashDuration;
+    {     
         if (changeDirection) { direction = -direction; }
         Vector2 dashTarget = rb.position + direction * dashSpeed;
         Debug.Log($"DashTarget: " + dashTarget);
-
         rb.MovePosition(dashTarget);
         dashTarget = Vector2.zero;
         StartCoroutine(WaitForSeconds(dashDuration));
-        Debug.Log($"DashTarget Final: " + dashTarget);
-        Debug.Log($"pos: " + rb.position);
     }
     private IEnumerator WaitForSeconds(float seconds)
     {
@@ -37,5 +32,8 @@ public class PlayerDash : MonoBehaviour
     public void SetPlayer(Player p)
     {
         player = p;
+        dashSpeed = player.GetPlayerData().dashSpeed;
+        dashDuration = player.GetPlayerData().dashDuration;
+        Debug.Log($"dashSpeed: " + dashSpeed + " dashDuration: " + dashDuration);
     }
 }

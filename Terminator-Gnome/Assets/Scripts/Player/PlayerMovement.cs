@@ -1,14 +1,11 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 public class PlayerMovement : MonoBehaviour
-{
-    //[SerializeField] private float speed = 5f; 
+{ 
     private float speed;
     private Rigidbody2D rb;
     private Player player;
-
 
     void Start()
     {

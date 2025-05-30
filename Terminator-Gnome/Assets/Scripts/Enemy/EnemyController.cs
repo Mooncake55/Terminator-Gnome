@@ -52,7 +52,8 @@ public class EnemyController : MonoBehaviour, IDamageable
         //currentState.UpdateAction(); //para que no sea el estsado quien tenga el update (monobehaviour)
     }
 
-    public void HandleDamage(int amount)
+    
+    public void HandleDamage(float amount)
     {
         Debug.Log("Daño");
         healthSystem.TakeDamage(5);

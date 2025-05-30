@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    float screenHeight; //alura pantalla (camerasizex2)
-    float screenWidth; //ancho pantalla
-    public Transform character;
+    float screenHeight; 
+    float screenWidth; 
+    public Transform player;
     Vector3 currentPos;
     Vector3 newPos;
     [SerializeField] private float cameraSpeed = 6f;
@@ -14,33 +14,36 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        screenHeight = Camera.main.orthographicSize * 2f;
+        screenHeight = Camera.main.orthographicSize * 2f; //whole screen Height
         screenWidth = screenHeight * Camera.main.aspect;
     }
     private void Update()
     {
         currentPos = transform.position;
         CalculatePositionCamera();
-        //ScreenHasChanged();
     }
     void CalculatePositionCamera()
     {
-        //la pantalla empieza entre npantalla x altura o anchura (si le sumo size o width/2 es la mitad)
-        int characterScreenY = Mathf.FloorToInt(character.position.y / screenHeight);
-        int characterScreenX = Mathf.FloorToInt(character.position.x / screenWidth);
+        //The screen starts between the screen x(times) the height or width (if I add size or width/2 it is half)
+        //each screen indicates as in a matrix the position of the player either for rows(y) and columns(x)
 
+        //defines the current row and column 
+        int characterScreenY = Mathf.FloorToInt(player.position.y / screenHeight);
+        int characterScreenX = Mathf.FloorToInt(player.position.x / screenWidth);
+
+        //positions the camera so that the player is in the middle of the screen
         float cameraY = (characterScreenY * screenHeight) + (screenHeight / 2);
         float cameraX = (characterScreenX * screenWidth) + (screenWidth / 2);
 
-        //transform.position = new Vector3(cameraX, cameraY, transform.position.z);
-        //Debug.Log($"ScrrenY: "+ characterScreenY);
-        //Debug.Log($"ScrrenX: "+ characterScreenX);
         newPos = new Vector3(cameraX, cameraY, transform.position.z);
-        transform.position = Vector3.Lerp(transform.position, newPos, Time.deltaTime * cameraSpeed);
+        //it will only affect if the screen has changed
+        transform.position = Vector3.Lerp(transform.position, newPos, Time.deltaTime * cameraSpeed); 
         ScreenHasChanged();
     }
+
+    //detects if the camera has end its movement and notifies
     void ScreenHasChanged()
-    {
+    { 
         if (Vector3.Distance(transform.position, newPos) < 0.01f && currentPos != newPos)
         {
             transform.position = newPos;

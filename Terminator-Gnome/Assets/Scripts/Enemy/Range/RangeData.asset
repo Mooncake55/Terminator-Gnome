@@ -15,5 +15,7 @@ MonoBehaviour:
   attackkDuration: 0
   attackkSpeed: 2
   attackkRange: 0
+  attackDamage: 10
+  moveSpeed: 0
   lifePoints: 30
   sprite: {fileID: 3116565454428046965, guid: 720a8e20876078948943f2a5e8ba9b3b, type: 3}

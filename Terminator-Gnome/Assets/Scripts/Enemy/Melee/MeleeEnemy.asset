@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackkDuration: 1
   attackkSpeed: 1
-  attackkRange: 0
+  attackkRange: 0.2
+  attackDamage: 10
+  moveSpeed: 0
   lifePoints: 10
   sprite: {fileID: 7852077892343169363, guid: b41b296041d399f4d80fe0318d640633, type: 3}

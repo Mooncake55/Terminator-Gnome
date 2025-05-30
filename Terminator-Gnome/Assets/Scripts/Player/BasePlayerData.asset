@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c634f0ea94ae7364fab2db708b131f98, type: 3}
   m_Name: BasePlayerData
   m_EditorClassIdentifier: 
+  meleeAtkDamage: 30
   meleeAtkDuration: 1
   lifePoints: 100
   moveSpeed: 3.5

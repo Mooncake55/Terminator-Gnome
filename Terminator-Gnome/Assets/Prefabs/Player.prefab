@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8654471965407796945}
   - component: {fileID: 3327222524676909372}
   - component: {fileID: 3340752518648249467}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MeleeAtk
   m_TagString: AttackArea
   m_Icon: {fileID: 0}
@@ -203,7 +203,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7940192587610039729}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Joint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,9 +242,9 @@ GameObject:
   - component: {fileID: 5395342560028245666}
   - component: {fileID: 4347759120845920721}
   - component: {fileID: 1639616394679217299}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -277,7 +277,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 855feb84e5fc421459f6ee371d1dba64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
 --- !u!50 &2217495874953893726
 Rigidbody2D:
   serializedVersion: 5
@@ -304,7 +303,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &3578281906237220219
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -372,9 +371,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 377133715971812429a0380542194460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  joint: {fileID: 7940192587610039729}
-  meleeAtkDuration: 1
+  data: {fileID: 11400000, guid: b12168bfe98aa1e4990e89f3967ee774, type: 2}
   spawnPoint: {fileID: 0}
+  joint: {fileID: 7940192587610039729}
   isDashing: 0
 --- !u!114 &5395342560028245666
 MonoBehaviour:
@@ -388,11 +387,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551550f7129f4764f8811dc4d076aa9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashSpeed: 2
-  dashDuration: 0.2
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &4347759120845920721
 MonoBehaviour:
   m_ObjectHideFlags: 0

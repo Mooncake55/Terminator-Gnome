@@ -6,8 +6,8 @@ public class EnemyData : ScriptableObject
     public float attackkDuration;
     public float attackkSpeed;
     public float attackkRange;
-    public float moveSpeed; //para despues usar de una en el agent
+    public float attackDamage;
+    public float moveSpeed; //to change the navmesh agent speed
     public float lifePoints;
     public Sprite sprite;
-
 }

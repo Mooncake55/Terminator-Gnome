@@ -1,7 +1,8 @@
 using UnityEngine;
 
+//Implemented by player and enemies, indicates that it can take damage
 public interface IDamageable
 {
-    void HandleDamage(int amount); //modificar para que pase tambien a si mismo como ref
+    void HandleDamage(float amount); 
 }
 

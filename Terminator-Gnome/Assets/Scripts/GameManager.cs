@@ -4,7 +4,7 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public static GameManager Instance => instance; //esto pa que? dice que da mas robustez y protege de escritura pero qsy
+    public static GameManager Instance => instance; 
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    //Used to player respawn, it reactivates a game object after a time
     public void ScheduleReactivation(GameObject obj, float delay)
     {
         StartCoroutine(ReactivationCoroutine(obj, delay));

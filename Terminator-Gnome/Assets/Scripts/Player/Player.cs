@@ -1,39 +1,38 @@
 using System.Collections;
 using UnityEngine;
 
-
 public class Player : MonoBehaviour, IDamageable
 {
     private PlayerMovement playerMovement;
-    private PlayerDash playerDash;
-    [SerializeField] Transform joint; 
+    private PlayerDash playerDash; 
     private MeleeAttack meleeAttack;
-    //[SerializeField] float meleeAtkDuration = 1f;
-    float meleeAtkDuration;
+    //float meleeAtkDuration;
     private HealthSystem healthSystem;
-    [SerializeField] Transform spawnPoint;
-    bool isTakingDamage = false;
+    bool isTakingDamage = false; //for eventual checks and corroborations
     Coroutine damageCoroutine;
     public PlayerData data;
-
-    [SerializeField] bool isDashing;
-    private Vector2 lastDirection;
     SpriteRenderer spriteRenderer;
+    private Vector2 lastDirection;
 
+    [SerializeField] Transform spawnPoint;
+    [SerializeField] Transform joint;
+    [SerializeField] bool isDashing; //Serialized in order to do tests easily
+   
     void Start()
     {
-        healthSystem = GetComponent<HealthSystem>(); //vida
-        healthSystem.SetLifePoints(data.lifePoints);
-        healthSystem.OnDeath += HandleDeath;
+        healthSystem = GetComponent<HealthSystem>();
+        healthSystem.SetLifePoints(data.lifePoints); 
         spriteRenderer = GetComponent<SpriteRenderer>(); 
-        playerMovement = GetComponent<PlayerMovement>(); //movimiento
+        playerMovement = GetComponent<PlayerMovement>();
         playerMovement.SetPlayer(this);
-        playerDash = GetComponent<PlayerDash>(); //dash
+        playerDash = GetComponent<PlayerDash>();
         playerDash.SetPlayer(this);
         lastDirection = Vector2.zero;
-        InputController.Instance.OnMoveInput += HandleMoveInput;
-        InputController.Instance.OnShiftPressed += HandleDashInput;
-        InputController.Instance.OnRightClickPressed += HandleMeleeAttack;
+
+        healthSystem.OnDeath += HandleDeath;
+        InputController.instance.OnMoveInput += HandleMoveInput;
+        InputController.instance.OnShiftPressed += HandleDashInput;
+        InputController.instance.OnRightClickPressed += HandleMeleeAttack;
     }
     public PlayerData GetPlayerData() { return data; }
     void HandleMoveInput(Vector2 direction)
@@ -54,10 +53,12 @@ public class Player : MonoBehaviour, IDamageable
     {
         float atkDuration = data.meleeAtkDuration;
         SearchMeleeAttack();
-        //checkear validaciones 
+        meleeAttack.SetDamage(data.meleeAtkDamage);
         meleeAttack.ActivateAttack(lastDirection, atkDuration, joint);
         StartCoroutine(WaitSeconds(atkDuration));
     }
+
+    //gets both the hitbox and the meleeAttack of that hitbox
     void  SearchMeleeAttack()
     {
         if (joint != null)
@@ -71,11 +72,12 @@ public class Player : MonoBehaviour, IDamageable
     }
     private void OnDestroy()
     {
-        InputController.Instance.OnMoveInput -= HandleMoveInput;
-        InputController.Instance.OnShiftPressed -= HandleDashInput;
-        InputController.Instance.OnRightClickPressed -= HandleMeleeAttack;
+        InputController.instance.OnMoveInput -= HandleMoveInput;
+        InputController.instance.OnShiftPressed -= HandleDashInput;
+        InputController.instance.OnRightClickPressed -= HandleMeleeAttack;
     }
 
+    //temporary, so the sprite faces in the movement direction
     void FlipRender(Vector2 direction)
     {
         if (direction == Vector2.left)
@@ -87,34 +89,35 @@ public class Player : MonoBehaviour, IDamageable
             spriteRenderer.flipX = true;
         }
     }
-    IEnumerator WaitSeconds(float duration)
+    public IEnumerator WaitSeconds(float duration)
     {
         yield return new WaitForSeconds(duration);
     }
 
-    public void HandleDamage(int amount)
+    public void HandleDamage(float amount)
     {
-        //logica de da�o que falte 
-        healthSystem.TakeDamage(10);
-        ChangeColour(2f);
+        healthSystem.TakeDamage(amount);
+        if(damageCoroutine == null) { damageCoroutine = StartCoroutine(ChangeColour(1f)); }     
     }
 
+    //moves the player to the last spawnpoint, restores health and waits for the GameManaer to reactivate
     void HandleDeath()
     {
-        //StartCoroutine(WaitSeconds(3f));
         transform.position = spawnPoint.position;
-        healthSystem.Heal(20);
+        healthSystem.Heal(data.lifePoints);
         gameObject.SetActive(false);
         GameManager.instance.ScheduleReactivation(gameObject, 3f);
     }
+
+    //temporary, to indicate that the player has take damege
     public IEnumerator ChangeColour(float seconds)
     {
         isTakingDamage = true;
-        Color originColor = spriteRenderer.color;
+        Color originalColor = spriteRenderer.color;
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(seconds);
-        spriteRenderer.color = originColor;
-        isTakingDamage = true;
+        spriteRenderer.color = originalColor;
+        isTakingDamage = false;
         damageCoroutine = null;
     }
 }

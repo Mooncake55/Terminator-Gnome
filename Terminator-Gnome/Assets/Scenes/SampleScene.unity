@@ -252,10 +252,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 21833623852083994, guid: a54ecfb2ccfcc2d4097e668c2b6836ab, type: 3}
-      propertyPath: speed
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 432216351469416255, guid: a54ecfb2ccfcc2d4097e668c2b6836ab, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -316,10 +312,6 @@ PrefabInstance:
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 590455276}
-    - target: {fileID: 5395342560028245666, guid: a54ecfb2ccfcc2d4097e668c2b6836ab, type: 3}
-      propertyPath: dashSpeed
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7135566369507148361, guid: a54ecfb2ccfcc2d4097e668c2b6836ab, type: 3}
       propertyPath: m_Name
       value: Player (1)
@@ -51900,7 +51892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68bd124ac988cd419708942c8f1f77c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 951676376}
+  player: {fileID: 951676376}
   cameraSpeed: 6
 --- !u!1 &547618452
 GameObject:
@@ -85262,21 +85254,9 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 951676376}
-    - target: {fileID: 177377873481278445, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
-      propertyPath: enemyData
-      value: 
-      objectReference: {fileID: 11400000, guid: 7b0d9b0b9df29b74da0c8204925fc60a, type: 2}
     - target: {fileID: 1353612973932080860, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
       propertyPath: m_Name
       value: MeleeEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 3344630228102737979, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
-      propertyPath: m_Height
-      value: 1.54
-      objectReference: {fileID: 0}
-    - target: {fileID: 3344630228102737979, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 0.46
       objectReference: {fileID: 0}
     - target: {fileID: 4826684164988776960, guid: efb943f7d54e8cf459ce1ff93ddf7f62, type: 3}
       propertyPath: m_LocalPosition.x
@@ -85331,10 +85311,10 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 771849396}
   - {fileID: 547618454}
-  - {fileID: 8266724179760820690}
-  - {fileID: 45896720}
-  - {fileID: 665843406}
   - {fileID: 1728921224}
-  - {fileID: 1479711781}
+  - {fileID: 665843406}
+  - {fileID: 45896720}
   - {fileID: 590455276}
+  - {fileID: 8266724179760820690}
+  - {fileID: 1479711781}
   - {fileID: 14878861}

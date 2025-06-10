@@ -1,4 +1,6 @@
+using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour, IDamageable
@@ -6,7 +8,9 @@ public class Player : MonoBehaviour, IDamageable
     private PlayerMovement playerMovement;
     private PlayerDash playerDash; 
     private MeleeAttack meleeAttack;
-    //float meleeAtkDuration;
+    private IAttack attack; //cambiar!
+
+
     private HealthSystem healthSystem;
     bool isTakingDamage = false; //for eventual checks and corroborations
     Coroutine damageCoroutine;
@@ -32,7 +36,8 @@ public class Player : MonoBehaviour, IDamageable
         healthSystem.OnDeath += HandleDeath;
         InputController.instance.OnMoveInput += HandleMoveInput;
         InputController.instance.OnShiftPressed += HandleDashInput;
-        InputController.instance.OnRightClickPressed += HandleMeleeAttack;
+        InputController.instance.OnLeftClickPressed += HandleMeleeAttack;
+        InputController.instance.OnRightClickPressed += HandleRangeAttack;
     }
     public PlayerData GetPlayerData() { return data; }
     void HandleMoveInput(Vector2 direction)
@@ -58,6 +63,11 @@ public class Player : MonoBehaviour, IDamageable
         StartCoroutine(WaitSeconds(atkDuration));
     }
 
+
+
+
+
+
     //gets both the hitbox and the meleeAttack of that hitbox
     void  SearchMeleeAttack()
     {
@@ -74,7 +84,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         InputController.instance.OnMoveInput -= HandleMoveInput;
         InputController.instance.OnShiftPressed -= HandleDashInput;
-        InputController.instance.OnRightClickPressed -= HandleMeleeAttack;
+        InputController.instance.OnLeftClickPressed -= HandleMeleeAttack;
     }
 
     //temporary, so the sprite faces in the movement direction
@@ -119,5 +129,19 @@ public class Player : MonoBehaviour, IDamageable
         spriteRenderer.color = originalColor;
         isTakingDamage = false;
         damageCoroutine = null;
+    }
+    //public Vector2 GetFacingTo()
+    //{
+    //    return lastDirection;
+    //}
+    void HandleRangeAttack()
+    {
+        Transform rangeAttackObj = joint.Find("RangeAttack");
+        attack = rangeAttackObj.GetComponent<RangeAttack>();
+        if (attack != null)
+        {
+            attack.ExecuteAttack();
+        }
+
     }
 }

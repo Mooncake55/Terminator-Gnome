@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 
-public class MeleeAttack : MonoBehaviour
+public class MeleeAttack : MonoBehaviour, IAttack
 {
     private float damage;
     private SpriteRenderer hitBoxSprite;
@@ -46,5 +46,10 @@ public class MeleeAttack : MonoBehaviour
         {
             enemy.HandleDamage(damage);
         }
+    }
+
+    public void ExecuteAttack()
+    {
+        throw new NotImplementedException();
     }
 }

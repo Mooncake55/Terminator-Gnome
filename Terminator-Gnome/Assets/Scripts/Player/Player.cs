@@ -8,7 +8,7 @@ public class Player : MonoBehaviour, IDamageable
     private PlayerMovement playerMovement;
     private PlayerDash playerDash; 
     private MeleeAttack meleeAttack;
-    private IAttack attack; //cambiar!
+    //private IAttack attack; //cambiar!
 
 
     private HealthSystem healthSystem;
@@ -17,6 +17,7 @@ public class Player : MonoBehaviour, IDamageable
     public PlayerData data;
     SpriteRenderer spriteRenderer;
     private Vector2 lastDirection;
+    private AttackController attackController;
 
     [SerializeField] Transform spawnPoint;
     [SerializeField] Transform joint;
@@ -32,6 +33,8 @@ public class Player : MonoBehaviour, IDamageable
         playerDash = GetComponent<PlayerDash>();
         playerDash.SetPlayer(this);
         lastDirection = Vector2.zero;
+        attackController = GetComponent<AttackController>();
+        attackController.SetPlayer(this);
 
         healthSystem.OnDeath += HandleDeath;
         InputController.instance.OnMoveInput += HandleMoveInput;
@@ -54,32 +57,36 @@ public class Player : MonoBehaviour, IDamageable
         playerDash.Dash(lastDirection, false);
         isDashing = false;
     }
-    void HandleMeleeAttack()
+    void HandleMeleeAttack() //CAMBIAR
     {
-        float atkDuration = data.meleeAtkDuration;
-        SearchMeleeAttack();
-        meleeAttack.SetDamage(data.meleeAtkDamage);
-        meleeAttack.ActivateAttack(lastDirection, atkDuration, joint);
-        StartCoroutine(WaitSeconds(atkDuration));
+        // float atkDuration = data.meleeAtkDuration;
+        // SearchMeleeAttack();
+        // meleeAttack.SetDamage(data.meleeAtkDamage);
+        // meleeAttack.ActivateAttack(lastDirection, atkDuration, joint);
+        // StartCoroutine(WaitSeconds(atkDuration));
+        attackController.ExecuteMeleeAttack();
+    }
+    void HandleRangeAttack(){
+        attackController.ExecuteRangeAttack();
     }
 
-
-
-
+    public Vector2 GetFacingTo(){
+        return lastDirection;
+    }
 
 
     //gets both the hitbox and the meleeAttack of that hitbox
-    void  SearchMeleeAttack()
-    {
-        if (joint != null)
-        {
-            Transform meleeAttackObj = joint.Find("MeleeAtk");
-            if (meleeAttackObj != null)
-            {
-                meleeAttack = meleeAttackObj.GetComponent<MeleeAttack>();
-            }
-        }
-    }
+    // void  SearchMeleeAttack() //cambiar
+    // {
+    //     if (joint != null)
+    //     {
+    //         Transform meleeAttackObj = joint.Find("MeleeAtk");
+    //         if (meleeAttackObj != null)
+    //         {
+    //             meleeAttack = meleeAttackObj.GetComponent<MeleeAttack>();
+    //         }
+    //     }
+    // }
     private void OnDestroy()
     {
         InputController.instance.OnMoveInput -= HandleMoveInput;
@@ -129,19 +136,5 @@ public class Player : MonoBehaviour, IDamageable
         spriteRenderer.color = originalColor;
         isTakingDamage = false;
         damageCoroutine = null;
-    }
-    //public Vector2 GetFacingTo()
-    //{
-    //    return lastDirection;
-    //}
-    void HandleRangeAttack()
-    {
-        Transform rangeAttackObj = joint.Find("RangeAttack");
-        attack = rangeAttackObj.GetComponent<RangeAttack>();
-        if (attack != null)
-        {
-            attack.ExecuteAttack();
-        }
-
     }
 }

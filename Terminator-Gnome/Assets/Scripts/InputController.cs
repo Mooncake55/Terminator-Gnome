@@ -28,7 +28,7 @@ public class InputController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    //notifies the diferent user´s inputs through events
+    //notifies the diferent userï¿½s inputs through events
     private void Update()
     {
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));

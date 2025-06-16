@@ -46,11 +46,11 @@ public class MeleeAttackState : IEnemyState
                 meleeAttack.SetDamage(meleeEnemy.attackDamage);
             }
             else
-                Debug.LogWarning("No se encontró el componente MeleeAttack en " + meleeAttackObj.name);
+                Debug.LogWarning("No se encontrï¿½ el componente MeleeAttack en " + meleeAttackObj.name);
         }
         else
         {
-            Debug.LogWarning("No se encontró el objeto hijo EnemyMeleeAtk en " + joint.name);
+            Debug.LogWarning("No se encontrï¿½ el objeto hijo EnemyMeleeAtk en " + joint.name);
         }
     }
 
@@ -75,7 +75,7 @@ public class MeleeAttackState : IEnemyState
     public IEnumerator Attack()
     {
         isAttacking = true;
-        Debug.Log("Debería atacar");
+        Debug.Log("Deberï¿½a atacar");
 
         if (meleeAttack == null)
         {

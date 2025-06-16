@@ -31,7 +31,7 @@ public class MeleeEnemyIdleState : IEnemyState
         didCoroutine = true;
         Debug.Log("IdleAnimation");
         //here there should be a particle implementation
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1.5f);
         context.StopCurrentCoroutine();       
         Exit();
         didCoroutine = false;

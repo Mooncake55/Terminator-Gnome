@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     private Coroutine currentCoroutine;
     HealthSystem healthSystem;
     IEnemyState currentState;
+    ProjectileFactory projectileFactory;
 
     
     void Awake()
@@ -30,6 +31,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     }
     void Start()
     {
+        projectileFactory = GetComponent<ProjectileFactory>();
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.OnDeath += HandelDeath;
         healthSystem.SetLifePoints(enemyData.lifePoints);
@@ -55,7 +57,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     
     public void HandleDamage(float amount)
     {
-        Debug.Log("Daño");
+        Debug.Log("Daï¿½o");
         healthSystem.TakeDamage(5);
         ChangeColour(2f);
     }
@@ -82,9 +84,10 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void SetFaceTo(Vector2 direction) { facingTo = direction; }
     public Vector2 GetFaceTo() { return facingTo; }
     public EnemyData GetEnemyData() { return enemyData; }   
+    public ProjectileFactory GetFactory(){ return projectileFactory; }
 
     //MANEJO DE CORRUTINAS 
-    
+
     public void StartStateCoroutine(IEnumerator coroutine)
     {
         if (currentCoroutine != null)

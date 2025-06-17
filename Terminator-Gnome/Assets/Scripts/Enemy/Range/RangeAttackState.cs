@@ -7,8 +7,6 @@ public class RangeAttackState : IEnemyState
     private Transform target;
     private EnemyController context;
     private float attackRange;
-    private float fireRate = 1f;
-    private float projectileSpeed = 5f;
     ProjectileFactory factory;
     private bool isAttacking;
     public RangeAttackState(EnemyController enemy)
@@ -29,7 +27,7 @@ public class RangeAttackState : IEnemyState
         float distanceToTarget = Vector2.Distance(context.transform.position, target.position);
         if (distanceToTarget > attackRange)
         {
-            return;
+            if (!isAttacking) { context.StartStateCoroutine(Attack()); }
         }
         else
         {

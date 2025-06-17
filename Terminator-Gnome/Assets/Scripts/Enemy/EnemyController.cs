@@ -26,19 +26,23 @@ public class EnemyController : MonoBehaviour, IDamageable
     void Awake()
     {
         var agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
+        if(agent != null) 
+        {
+            agent.updateRotation = false;
+            agent.updateUpAxis = false;
+        }
+        
     }
     void Start()
     {
-        projectileFactory = GetComponent<ProjectileFactory>();
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.OnDeath += HandelDeath;
         healthSystem.SetLifePoints(enemyData.lifePoints);
         Debug.Log("NUEVO ENEMIGO");
         if(currentState == null)
         {
-            SetState(new MeleeEnemyIdleState(this));
+            if (this.CompareTag("EnemyMelee")) { SetState(new MeleeEnemyIdleState(this)); }
+            else if (this.CompareTag("EnemyRange")) { SetState(new RangeEnemyIdleState(this)); }
         }
     }
 
@@ -84,8 +88,15 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void SetFaceTo(Vector2 direction) { facingTo = direction; }
     public Vector2 GetFaceTo() { return facingTo; }
     public EnemyData GetEnemyData() { return enemyData; }   
-    public ProjectileFactory GetFactory(){ return projectileFactory; }
-
+    public ProjectileFactory GetFactory()
+    {
+        Transform projectileFactoryObj = transform.Find("ProjectileFactory");
+        if(projectileFactoryObj != null)
+        {
+            projectileFactory = projectileFactoryObj.GetComponent<ProjectileFactory>();
+        }
+        return projectileFactory;
+    }
     //MANEJO DE CORRUTINAS 
 
     public void StartStateCoroutine(IEnumerator coroutine)

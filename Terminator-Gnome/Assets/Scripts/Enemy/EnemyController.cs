@@ -44,6 +44,11 @@ public class EnemyController : MonoBehaviour, IDamageable
             if (this.CompareTag("EnemyMelee")) { SetState(new MeleeEnemyIdleState(this)); }
             else if (this.CompareTag("EnemyRange")) { SetState(new RangeEnemyIdleState(this)); }
         }
+        GameManager.instance.OnPlayerSpawn += SetPlayer;
+    }
+    void SetPlayer()
+    {
+        target = GameManager.instance.GetPlayer().transform;
     }
 
     public void SetState(IEnemyState newState)

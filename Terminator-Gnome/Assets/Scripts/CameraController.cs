@@ -16,6 +16,11 @@ public class CameraController : MonoBehaviour
     {
         screenHeight = Camera.main.orthographicSize * 2f; //whole screen Height
         screenWidth = screenHeight * Camera.main.aspect;
+        GameManager.instance.OnPlayerSpawn += SetPlayer;
+    }
+    void SetPlayer()
+    {
+        player = GameManager.instance.GetPlayer().transform;
     }
     private void Update()
     {

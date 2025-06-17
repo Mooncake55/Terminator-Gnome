@@ -120,10 +120,11 @@ public class Player : MonoBehaviour, IDamageable
     //moves the player to the last spawnpoint, restores health and waits for the GameManaer to reactivate
     void HandleDeath()
     {
-        transform.position = spawnPoint.position;
+        //transform.position = spawnPoint.position;
         healthSystem.Heal(data.lifePoints);
-        gameObject.SetActive(false);
-        GameManager.instance.ScheduleReactivation(gameObject, 3f);
+        //gameObject.SetActive(false);
+        GameManager.instance.ScheduleReactivation(gameObject, 2f);
+        Destroy(gameObject);
     }
 
     //temporary, to indicate that the player has take damege

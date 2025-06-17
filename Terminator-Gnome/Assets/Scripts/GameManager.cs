@@ -1,10 +1,18 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public static GameManager Instance => instance; 
+    public static GameManager Instance => instance;
+
+    [SerializeField] private GameObject playerPrefab;
+    //[SerializeField] private Vector2 spawnPosition = Vector2.zero;
+    [SerializeField] private Transform spawnPoint;
+    private GameObject currentPlayer;
+    public event Action OnPlayerSpawn;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -16,6 +24,11 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        Debug.Log("Deberia Spawnear un PLayer");
+        SpawnPlayer();
+    }
     //Used to player respawn, it reactivates a game object after a time
     public void ScheduleReactivation(GameObject obj, float delay)
     {
@@ -25,7 +38,20 @@ public class GameManager : MonoBehaviour
     private IEnumerator ReactivationCoroutine(GameObject obj, float delay)
     {
         yield return new WaitForSeconds(delay);
-        obj.SetActive(true);
+        SpawnPlayer();
     }
+
+    void SpawnPlayer() 
+    {
+        if (currentPlayer!= null)
+        {
+            Debug.Log("Spawneando Player");
+            Destroy(currentPlayer);
+        }
+        currentPlayer = Instantiate(playerPrefab, spawnPoint.position, Quaternion.identity);
+        OnPlayerSpawn?.Invoke();
+    }
+    public GameObject GetPlayer() { return currentPlayer; }
+
 
 }

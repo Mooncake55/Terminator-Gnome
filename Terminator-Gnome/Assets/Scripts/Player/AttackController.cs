@@ -29,6 +29,7 @@ public class AttackController : MonoBehaviour
     }
     public void ExecuteRangeAttack()
     {
+        if(player == null) { return;}
         float atkDuration = player.GetPlayerData().meleeAtkDuration;
         rangeAttack.SetDamage(100); //CAMBIAR
         Vector2 direction = (InputController.instance.GetMousePos() - (Vector2)transform.position).normalized;

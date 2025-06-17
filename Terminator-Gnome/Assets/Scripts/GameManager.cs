@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     }
     //Used to player respawn, it reactivates a game object after a time
     public void ScheduleReactivation(GameObject obj, float delay)
-    {
+    { 
         StartCoroutine(ReactivationCoroutine(obj, delay));
     }
 
@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
             Destroy(currentPlayer);
         }
         currentPlayer = Instantiate(playerPrefab, spawnPoint.position, Quaternion.identity);
+        currentPlayer.GetComponent<Player>().Init();
         OnPlayerSpawn?.Invoke();
     }
     public GameObject GetPlayer() { return currentPlayer; }

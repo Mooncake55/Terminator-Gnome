@@ -59,6 +59,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     void Update()
     {
+        if(target == null) { SetPlayer();}
         if(currentState != null) { currentState.UpdateAction(); }
         //currentState.UpdateAction(); //para que no sea el estsado quien tenga el update (monobehaviour)
     }

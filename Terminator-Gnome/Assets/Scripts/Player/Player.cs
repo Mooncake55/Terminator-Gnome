@@ -23,7 +23,7 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] Transform joint;
     [SerializeField] bool isDashing; //Serialized in order to do tests easily
    
-    void Start()
+    public void Init()
     {
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.SetLifePoints(data.lifePoints); 
@@ -64,9 +64,13 @@ public class Player : MonoBehaviour, IDamageable
         // meleeAttack.SetDamage(data.meleeAtkDamage);
         // meleeAttack.ActivateAttack(lastDirection, atkDuration, joint);
         // StartCoroutine(WaitSeconds(atkDuration));
+        Debug.Log("HandleMELEatk");
+        attackController.SetPlayer(this);
         attackController.ExecuteMeleeAttack();
     }
     void HandleRangeAttack(){
+        Debug.Log("HandleRANGEatk");
+        attackController.SetPlayer(this);
         attackController.ExecuteRangeAttack();
     }
 
@@ -124,7 +128,7 @@ public class Player : MonoBehaviour, IDamageable
         healthSystem.Heal(data.lifePoints);
         //gameObject.SetActive(false);
         GameManager.instance.ScheduleReactivation(gameObject, 2f);
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 
     //temporary, to indicate that the player has take damege

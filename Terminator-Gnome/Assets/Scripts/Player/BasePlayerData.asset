@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meleeAtkDamage: 30
   meleeAtkDuration: 1
+  rangeAtkDuration: 0.5
+  rangeAtkCoolDown: 2
   lifePoints: 100
   moveSpeed: 3.5
   dashSpeed: 1

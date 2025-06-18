@@ -17,6 +17,7 @@ public class Player : MonoBehaviour, IDamageable
     SpriteRenderer spriteRenderer;
     private Vector2 lastDirection;
     private AttackController attackController;
+    private bool isAttacking;
 
     [SerializeField] Transform spawnPoint;
     [SerializeField] Transform joint;
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour, IDamageable
 
     Coroutine damageCoroutine;
     Coroutine dashCoroutine;
+    Coroutine attackCoroutine;
    
     public void Init()
     {
@@ -72,16 +74,37 @@ public class Player : MonoBehaviour, IDamageable
 
     void HandleMeleeAttack() //CAMBIAR
     {
+        //if (isAttacking) { return; }
+        //isAttacking = true;
+        if (attackCoroutine != null) { return; }
         Debug.Log("HandleMELEatk");
         attackController.SetPlayer(this);
-        attackController.ExecuteMeleeAttack();
+        //attackController.ExecuteMeleeAttack();
+        //isAttacking = false;
+        attackCoroutine = StartCoroutine(AttackCoroutine(0));
+
     }
-    void HandleRangeAttack(){
+    void HandleRangeAttack()
+    {
+        if (attackCoroutine != null) { return; }
         Debug.Log("HandleRANGEatk");
         attackController.SetPlayer(this);
-        attackController.ExecuteRangeAttack();
+        //attackController.ExecuteRangeAttack();
+        attackCoroutine = StartCoroutine(AttackCoroutine(1));
     }
-
+    IEnumerator AttackCoroutine(int option)
+    {
+        float cooldDown = data.meleeAtkDuration;
+        //isAttacking = true;
+        if(option == 0) { attackController.ExecuteMeleeAttack(); }
+        else 
+        { 
+            attackController.ExecuteRangeAttack();
+            cooldDown = data.rangeAtkCoolDown;
+        }
+        yield return new WaitForSeconds(cooldDown);
+        attackCoroutine = null;
+    }
     public Vector2 GetFacingTo(){
         return lastDirection;
     }

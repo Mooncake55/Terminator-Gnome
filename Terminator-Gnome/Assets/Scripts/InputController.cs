@@ -33,7 +33,8 @@ public class InputController : MonoBehaviour
     {
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         OnMoveInput?.Invoke(moveInput.normalized);
-        if (Input.GetKeyDown(KeyCode.LeftShift) && moveInput != Vector2.zero)
+        //if (Input.GetKeyDown(KeyCode.LeftShift) && moveInput != Vector2.zero)
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             Debug.Log("SHIFT");
             OnShiftPressed?.Invoke(true);

@@ -16,5 +16,5 @@ MonoBehaviour:
   meleeAtkDuration: 1
   lifePoints: 100
   moveSpeed: 3.5
-  dashSpeed: 2
+  dashSpeed: 1
   dashDuration: 0.2

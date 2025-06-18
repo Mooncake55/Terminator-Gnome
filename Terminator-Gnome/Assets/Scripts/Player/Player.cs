@@ -146,6 +146,10 @@ public class Player : MonoBehaviour, IDamageable
     //moves the player to the last spawnpoint, restores health and waits for the GameManaer to reactivate
     void HandleDeath()
     {
+        InputController.instance.OnMoveInput -= HandleMoveInput;
+        InputController.instance.OnShiftPressed -= HandleDashInput;
+        InputController.instance.OnLeftClickPressed -= HandleMeleeAttack;
+        InputController.instance.OnRightClickPressed -= HandleRangeAttack;
         //transform.position = spawnPoint.position;
         healthSystem.Heal(data.lifePoints);
         //gameObject.SetActive(false);

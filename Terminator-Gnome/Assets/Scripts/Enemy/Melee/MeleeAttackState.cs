@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class MeleeAttackState : IEnemyState
 {
@@ -25,7 +26,7 @@ public class MeleeAttackState : IEnemyState
     //Sets the enemyData values
     public void Enter()
     {
-        atkDuration = meleeEnemy.attackkDuration;
+        atkDuration = meleeEnemy.attackDuration;
     }
      //gets the meleeAttack hitbox and its component
     private void GetMeleeAttack()
@@ -46,16 +47,16 @@ public class MeleeAttackState : IEnemyState
                 meleeAttack.SetDamage(meleeEnemy.attackDamage);
             }
             else
-                Debug.LogWarning("No se encontró el componente MeleeAttack en " + meleeAttackObj.name);
+                Debug.LogWarning("No se encontrï¿½ el componente MeleeAttack en " + meleeAttackObj.name);
         }
         else
         {
-            Debug.LogWarning("No se encontró el objeto hijo EnemyMeleeAtk en " + joint.name);
+            Debug.LogWarning("No se encontrï¿½ el objeto hijo EnemyMeleeAtk en " + joint.name);
         }
     }
 
     public void UpdateAction()
-    {
+    {      
         direction = context.GetFaceTo();
         if (!isAttacking) { context.StartStateCoroutine(Attack()); }
     }
@@ -75,7 +76,7 @@ public class MeleeAttackState : IEnemyState
     public IEnumerator Attack()
     {
         isAttacking = true;
-        Debug.Log("Debería atacar");
+        Debug.Log("Deberï¿½a atacar");
 
         if (meleeAttack == null)
         {
@@ -84,11 +85,13 @@ public class MeleeAttackState : IEnemyState
         else
         {
             Debug.Log("Llamando a ActivateAttack");
-            meleeAttack.ActivateAttack(direction, 1f, joint);
+            meleeAttack.ActivateAttack(direction, meleeEnemy.attackDuration, joint);
         }
-        yield return new WaitForSeconds(atkDuration);
+        //yield return new WaitForSeconds(atkDuration);
+        yield return new WaitForSeconds(meleeEnemy.attackCooldDown);
         isAttacking = false;
         Exit();
     }
+
 }
 

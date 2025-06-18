@@ -4,9 +4,12 @@ using UnityEngine;
 public class PlayerData : ScriptableObject
 {
     public float meleeAtkDamage;
-    public float meleeAtkDuration; 
+    public float meleeAtkDuration;
+    public float rangeAtkDuration;
+    public float rangeAtkCoolDown;
     public float lifePoints;
     public float moveSpeed;
     public float dashSpeed;
     public float dashDuration;
+    public float dashCoolDown;
 }

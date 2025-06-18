@@ -20,13 +20,18 @@ public class EnemyController : MonoBehaviour, IDamageable
     private Coroutine currentCoroutine;
     HealthSystem healthSystem;
     IEnemyState currentState;
+    ProjectileFactory projectileFactory;
 
     
     void Awake()
     {
         var agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
+        if(agent != null) 
+        {
+            agent.updateRotation = false;
+            agent.updateUpAxis = false;
+        }
+        
     }
     void Start()
     {
@@ -34,10 +39,16 @@ public class EnemyController : MonoBehaviour, IDamageable
         healthSystem.OnDeath += HandelDeath;
         healthSystem.SetLifePoints(enemyData.lifePoints);
         Debug.Log("NUEVO ENEMIGO");
-        if(currentState == null)
-        {
-            SetState(new MeleeEnemyIdleState(this));
-        }
+        //if(currentState == null)
+        //{
+        //    if (this.CompareTag("EnemyMelee")) { SetState(new MeleeEnemyIdleState(this)); }
+        //    else if (this.CompareTag("EnemyRange")) { SetState(new RangeEnemyIdleState(this)); }
+        //}
+        GameManager.instance.OnPlayerSpawn += SetPlayer;
+    }
+    void SetPlayer()
+    {
+        target = GameManager.instance.GetPlayer().transform;
     }
 
     public void SetState(IEnemyState newState)
@@ -48,6 +59,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     void Update()
     {
+        if(target == null) { SetPlayer();}
         if(currentState != null) { currentState.UpdateAction(); }
         //currentState.UpdateAction(); //para que no sea el estsado quien tenga el update (monobehaviour)
     }
@@ -55,9 +67,9 @@ public class EnemyController : MonoBehaviour, IDamageable
     
     public void HandleDamage(float amount)
     {
-        Debug.Log("Daño");
-        healthSystem.TakeDamage(5);
-        ChangeColour(2f);
+        Debug.Log("Daï¿½o");
+        healthSystem.TakeDamage(amount);
+        ChangeColour(1f);
     }
     public IEnumerator ChangeColour(float seconds)
     {
@@ -82,9 +94,17 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void SetFaceTo(Vector2 direction) { facingTo = direction; }
     public Vector2 GetFaceTo() { return facingTo; }
     public EnemyData GetEnemyData() { return enemyData; }   
-
+    public ProjectileFactory GetFactory()
+    {
+        Transform projectileFactoryObj = transform.Find("ProjectileFactory");
+        if(projectileFactoryObj != null)
+        {
+            projectileFactory = projectileFactoryObj.GetComponent<ProjectileFactory>();
+        }
+        return projectileFactory;
+    }
     //MANEJO DE CORRUTINAS 
-    
+
     public void StartStateCoroutine(IEnumerator coroutine)
     {
         if (currentCoroutine != null)

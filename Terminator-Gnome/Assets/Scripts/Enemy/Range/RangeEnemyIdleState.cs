@@ -1,18 +1,16 @@
-using System;
-using System.Collections;
 using UnityEngine;
-
-public class MeleeEnemyIdleState : IEnemyState
+using System.Collections;
+public class RangeEnemyIdleState : IEnemyState
 {
     EnemyController context;
     //Coroutine animationCoroutine;
     IEnemyState nextState;
     private bool didCoroutine;
 
-    public MeleeEnemyIdleState(EnemyController enemy)
+    public RangeEnemyIdleState(EnemyController enemy)
     {
         context = enemy;
-        Debug.Log($"Entrando al estado Idle");
+        Debug.Log($"Entrando al estado RangeIdle");
     }
 
     //Sets the enemiData values, in this case, none
@@ -47,7 +45,7 @@ public class MeleeEnemyIdleState : IEnemyState
 
         if (didCoroutine)
         {
-            nextState = new MeleeMovementState(context);
+            nextState = new RangeAttackState(context);
         }
         if (nextState != null)
         {

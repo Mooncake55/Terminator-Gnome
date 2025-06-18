@@ -47,4 +47,9 @@ public class MeleeAttack : MonoBehaviour
             enemy.HandleDamage(damage);
         }
     }
+
+    public void ExecuteAttack()
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cee9c2357a0ae34095562fccf55ab53, type: 3}
   m_Name: RangeData
   m_EditorClassIdentifier: 
-  attackkDuration: 0
-  attackkSpeed: 2
-  attackkRange: 0
+  attackDuration: 0
+  attackCooldDown: 1.5
+  attackRange: 0
   attackDamage: 10
   moveSpeed: 0
   lifePoints: 30

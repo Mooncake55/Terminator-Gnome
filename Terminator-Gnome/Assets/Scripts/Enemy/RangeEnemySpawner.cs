@@ -1,9 +1,8 @@
-using System;
 using UnityEngine;
 
-public class MeleeEnemySpawner : MonoBehaviour
+public class RangeEnemySpawner : MonoBehaviour
 {
-    [SerializeField]private GameObject meleeEnemyPrefab;
+    [SerializeField]private GameObject rangeEnemyPrefab;
     //public event Action OnSpawning;
     //public event Action DesSpawning;
     public IEnemyState enemyState;
@@ -14,9 +13,6 @@ public class MeleeEnemySpawner : MonoBehaviour
     {
         enemySpawnerController.OnPreparigToSpawn += SpawnEnemies;
     }
-
-    //cheks on the list of spawnpoints and if its a melee spawn spawns the enemy and deletes the 
-    //spawnpoint so it doest spawn every time the player goes to and already visited screen
     public void SpawnEnemies(Collider2D[] enemyColliders)
     {
         if (enemyColliders.Length != 0) 
@@ -24,9 +20,9 @@ public class MeleeEnemySpawner : MonoBehaviour
             //OnSpawning?.Invoke();
             foreach (var enemySpawn in enemyColliders)
             {
-                if (enemySpawn.CompareTag("MeleeEnemySpawn"))
+                if (enemySpawn.CompareTag("RangeEnemySpawn"))
                 {
-                    InstantiateMeleeEnemy(enemySpawn);
+                    InstantiateRangeEnemy(enemySpawn);
                     Destroy(enemySpawn);
                 }
             }
@@ -34,11 +30,12 @@ public class MeleeEnemySpawner : MonoBehaviour
     }
 
     //MeleeEnemyIdleState is the initial state for this enemy
-    void InstantiateMeleeEnemy(Collider2D meleeCollider)
+    void InstantiateRangeEnemy(Collider2D meleeCollider)
     {
-        GameObject enemy = Instantiate(meleeEnemyPrefab, meleeCollider.transform.position, Quaternion.identity);
+        GameObject enemy = Instantiate(rangeEnemyPrefab, meleeCollider.transform.position, Quaternion.identity);
         EnemyController enemyController = enemy.GetComponent<EnemyController>();
-        enemyState = new MeleeEnemyIdleState(enemyController);
+        enemyState = new RangeEnemyIdleState(enemyController);
         enemyController.SetState(enemyState);
+
     }
 }

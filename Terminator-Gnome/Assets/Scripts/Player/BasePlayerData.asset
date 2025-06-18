@@ -17,4 +17,5 @@ MonoBehaviour:
   lifePoints: 100
   moveSpeed: 3.5
   dashSpeed: 1
-  dashDuration: 0.2
+  dashDuration: 1.5
+  dashCoolDown: 1

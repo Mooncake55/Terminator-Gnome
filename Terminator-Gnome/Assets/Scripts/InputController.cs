@@ -10,7 +10,7 @@ public class InputController : MonoBehaviour
     public static InputController instance;
 
     public event Action<Vector2> OnMoveInput;
-    public event Action<bool> OnShiftPressed;
+    public event Action OnShiftPressed;
     public event Action OnLeftClickPressed;
     public event Action OnRightClickPressed;
 
@@ -37,7 +37,7 @@ public class InputController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             Debug.Log("SHIFT");
-            OnShiftPressed?.Invoke(true);
+            OnShiftPressed?.Invoke();
         }
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {

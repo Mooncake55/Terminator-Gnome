@@ -9,4 +9,5 @@ public class PlayerData : ScriptableObject
     public float moveSpeed;
     public float dashSpeed;
     public float dashDuration;
+    public float dashCoolDown;
 }

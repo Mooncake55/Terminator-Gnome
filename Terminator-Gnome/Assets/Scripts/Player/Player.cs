@@ -13,7 +13,6 @@ public class Player : MonoBehaviour, IDamageable
 
     private HealthSystem healthSystem;
     bool isTakingDamage = false; //for eventual checks and corroborations
-    Coroutine damageCoroutine;
     public PlayerData data;
     SpriteRenderer spriteRenderer;
     private Vector2 lastDirection;
@@ -21,7 +20,10 @@ public class Player : MonoBehaviour, IDamageable
 
     [SerializeField] Transform spawnPoint;
     [SerializeField] Transform joint;
-    [SerializeField] bool isDashing; //Serialized in order to do tests easily
+    [SerializeField] bool isDashing = false; //Serialized in order to do tests easily
+
+    Coroutine damageCoroutine;
+    Coroutine dashCoroutine;
    
     public void Init()
     {
@@ -49,21 +51,27 @@ public class Player : MonoBehaviour, IDamageable
         if (direction != Vector2.zero) { lastDirection = direction; }
         if (!isDashing) { playerMovement.MovePlayer(direction); }  
     }
-    void HandleDashInput(bool isDashing) 
+    void HandleDashInput() 
     {
+        if(dashCoroutine != null) { return; }
         FlipRender(lastDirection);
-        Debug.Log("Deberia dashear");
-        isDashing = true;
-        playerDash.Dash(lastDirection, false);
+        dashCoroutine = StartCoroutine(DashCoroutine());
         isDashing = false;
     }
+    public void DashTo(Vector2 direction, bool changeDirection) 
+    {
+        playerDash.Dash(direction, changeDirection);
+    }
+    IEnumerator DashCoroutine()
+    {
+        isDashing = true;
+        playerDash.Dash(lastDirection, false);
+        yield return new WaitForSeconds(data.dashCoolDown);    
+        dashCoroutine = null;
+    }
+
     void HandleMeleeAttack() //CAMBIAR
     {
-        // float atkDuration = data.meleeAtkDuration;
-        // SearchMeleeAttack();
-        // meleeAttack.SetDamage(data.meleeAtkDamage);
-        // meleeAttack.ActivateAttack(lastDirection, atkDuration, joint);
-        // StartCoroutine(WaitSeconds(atkDuration));
         Debug.Log("HandleMELEatk");
         attackController.SetPlayer(this);
         attackController.ExecuteMeleeAttack();
@@ -78,19 +86,6 @@ public class Player : MonoBehaviour, IDamageable
         return lastDirection;
     }
 
-
-    //gets both the hitbox and the meleeAttack of that hitbox
-    // void  SearchMeleeAttack() //cambiar
-    // {
-    //     if (joint != null)
-    //     {
-    //         Transform meleeAttackObj = joint.Find("MeleeAtk");
-    //         if (meleeAttackObj != null)
-    //         {
-    //             meleeAttack = meleeAttackObj.GetComponent<MeleeAttack>();
-    //         }
-    //     }
-    // }
     private void OnDestroy()
     {
         InputController.instance.OnMoveInput -= HandleMoveInput;

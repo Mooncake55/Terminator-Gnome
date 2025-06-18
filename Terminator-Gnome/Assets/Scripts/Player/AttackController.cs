@@ -35,6 +35,7 @@ public class AttackController : MonoBehaviour
         Vector2 direction = (InputController.instance.GetMousePos() - (Vector2)transform.position).normalized;
         rangeAttack.ActivateAttack(direction, atkDuration, joint);
         StartCoroutine(WaitSeconds(atkDuration));
+        player.DashTo(direction, true);
     }
     void  SearchAttacks()
     {

@@ -14,6 +14,7 @@ public class MeleeMovementState :  IEnemyState
     private bool isAttacking = false;
     private float attackRange;
 
+
     public MeleeMovementState(EnemyController enemy)
     {
         Debug.Log("Entradndo a MOVEMENT");
@@ -26,7 +27,8 @@ public class MeleeMovementState :  IEnemyState
     //Sets the enemyData values
     public void Enter()
     {
-        attackRange = context.GetEnemyData().attackkRange;
+        _agent.speed = context.GetEnemyData().moveSpeed;
+        attackRange = context.GetEnemyData().attackRange;
         Debug.Log(attackRange);
     }
 

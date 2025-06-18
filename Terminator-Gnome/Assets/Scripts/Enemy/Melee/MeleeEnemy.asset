@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cee9c2357a0ae34095562fccf55ab53, type: 3}
   m_Name: MeleeEnemy
   m_EditorClassIdentifier: 
-  attackkDuration: 1
-  attackkSpeed: 1
-  attackkRange: 0.2
+  attackDuration: 0.5
+  attackCooldDown: 1.5
+  attackRange: 0.2
   attackDamage: 10
-  moveSpeed: 0
+  moveSpeed: 3
   lifePoints: 10
   sprite: {fileID: 7852077892343169363, guid: b41b296041d399f4d80fe0318d640633, type: 3}

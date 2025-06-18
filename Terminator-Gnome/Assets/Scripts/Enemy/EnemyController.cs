@@ -68,8 +68,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void HandleDamage(float amount)
     {
         Debug.Log("Da�o");
-        healthSystem.TakeDamage(5);
-        ChangeColour(2f);
+        healthSystem.TakeDamage(amount);
+        ChangeColour(1f);
     }
     public IEnumerator ChangeColour(float seconds)
     {

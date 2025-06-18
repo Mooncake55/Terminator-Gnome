@@ -26,7 +26,7 @@ public class MeleeAttackState : IEnemyState
     //Sets the enemyData values
     public void Enter()
     {
-        atkDuration = meleeEnemy.attackkDuration;
+        atkDuration = meleeEnemy.attackDuration;
     }
      //gets the meleeAttack hitbox and its component
     private void GetMeleeAttack()
@@ -85,11 +85,13 @@ public class MeleeAttackState : IEnemyState
         else
         {
             Debug.Log("Llamando a ActivateAttack");
-            meleeAttack.ActivateAttack(direction, 1f, joint);
+            meleeAttack.ActivateAttack(direction, meleeEnemy.attackDuration, joint);
         }
-        yield return new WaitForSeconds(atkDuration);
+        //yield return new WaitForSeconds(atkDuration);
+        yield return new WaitForSeconds(meleeEnemy.attackCooldDown);
         isAttacking = false;
         Exit();
     }
+
 }
 

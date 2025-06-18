@@ -19,7 +19,7 @@ public class RangeAttackState : IEnemyState
     public void Enter()
     {
         target = context.GetTarget();
-        attackRange = context.GetEnemyData().attackkRange;
+        attackRange = context.GetEnemyData().attackRange;
     }
 
     public void UpdateAction()

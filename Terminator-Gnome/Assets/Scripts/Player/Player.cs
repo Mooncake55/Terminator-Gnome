@@ -57,19 +57,23 @@ public class Player : MonoBehaviour, IDamageable
     {
         if(dashCoroutine != null) { return; }
         FlipRender(lastDirection);
-        dashCoroutine = StartCoroutine(DashCoroutine());
+        dashCoroutine = StartCoroutine(DashCoroutine(data.dashCoolDown, false));
         isDashing = false;
     }
     public void DashTo(Vector2 direction, bool changeDirection) 
     {
-        playerDash.Dash(direction, changeDirection);
+        isDashing = true;
+        //playerDash.Dash(direction, changeDirection);
+        dashCoroutine = StartCoroutine(DashCoroutine(0.2f, true));
+        //isDashing = false;
     }
-    IEnumerator DashCoroutine()
+    IEnumerator DashCoroutine(float wait, bool changeDirection)
     {
         isDashing = true;
-        playerDash.Dash(lastDirection, false);
-        yield return new WaitForSeconds(data.dashCoolDown);    
+        playerDash.Dash(lastDirection, changeDirection);
+        yield return new WaitForSeconds(wait);    
         dashCoroutine = null;
+        isDashing = false;
     }
 
     void HandleMeleeAttack() //CAMBIAR

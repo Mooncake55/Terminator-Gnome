@@ -38,7 +38,7 @@ public class RangeAttackState : IEnemyState
     public IEnumerator Attack()
     {
         isAttacking = true;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(context.GetEnemyData().attackCooldDown);
         Vector2 direction = ((Vector2)target.position - (Vector2)context.transform.position).normalized;
         factory.Fire(direction);
         isAttacking = false;

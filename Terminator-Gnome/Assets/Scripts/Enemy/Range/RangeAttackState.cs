@@ -24,7 +24,8 @@ public class RangeAttackState : IEnemyState
 
     public void UpdateAction()
     {
-        float distanceToTarget = Vector2.Distance(context.transform.position, target.position);
+        if(target == null) { target = context.GetTarget(); return; }
+            float distanceToTarget = Vector2.Distance(context.transform.position, target.position);
         if (distanceToTarget > attackRange)
         {
             if (!isAttacking) { context.StartStateCoroutine(Attack()); }

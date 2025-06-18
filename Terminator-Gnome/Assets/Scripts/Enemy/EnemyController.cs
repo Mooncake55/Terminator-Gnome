@@ -39,11 +39,11 @@ public class EnemyController : MonoBehaviour, IDamageable
         healthSystem.OnDeath += HandelDeath;
         healthSystem.SetLifePoints(enemyData.lifePoints);
         Debug.Log("NUEVO ENEMIGO");
-        if(currentState == null)
-        {
-            if (this.CompareTag("EnemyMelee")) { SetState(new MeleeEnemyIdleState(this)); }
-            else if (this.CompareTag("EnemyRange")) { SetState(new RangeEnemyIdleState(this)); }
-        }
+        //if(currentState == null)
+        //{
+        //    if (this.CompareTag("EnemyMelee")) { SetState(new MeleeEnemyIdleState(this)); }
+        //    else if (this.CompareTag("EnemyRange")) { SetState(new RangeEnemyIdleState(this)); }
+        //}
         GameManager.instance.OnPlayerSpawn += SetPlayer;
     }
     void SetPlayer()

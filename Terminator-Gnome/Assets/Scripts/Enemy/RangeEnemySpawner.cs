@@ -35,6 +35,7 @@ public class RangeEnemySpawner : MonoBehaviour
         GameObject enemy = Instantiate(rangeEnemyPrefab, meleeCollider.transform.position, Quaternion.identity);
         EnemyController enemyController = enemy.GetComponent<EnemyController>();
         enemyState = new RangeEnemyIdleState(enemyController);
-        
+        enemyController.SetState(enemyState);
+
     }
 }

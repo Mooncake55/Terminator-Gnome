@@ -32,6 +32,7 @@ public class MeleeMovementState :  IEnemyState
 
     public void UpdateAction()
     {
+        if (target == null) { target = context.GetTarget(); return; }
         direction = _agent.velocity.normalized;
         context.SetFaceTo(direction);
         if (target == null) { return; }

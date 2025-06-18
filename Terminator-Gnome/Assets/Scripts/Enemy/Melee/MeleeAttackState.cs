@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class MeleeAttackState : IEnemyState
 {
@@ -55,7 +56,7 @@ public class MeleeAttackState : IEnemyState
     }
 
     public void UpdateAction()
-    {
+    {      
         direction = context.GetFaceTo();
         if (!isAttacking) { context.StartStateCoroutine(Attack()); }
     }

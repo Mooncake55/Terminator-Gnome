@@ -39,5 +39,6 @@ public class MeleeEnemySpawner : MonoBehaviour
         GameObject enemy = Instantiate(meleeEnemyPrefab, meleeCollider.transform.position, Quaternion.identity);
         EnemyController enemyController = enemy.GetComponent<EnemyController>();
         enemyState = new MeleeEnemyIdleState(enemyController);
+        enemyController.SetState(enemyState);
     }
 }

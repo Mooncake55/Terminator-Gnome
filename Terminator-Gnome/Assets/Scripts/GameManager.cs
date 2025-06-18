@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
         OnPlayerSpawn?.Invoke();
     }
     public GameObject GetPlayer() { return currentPlayer; }
+    public Vector2 GetPlayerSpawnPoint() { return spawnPoint.position; }
 
 
 }

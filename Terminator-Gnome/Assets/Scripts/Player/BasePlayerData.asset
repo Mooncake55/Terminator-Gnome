@@ -17,7 +17,7 @@ MonoBehaviour:
   rangeAtkDuration: 0.5
   rangeAtkCoolDown: 2
   lifePoints: 100
-  moveSpeed: 3.5
+  moveSpeed: 5
   dashSpeed: 1
   dashDuration: 1.5
   dashCoolDown: 1

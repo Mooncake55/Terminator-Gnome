@@ -8,12 +8,16 @@ public class AttackController : MonoBehaviour
     private MeleeAttack rangeAttack;
 
     [SerializeField] Transform joint;
+    [SerializeField] float rangeDamage = 55f;
 
     private Player player;
+    private Animator animator;
+    private bool isRangeAtk;
 
     void Start()
     {
         SearchAttacks();
+        animator = player.GetAnimator();
     }
     public void SetPlayer(Player data){
         player = data;
@@ -24,16 +28,18 @@ public class AttackController : MonoBehaviour
     {
         float atkDuration = player.GetPlayerData().meleeAtkDuration;
         meleeAttack.SetDamage(player.GetPlayerData().meleeAtkDamage);
-        meleeAttack.ActivateAttack(player.GetFacingTo(), atkDuration, joint);
+        meleeAttack.ActivateAttack(player.GetFacingTo(), atkDuration, joint, "isMeleeAttacking");
         StartCoroutine(WaitSeconds(atkDuration));
     }
     public void ExecuteRangeAttack()
     {
+        Debug.Log("rangeAtk");
         if(player == null) { return;}
         float atkDuration = player.GetPlayerData().rangeAtkDuration;
-        rangeAttack.SetDamage(100); //CAMBIAR
+        rangeAttack.SetDamage(rangeDamage); //CAMBIAR
         Vector2 direction = (InputController.instance.GetMousePos() - (Vector2)transform.position).normalized;
-        rangeAttack.ActivateAttack(direction, atkDuration, joint);
+        //rangeAttack.ActivateAttack(direction, atkDuration, joint);
+        rangeAttack.ActivateAttack(direction, atkDuration, joint, "isRangeAttacking");
         StartCoroutine(WaitSeconds(atkDuration));
         player.DashTo(direction, true);
     }

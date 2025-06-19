@@ -26,7 +26,9 @@ public class Player : MonoBehaviour, IDamageable
     Coroutine damageCoroutine;
     Coroutine dashCoroutine;
     Coroutine attackCoroutine;
-   
+    [Header("Animation")]
+    private Animator animator;
+
     public void Init()
     {
         healthSystem = GetComponent<HealthSystem>();
@@ -39,6 +41,7 @@ public class Player : MonoBehaviour, IDamageable
         lastDirection = Vector2.zero;
         attackController = GetComponent<AttackController>();
         attackController.SetPlayer(this);
+        animator = GetComponent<Animator>();
 
         healthSystem.OnDeath += HandleDeath;
         InputController.instance.OnMoveInput += HandleMoveInput;
@@ -47,6 +50,7 @@ public class Player : MonoBehaviour, IDamageable
         InputController.instance.OnRightClickPressed += HandleRangeAttack;
     }
     public PlayerData GetPlayerData() { return data; }
+    public Animator GetAnimator() { return animator; }  
     void HandleMoveInput(Vector2 direction)
     {
         //FlipRender(direction);

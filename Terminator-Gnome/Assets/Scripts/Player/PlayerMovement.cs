@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
-        animator = GetComponent<Animator>();
+        animator = player.GetAnimator();
     }
 
     public void MovePlayer(Vector2 direction)

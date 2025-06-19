@@ -85,7 +85,7 @@ public class MeleeAttackState : IEnemyState
         else
         {
             Debug.Log("Llamando a ActivateAttack");
-            meleeAttack.ActivateAttack(direction, meleeEnemy.attackDuration, joint);
+            meleeAttack.ActivateAttack(direction, meleeEnemy.attackDuration, joint, "isMeleeAttacking");
         }
         //yield return new WaitForSeconds(atkDuration);
         yield return new WaitForSeconds(meleeEnemy.attackCooldDown);

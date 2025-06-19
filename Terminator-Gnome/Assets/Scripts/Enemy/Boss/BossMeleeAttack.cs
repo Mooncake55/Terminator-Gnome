@@ -14,10 +14,10 @@ public class BossMeleeAttack : MonoBehaviour
 
     public void EndCoroutine()
     {
-        EndCoroutine();
+        StopAllCoroutines();
     }
     //public Action OnStartAttack;
-    //public Action OnFinishedAttack;
+    public Action OnFinishedAttack;
     public void ExecuteAttack()
     {
         StartCoroutine(AttackCoroutine());
@@ -28,6 +28,8 @@ public class BossMeleeAttack : MonoBehaviour
         yield return StartCoroutine(GrowHitbox(rightAttackZone));
         yield return new WaitForSeconds(cooldown);
         yield return StartCoroutine(GrowHitbox(leftAttackZone));
+        Debug.Log("Termiando Melee Atk");
+        OnFinishedAttack?.Invoke();
     }
     IEnumerator GrowHitbox(Transform attackZone)
     {

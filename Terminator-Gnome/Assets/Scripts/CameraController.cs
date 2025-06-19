@@ -25,10 +25,10 @@ public class CameraController : MonoBehaviour
     void SetFirstPosition()
     {
         Vector3 spawn = GameManager.instance.GetPlayerSpawnPoint();
-        Debug.Log($"SpawnPosition: {spawn}");
+        //Debug.Log($"SpawnPosition: {spawn}");
         Vector3 initialPos = new Vector3(spawn.x, spawn.y, transform.position.z);
         transform.position = initialPos;
-        Debug.Log($"InitialPosition: {initialPos}");
+        //Debug.Log($"InitialPosition: {initialPos}");
         currentPos = initialPos;
     }
     void SetPlayer()

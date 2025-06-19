@@ -10,4 +10,5 @@ public class EnemyData : ScriptableObject
     public float moveSpeed; //to change the navmesh agent speed
     public float lifePoints;
     public Sprite sprite;
+    public float damageCooldown;
 }

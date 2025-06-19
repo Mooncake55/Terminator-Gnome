@@ -21,8 +21,10 @@ public class EnemyController : MonoBehaviour, IDamageable
     HealthSystem healthSystem;
     IEnemyState currentState;
     ProjectileFactory projectileFactory;
+    Coroutine damageCoroutine;
 
-    
+
+
     void Awake()
     {
         var agent = GetComponent<NavMeshAgent>();
@@ -64,13 +66,23 @@ public class EnemyController : MonoBehaviour, IDamageable
         //currentState.UpdateAction(); //para que no sea el estsado quien tenga el update (monobehaviour)
     }
 
-    
+
     public void HandleDamage(float amount)
     {
-        Debug.Log("Da�o");
-        healthSystem.TakeDamage(amount);
-        ChangeColour(1f);
+        if (damageCoroutine == null)
+        {
+            healthSystem.TakeDamage(amount);
+            damageCoroutine = StartCoroutine(DamageCoroutine());
+        }
     }
+    IEnumerator DamageCoroutine()
+    {
+        damageCoroutine = StartCoroutine(ChangeColour(enemyData.damageCooldown));
+        yield return new WaitForSeconds(enemyData.damageCooldown);
+        damageCoroutine = null;
+    }
+
+
     public IEnumerator ChangeColour(float seconds)
     {
         //isTakingDamage = true;

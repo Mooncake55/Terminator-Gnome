@@ -4,27 +4,38 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour, IDamageable
 {
-    private BossMeleeAttack bossMeleeAttack;
-    private BossRangeAttack bossRangeAttack;
+    
     [SerializeField] private float timeBetweenAttacks = 3f;
     [SerializeField] private float idleTime = 3f;
+    [SerializeField] private float lifePoints = 100f;
+    [SerializeField] private BossMeleeAttack bossMeleeAttack;
+    [SerializeField] private BossRangeAttack bossRangeAttack;
     private bool isAttacking = false;
     private bool isAlive = true;
     private HealthSystem healthSystem;
     private Coroutine attackCoroutine;
     private Coroutine idleCoroutine;
+    private Coroutine damageCoroutine;
+    private bool isTrakingDamage;
+    [SerializeField] private float damageCooldown = 1f;
 
     //public Action OnDeath;
     
 
     void Start()
     {
-        bossMeleeAttack = GetComponent<BossMeleeAttack>();
+        //bossMeleeAttack = GetComponent<BossMeleeAttack>();
+        bossMeleeAttack.OnFinishedAttack += StopAttack;
         healthSystem = GetComponent<HealthSystem>();
+        healthSystem.OnDeath += HandleDeath;
+        healthSystem.SetLifePoints(lifePoints);
+        Init();
     }
+
 
     void Init()
     {
+        Debug.Log("iniciando BOSS");
         if(idleCoroutine == null)
         {
             idleCoroutine = StartCoroutine(Idle(0));
@@ -33,6 +44,7 @@ public class BossController : MonoBehaviour, IDamageable
 
     IEnumerator Idle(int option)
     {
+        Debug.Log("Boss Idle");
         yield return new WaitForSeconds(idleTime);
         if (!isAlive) yield break;
         idleCoroutine = null;
@@ -41,6 +53,7 @@ public class BossController : MonoBehaviour, IDamageable
     }
     IEnumerator MeleeAttack()
     {
+        Debug.Log("Boss Melee Atk");
         isAttacking = true;
         bossMeleeAttack.ExecuteAttack();
         yield return new WaitUntil(() => isAttacking == false || !isAlive);
@@ -65,8 +78,38 @@ public class BossController : MonoBehaviour, IDamageable
     }
     public void HandleDamage(float amount)
     {
-        OnDeath?.Invoke();
+        if(damageCoroutine == null) 
+        {
+            Debug.Log($"Daño recibido: {amount}");
+            Debug.Log($"Vida antes del daño: {healthSystem._actualHealth}");
+            healthSystem.TakeDamage(amount);
+            damageCoroutine = StartCoroutine(DamageCoroutine());
+            Debug.Log($"Vida despues del daño: {healthSystem._actualHealth}");
+        }
+        
+    }
+    IEnumerator DamageCoroutine()
+    {
+        yield return new WaitForSeconds(damageCooldown);
+        damageCoroutine = null;
+    }
+    public IEnumerator ChangeColour(float seconds)
+    {
+        //isTakingDamage = true;
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        Color originalColor = spriteRenderer.color;
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(seconds);
+        spriteRenderer.color = originalColor;
+        //isTakingDamage = false;
+        //damageCoroutine = null;
+    }
+    void HandleDeath()
+    {
+        Debug.Log("MATASTE AL BOSS; GANASTE :)");
+        bossMeleeAttack.EndCoroutine();
         isAlive = false;
-        StopAllCoroutines(); 
+        StopAllCoroutines();
+        Destroy(gameObject);
     }
 }

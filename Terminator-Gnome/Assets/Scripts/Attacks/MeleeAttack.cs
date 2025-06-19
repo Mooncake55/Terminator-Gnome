@@ -32,7 +32,7 @@ public class MeleeAttack : MonoBehaviour
 
     private IEnumerator DoAttack(float duration)
     {
-        Debug.Log("ATACANDO DESDE MELEE ATTACK");
+        //Debug.Log("ATACANDO DESDE MELEE ATTACK");
         hitBoxSprite.color = Color.red;
         yield return new WaitForSeconds(duration);
         gameObject.SetActive(false);

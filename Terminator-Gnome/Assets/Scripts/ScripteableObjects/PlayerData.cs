@@ -12,4 +12,5 @@ public class PlayerData : ScriptableObject
     public float dashSpeed;
     public float dashDuration;
     public float dashCoolDown;
+    public float damageCooldown;
 }

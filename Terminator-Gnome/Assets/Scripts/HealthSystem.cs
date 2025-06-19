@@ -5,13 +5,15 @@ public class HealthSystem : MonoBehaviour
 {
     public float _maxHealth;
     //serialized so its easier to do tests 
-    [SerializeField] public float _actualHealth; 
+    //[SerializeField] public float _actualHealth;
+    public float _actualHealth;
 
     public event Action OnDeath;
     
     public void SetLifePoints(float lifePoints)
     {
         _maxHealth = lifePoints;
+        _actualHealth = _maxHealth;
     }
 
     public void Heal(float amount)

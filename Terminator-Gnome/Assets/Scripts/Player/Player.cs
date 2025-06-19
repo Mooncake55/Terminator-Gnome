@@ -81,7 +81,7 @@ public class Player : MonoBehaviour, IDamageable
         //if (isAttacking) { return; }
         //isAttacking = true;
         if (attackCoroutine != null) { return; }
-        Debug.Log("HandleMELEatk");
+        //Debug.Log("HandleMELEatk");
         attackController.SetPlayer(this);
         //attackController.ExecuteMeleeAttack();
         //isAttacking = false;
@@ -91,7 +91,7 @@ public class Player : MonoBehaviour, IDamageable
     void HandleRangeAttack()
     {
         if (attackCoroutine != null) { return; }
-        Debug.Log("HandleRANGEatk");
+        //Debug.Log("HandleRANGEatk");
         attackController.SetPlayer(this);
         //attackController.ExecuteRangeAttack();
         attackCoroutine = StartCoroutine(AttackCoroutine(1));
@@ -138,9 +138,18 @@ public class Player : MonoBehaviour, IDamageable
     }
 
     public void HandleDamage(float amount)
+    { 
+        if(damageCoroutine == null)
+        {
+            healthSystem.TakeDamage(amount);
+            damageCoroutine = StartCoroutine(DamageCoroutine());
+        }     
+    }
+    IEnumerator DamageCoroutine()
     {
-        healthSystem.TakeDamage(amount);
-        if(damageCoroutine == null) { damageCoroutine = StartCoroutine(ChangeColour(1f)); }     
+        StartCoroutine(ChangeColour(data.damageCooldown));
+        yield return new WaitForSeconds(data.damageCooldown);
+        damageCoroutine = null;
     }
 
     //moves the player to the last spawnpoint, restores health and waits for the GameManaer to reactivate

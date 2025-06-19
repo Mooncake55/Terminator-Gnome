@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: b41b296041d399f4d80fe0318d640633
+guid: ba3d7d351dfa16442b21ee06d56cafd0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7852077892343169363
-    second: EnemyMelee_0
+      213: -8995476457265203431
+    second: WeaponGnomeAnimations_MeleAttack_45x66_0
+  - first:
+      213: 8987773639154303940
+    second: WeaponGnomeAnimations_MeleAttack_45x66_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +54,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EnemyMelee_0
+      name: WeaponGnomeAnimations_MeleAttack_45x66_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 53
-        height: 48
+        width: 45
+        height: 66
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 35100d1bd3f28fc60800000000000000
-      internalID: 7852077892343169363
+      spriteID: 917715b72d5a92380800000000000000
+      internalID: -8995476457265203431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WeaponGnomeAnimations_MeleAttack_45x66_1
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 0
+        width: 45
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c3896b618cfabc70800000000000000
+      internalID: 8987773639154303940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WeaponGnomeAnimations_MeleAttack_45x66_2
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 0
+        width: 45
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4dc3c9edd0f8c164c820e87b7ac99f59
+      internalID: -391348030
       vertices: []
       indices: 
       edges: []
@@ -125,7 +172,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: f8b71f4885abddd4680705fe2ca8985e
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +182,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      EnemyMelee_0: 7852077892343169363
+      WeaponGnomeAnimations_MeleAttack_45x66_0: -8995476457265203431
+      WeaponGnomeAnimations_MeleAttack_45x66_1: 8987773639154303940
+      WeaponGnomeAnimations_MeleAttack_45x66_2: -391348030
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

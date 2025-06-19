@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: b41b296041d399f4d80fe0318d640633
+guid: 5892a6966ad0b52408d21394b4dce8db
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7852077892343169363
-    second: EnemyMelee_0
+      213: -8009729324853204539
+    second: WeaponGnomeAnimations_RangeAttack_52x25_0
+  - first:
+      213: 513104689642000678
+    second: WeaponGnomeAnimations_RangeAttack_52x25_1
+  - first:
+      213: -7926164152702941924
+    second: WeaponGnomeAnimations_RangeAttack_52x25_2
+  - first:
+      213: -3445471524682136539
+    second: WeaponGnomeAnimations_RangeAttack_52x25_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +60,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +109,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EnemyMelee_0
+      name: WeaponGnomeAnimations_RangeAttack_52x25_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 53
-        height: 48
+        width: 52
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +124,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 35100d1bd3f28fc60800000000000000
-      internalID: 7852077892343169363
+      spriteID: 5c9681dcd99b7d090800000000000000
+      internalID: -8009729324853204539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WeaponGnomeAnimations_RangeAttack_52x25_1
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 0
+        width: 52
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 621d2b62ff9ee1700800000000000000
+      internalID: 513104689642000678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WeaponGnomeAnimations_RangeAttack_52x25_2
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 0
+        width: 52
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c15c4be92bb900290800000000000000
+      internalID: -7926164152702941924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WeaponGnomeAnimations_RangeAttack_52x25_3
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 0
+        width: 52
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 524099737e93f20d0800000000000000
+      internalID: -3445471524682136539
       vertices: []
       indices: 
       edges: []
@@ -125,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 189a7e962e3cb9f459c05c93a77d7ffd
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      EnemyMelee_0: 7852077892343169363
+      WeaponGnomeAnimations_RangeAttack_52x25_0: -8009729324853204539
+      WeaponGnomeAnimations_RangeAttack_52x25_1: 513104689642000678
+      WeaponGnomeAnimations_RangeAttack_52x25_2: -7926164152702941924
+      WeaponGnomeAnimations_RangeAttack_52x25_3: -3445471524682136539
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -18,6 +18,7 @@ public class BossController : MonoBehaviour, IDamageable
     private Coroutine damageCoroutine;
     private bool isTrakingDamage;
     [SerializeField] private float damageCooldown = 1f;
+    private bool started = false;
 
     //public Action OnDeath;
     
@@ -26,13 +27,20 @@ public class BossController : MonoBehaviour, IDamageable
     {
         //bossMeleeAttack = GetComponent<BossMeleeAttack>();
         bossMeleeAttack.OnFinishedAttack += StopAttack;
+        bossRangeAttack.OnFinishedAttack += StopAttack;
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.OnDeath += HandleDeath;
         healthSystem.SetLifePoints(lifePoints);
-        Init();
+        //Init();
     }
-
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && !started)
+        {
+            started = true;
+            Init();
+        }
+    }
     void Init()
     {
         Debug.Log("iniciando BOSS");
@@ -59,8 +67,8 @@ public class BossController : MonoBehaviour, IDamageable
         yield return new WaitUntil(() => isAttacking == false || !isAlive);
         if (!isAlive) yield break;
         attackCoroutine = null;
-        //idleCoroutine = StartCoroutine(Idle(1));
-        idleCoroutine = StartCoroutine(Idle(0));
+        idleCoroutine = StartCoroutine(Idle(1));
+        //idleCoroutine = StartCoroutine(Idle(0));
     }
     void StopAttack()
     {
@@ -68,9 +76,9 @@ public class BossController : MonoBehaviour, IDamageable
     }
     IEnumerator RangeAttack()
     {
+        Debug.Log("Boss Range Atk");
         isAttacking = true;
-        //bossRangeAttack.ExecuteAttack();
-
+        bossRangeAttack.ExecuteAttack();
         yield return new WaitUntil(() => isAttacking == false || !isAlive);
         if (!isAlive) yield break;
         attackCoroutine = null;

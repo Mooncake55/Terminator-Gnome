@@ -14,4 +14,12 @@ public class ProjectileFactory : MonoBehaviour
         rb.gravityScale = 0;
         rb.linearVelocity = direction.normalized * projectileSpeed;
     }
+    public void Fire(Vector2 direction, Vector3 firePoint)
+    {
+        Debug.Log("Fire");
+        GameObject proj = Instantiate(projectilePrefab, firePoint, Quaternion.identity);
+        Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
+        rb.gravityScale = 0;
+        rb.linearVelocity = direction.normalized * projectileSpeed;
+    }
 }

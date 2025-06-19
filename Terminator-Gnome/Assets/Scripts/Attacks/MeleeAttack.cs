@@ -22,7 +22,7 @@ public class MeleeAttack : MonoBehaviour
         hitBoxCollider = GetComponent<BoxCollider2D>();
         hitBoxCollider.enabled = false;
         animator = GetComponentInParent<Animator>();
-        weaponSpriteRenderer.enabled = false;
+        weaponSpriteRenderer.enabled = true;
     }
     void LateUpdate()
     {

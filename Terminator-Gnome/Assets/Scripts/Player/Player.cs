@@ -49,7 +49,7 @@ public class Player : MonoBehaviour, IDamageable
     public PlayerData GetPlayerData() { return data; }
     void HandleMoveInput(Vector2 direction)
     {
-        FlipRender(direction);
+        //FlipRender(direction);
         if (direction != Vector2.zero) { lastDirection = direction; }
         if (!isDashing) { playerMovement.MovePlayer(direction); }  
     }

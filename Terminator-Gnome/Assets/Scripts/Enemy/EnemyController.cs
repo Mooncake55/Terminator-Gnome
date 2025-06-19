@@ -23,6 +23,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     ProjectileFactory projectileFactory;
     Coroutine damageCoroutine;
 
+    [Header("Animation")]
+    private Animator animator;
 
 
     void Awake()
@@ -32,9 +34,11 @@ public class EnemyController : MonoBehaviour, IDamageable
         {
             agent.updateRotation = false;
             agent.updateUpAxis = false;
+            animator = GetComponent<Animator>();
         }
         
     }
+    public Animator GetAnimator() {  return animator; }
     void Start()
     {
         healthSystem = GetComponent<HealthSystem>();

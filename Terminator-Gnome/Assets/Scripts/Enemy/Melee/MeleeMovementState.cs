@@ -14,6 +14,8 @@ public class MeleeMovementState :  IEnemyState
     private bool isAttacking = false;
     private float attackRange;
 
+    [Header("Animation")]
+    private Animator animator;
 
     public MeleeMovementState(EnemyController enemy)
     {
@@ -29,6 +31,7 @@ public class MeleeMovementState :  IEnemyState
     {
         _agent.speed = context.GetEnemyData().moveSpeed;
         attackRange = context.GetEnemyData().attackRange;
+        animator = context.GetAnimator();
         Debug.Log(attackRange);
     }
 
@@ -36,12 +39,25 @@ public class MeleeMovementState :  IEnemyState
     {
         if (target == null) { target = context.GetTarget(); return; }
         direction = _agent.velocity.normalized;
+        animator.SetBool("isMoving", true);
         context.SetFaceTo(direction);
         if (target == null) { return; }
         distanceToTarget = Vector2.Distance(context.transform.position, target.position);
         if (distanceToTarget > attackRange)
         {
             _agent.SetDestination(target.position);
+            if (direction != Vector2.zero)
+            {
+                animator.SetFloat("moveX", Mathf.Abs(direction.x));
+                animator.SetFloat("moveY", direction.y);
+
+                // Flip visual si vas a la izquierda (solo si usás sprites mirando a la derecha)
+                if (direction.x != 0)
+                {
+                    context.GetComponent<SpriteRenderer>().flipX = direction.x < 0;
+                }
+            }
+
         }
         else
         {
@@ -65,6 +81,7 @@ public class MeleeMovementState :  IEnemyState
     //controls to know which state to exit
     public void Exit()
     {
+        animator.SetBool("isMoving", false);
         Debug.Log("Saliendo de MOVEMENT");
         if (isAttacking)
         {

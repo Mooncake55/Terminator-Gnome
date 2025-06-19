@@ -8,11 +8,12 @@ public class MeleeAttackState : IEnemyState
     private EnemyData meleeEnemy;
     private float atkDuration;
     private Transform joint;
-    private MeleeAttack meleeAttack;
+    private MeleeEnemyAttack meleeAttack;
     private Vector2 direction;
     EnemyController context;
     private bool isAttacking;
     IEnemyState nextState;
+    Animator animator;
 
     public MeleeAttackState(EnemyController enemy)
     {
@@ -27,6 +28,7 @@ public class MeleeAttackState : IEnemyState
     public void Enter()
     {
         atkDuration = meleeEnemy.attackDuration;
+        animator = context.GetAnimator();
     }
      //gets the meleeAttack hitbox and its component
     private void GetMeleeAttack()
@@ -40,7 +42,7 @@ public class MeleeAttackState : IEnemyState
         Transform meleeAttackObj = joint.Find("EnemyMeleeAtk");
         if (meleeAttackObj != null)
         {
-            meleeAttack = meleeAttackObj.GetComponent<MeleeAttack>();
+            meleeAttack = meleeAttackObj.GetComponent<MeleeEnemyAttack>();
             if (meleeAttack != null) 
             { 
                 Debug.Log("MeleeAttack asignado correctamente: " + meleeAttack.name);
@@ -70,6 +72,7 @@ public class MeleeAttackState : IEnemyState
         }
         if (nextState != null)
         {
+            animator.SetBool("isAttacking", false);
             context.SetState(nextState);
         }
     }
@@ -84,8 +87,21 @@ public class MeleeAttackState : IEnemyState
         }
         else
         {
+            animator.SetBool("isAttacking", true);
             Debug.Log("Llamando a ActivateAttack");
-            meleeAttack.ActivateAttack(direction, meleeEnemy.attackDuration, joint, "isMeleeAttacking");
+            if (direction != Vector2.zero)
+            {
+                animator.SetFloat("moveX", Mathf.Abs(direction.x));
+                animator.SetFloat("moveY", direction.y);
+
+                // Flip visual si vas a la izquierda (solo si usás sprites mirando a la derecha)
+                if (direction.x != 0)
+                {
+                    context.GetComponent<SpriteRenderer>().flipX = direction.x > 0;
+                }
+            }
+            //meleeAttack.ActivateAttack(direction, meleeEnemy.attackDuration, joint, "isMeleeAttacking");
+            meleeAttack.ActivateAttack(direction, meleeEnemy.attackDuration, joint, "isAttacking");
         }
         //yield return new WaitForSeconds(atkDuration);
         yield return new WaitForSeconds(meleeEnemy.attackCooldDown);

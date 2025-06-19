@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5242021671444742921}
   - component: {fileID: 6657572282828402480}
   - component: {fileID: 3344630228102737979}
+  - component: {fileID: 7336805701907034440}
   m_Layer: 0
   m_Name: MeleeEnemy
   m_TagString: EnemyMelee
@@ -207,6 +208,28 @@ NavMeshAgent:
   m_BaseOffset: 0.25
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!95 &7336805701907034440
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353612973932080860}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5e75f9120b886a14c81cbbf83ee9618f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7616584658544502526
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +273,7 @@ GameObject:
   - component: {fileID: 2189552476820424905}
   - component: {fileID: 143594248342871051}
   - component: {fileID: 5547730201390728559}
-  - component: {fileID: 7721025357102869132}
+  - component: {fileID: 3064715314272251485}
   m_Layer: 0
   m_Name: EnemyMeleeAtk
   m_TagString: AttackArea
@@ -374,7 +397,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.37954342}
   m_EdgeRadius: 0
---- !u!114 &7721025357102869132
+--- !u!114 &3064715314272251485
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -383,6 +406,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8449094661877134676}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff93cbbfd1013234e9c4c859d6797176, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d558c194797d544389c330cbbc96c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

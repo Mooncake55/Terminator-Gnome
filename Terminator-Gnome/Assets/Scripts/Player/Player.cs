@@ -33,14 +33,17 @@ public class Player : MonoBehaviour, IDamageable
     {
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.SetLifePoints(data.lifePoints); 
+
         spriteRenderer = GetComponent<SpriteRenderer>(); 
+
         playerMovement = GetComponent<PlayerMovement>();
         playerMovement.SetPlayer(this);
         playerDash = GetComponent<PlayerDash>();
         playerDash.SetPlayer(this);
+
         lastDirection = Vector2.zero;
         attackController = GetComponent<AttackController>();
-        attackController.SetPlayer(this);
+        //attackController.SetPlayer(this);
         animator = GetComponent<Animator>();
 
         healthSystem.OnDeath += HandleDeath;
@@ -61,20 +64,20 @@ public class Player : MonoBehaviour, IDamageable
     {
         if(dashCoroutine != null) { return; }
         FlipRender(lastDirection);
-        dashCoroutine = StartCoroutine(DashCoroutine(data.dashCoolDown, false));
+        dashCoroutine = StartCoroutine(DashCoroutine(data.dashCoolDown, false, lastDirection));
         isDashing = false;
     }
     public void DashTo(Vector2 direction, bool changeDirection) 
     {
         isDashing = true;
         //playerDash.Dash(direction, changeDirection);
-        dashCoroutine = StartCoroutine(DashCoroutine(0.2f, true));
+        dashCoroutine = StartCoroutine(DashCoroutine(0.2f, changeDirection, direction));
         //isDashing = false;
     }
-    IEnumerator DashCoroutine(float wait, bool changeDirection)
+    IEnumerator DashCoroutine(float wait, bool changeDirection, Vector2 dir)
     {
         isDashing = true;
-        playerDash.Dash(lastDirection, changeDirection);
+        playerDash.Dash(dir, changeDirection);
         yield return new WaitForSeconds(wait);    
         dashCoroutine = null;
         isDashing = false;
@@ -85,34 +88,24 @@ public class Player : MonoBehaviour, IDamageable
         //if (isAttacking) { return; }
         //isAttacking = true;
         if (attackCoroutine != null) { return; }
-        //Debug.Log("HandleMELEatk");
-        attackController.SetPlayer(this);
-        //attackController.ExecuteMeleeAttack();
-        //isAttacking = false;
-        attackCoroutine = StartCoroutine(AttackCoroutine(0));
+        ////Debug.Log("HandleMELEatk");
+        ////attackController.SetPlayer(this);
+        ////attackController.ExecuteMeleeAttack();
+        ////isAttacking = false;
+        //attackCoroutine = StartCoroutine(AttackCoroutine(0));
+        attackController.ExecuteMeleeAttack();
 
     }
     void HandleRangeAttack()
     {
         if (attackCoroutine != null) { return; }
-        //Debug.Log("HandleRANGEatk");
-        attackController.SetPlayer(this);
-        //attackController.ExecuteRangeAttack();
-        attackCoroutine = StartCoroutine(AttackCoroutine(1));
+        ////Debug.Log("HandleRANGEatk");
+        ////attackController.SetPlayer(this);
+        ////attackController.ExecuteRangeAttack();
+        //attackCoroutine = StartCoroutine(AttackCoroutine(1));
+        attackController.ExecuteRangeAttack();
     }
-    IEnumerator AttackCoroutine(int option)
-    {
-        float cooldDown = data.meleeAtkDuration;
-        //isAttacking = true;
-        if(option == 0) { attackController.ExecuteMeleeAttack(); }
-        else 
-        { 
-            attackController.ExecuteRangeAttack();
-            cooldDown = data.rangeAtkCoolDown;
-        }
-        yield return new WaitForSeconds(cooldDown);
-        attackCoroutine = null;
-    }
+    
     public Vector2 GetFacingTo(){
         return lastDirection;
     }

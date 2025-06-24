@@ -41,6 +41,6 @@ public class PlayerDash : MonoBehaviour
         player = p;
         dashSpeed = player.GetPlayerData().dashSpeed;
         dashDuration = player.GetPlayerData().dashDuration;
-        Debug.Log($"dashSpeed: " + dashSpeed + " dashDuration: " + dashDuration);
+        //Debug.Log($"dashSpeed: " + dashSpeed + " dashDuration: " + dashDuration);
     }
 }

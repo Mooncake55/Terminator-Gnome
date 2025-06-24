@@ -4,61 +4,99 @@ using System.Collections;
 
 public class AttackController : MonoBehaviour
 {
-    private MeleeAttack meleeAttack;
-    private MeleeAttack rangeAttack;
+    [SerializeField] private MeleeAttack meleeAttack;
+    public AttackData meleData;
+    [SerializeField] private MeleeAttack rangeAttack;
+    public AttackData rangeData;
 
     [SerializeField] Transform joint;
-    [SerializeField] float rangeDamage = 55f;
+    //[SerializeField] float rangeDamage = 55f;
 
     private Player player;
     private Animator animator;
-    private bool isRangeAtk;
+    private bool isAttacking = false;
+
+    private Coroutine currentCoroutine;
 
     void Start()
     {
-        SearchAttacks();
+        //SearchAttacks();
+        player = GetComponent<Player>();
         animator = player.GetAnimator();
-    }
-    public void SetPlayer(Player data){
-        player = data;
+        
     }
 
-    
+    public Transform GetJoint() { return joint; }
+    public Vector2 GetFaceTo() { return player.GetFacingTo(); }
+
+
     public void ExecuteMeleeAttack()
     {
-        float atkDuration = player.GetPlayerData().meleeAtkDuration;
-        meleeAttack.SetDamage(player.GetPlayerData().meleeAtkDamage);
-        meleeAttack.ActivateAttack(player.GetFacingTo(), atkDuration, joint, "isMeleeAttacking");
-        StartCoroutine(WaitSeconds(atkDuration));
+        //float atkDuration = player.GetPlayerData().meleeAtkDuration;
+        //meleeAttack.SetDamage(player.GetPlayerData().meleeAtkDamage);
+        //meleeAttack.ActivateAttack(player.GetFacingTo(), atkDuration, joint, "isMeleeAttacking");
+        //StartCoroutine(WaitSeconds(atkDuration));
+        if (!isAttacking) 
+        { 
+            isAttacking = true;
+            BasicSwordAttackState attack = new BasicSwordAttackState(this, meleData, "isMeleeAttacking", meleeAttack);
+            attack.Execute(player.GetFacingTo());
+        }
     }
     public void ExecuteRangeAttack()
     {
-        Debug.Log("rangeAtk");
-        if(player == null) { return;}
-        float atkDuration = player.GetPlayerData().rangeAtkDuration;
-        rangeAttack.SetDamage(rangeDamage); //CAMBIAR
+        //Debug.Log("rangeAtk");
+        //if(player == null) { return;}
+        //float atkDuration = player.GetPlayerData().rangeAtkDuration;
+        //rangeAttack.SetDamage(rangeDamage); //CAMBIAR
         Vector2 direction = (InputController.instance.GetMousePos() - (Vector2)transform.position).normalized;
         //rangeAttack.ActivateAttack(direction, atkDuration, joint);
-        rangeAttack.ActivateAttack(direction, atkDuration, joint, "isRangeAttacking");
-        StartCoroutine(WaitSeconds(atkDuration));
-        player.DashTo(direction, true);
-    }
-    void  SearchAttacks()
-    {
-        if (joint != null)
-        {
-            Transform meleeAttackObj = joint.Find("MeleeAtk");
-            Transform rangeAttackObj = joint.Find("RangeAtk");
-            if (meleeAttackObj != null)
-            {
-                meleeAttack = meleeAttackObj.GetComponent<MeleeAttack>();
-            }
-            if(rangeAttackObj != null)
-            {
-                rangeAttack = rangeAttackObj.GetComponent<MeleeAttack>();
-            }
+        //rangeAttack.ActivateAttack(direction, atkDuration, joint, "isRangeAttacking");
+        //StartCoroutine(WaitSeconds(atkDuration));  
+        if (!isAttacking) 
+        { 
+            isAttacking = true;  
+            BasicSwordAttackState attack = new BasicSwordAttackState(this, rangeData, "isRangeAttacking", rangeAttack);
+            player.DashTo(direction, true);
+            attack.Execute(direction);
         }
     }
+    public void HasFinishAttack()
+    {
+        isAttacking = false;
+    }
+    //IEnumerator AttackCoroutine(int option)
+    //{
+    //    float cooldDown = data.meleeAtkDuration;
+    //    //isAttacking = true;
+    //    if (option == 0) { attackController.ExecuteMeleeAttack(); }
+    //    else
+    //    {
+    //        attackController.ExecuteRangeAttack();
+    //        cooldDown = data.rangeAtkCoolDown;
+    //    }
+    //    yield return new WaitForSeconds(cooldDown);
+    //    attackCoroutine = null;
+    //}
+    public void StartStateCoroutine(IEnumerator coroutine)
+    {
+        if (currentCoroutine != null)
+        {
+            StopCoroutine(currentCoroutine);
+        }
+
+        currentCoroutine = StartCoroutine(coroutine);
+    }
+
+    public void StopCurrentCoroutine()
+    {
+        if (currentCoroutine != null)
+        {
+            StopCoroutine(currentCoroutine);
+            currentCoroutine = null;
+        }
+    }
+
     public IEnumerator WaitSeconds(float duration)
     {
         yield return new WaitForSeconds(duration);

@@ -44,7 +44,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.OnDeath += HandelDeath;
         healthSystem.SetLifePoints(enemyData.lifePoints);
-        Debug.Log("NUEVO ENEMIGO");
+        //Debug.Log("NUEVO ENEMIGO");
         //if(currentState == null)
         //{
         //    if (this.CompareTag("EnemyMelee")) { SetState(new MeleeEnemyIdleState(this)); }

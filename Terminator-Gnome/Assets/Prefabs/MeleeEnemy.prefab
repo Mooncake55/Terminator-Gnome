@@ -136,6 +136,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 7b0d9b0b9df29b74da0c8204925fc60a, type: 2}
   target: {fileID: 0}
   joint: {fileID: 580851718575383808}
+  animator: {fileID: 7336805701907034440}
 --- !u!114 &5242021671444742921
 MonoBehaviour:
   m_ObjectHideFlags: 0

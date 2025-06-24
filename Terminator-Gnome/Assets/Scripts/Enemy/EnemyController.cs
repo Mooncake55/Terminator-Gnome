@@ -24,7 +24,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     Coroutine damageCoroutine;
 
     [Header("Animation")]
-    private Animator animator;
+    [SerializeField]private Animator animator;
 
 
     void Awake()
@@ -34,7 +34,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         {
             agent.updateRotation = false;
             agent.updateUpAxis = false;
-            animator = GetComponent<Animator>();
+            if (animator == null) { animator = GetComponent<Animator>(); }
         }
         
     }

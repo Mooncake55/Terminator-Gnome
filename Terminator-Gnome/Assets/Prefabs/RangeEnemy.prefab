@@ -153,6 +153,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: e5048a056c9b5f54ebdb3dae6b03d7df, type: 2}
   target: {fileID: 0}
   joint: {fileID: 0}
+  animator: {fileID: 5501702594211548925}
 --- !u!61 &512409179907272582
 BoxCollider2D:
   m_ObjectHideFlags: 0

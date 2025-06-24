@@ -18,7 +18,11 @@ public class RangeAttackState : IEnemyState
     }
     public void Enter()
     {
-        animator = context.GetAnimator();
+        if (animator == null)
+        {
+            animator = context.GetAnimator();
+        }
+        //animator = context.GetAnimator();
         target = context.GetTarget();
         attackRange = context.GetEnemyData().attackRange;
     }
@@ -37,8 +41,8 @@ public class RangeAttackState : IEnemyState
         }
     }
     public IEnumerator Attack()
-    {
-        //animator.SetBool("isAttacking", true);
+    {       
+        animator.SetBool("isAttacking", true);
         isAttacking = true;
         yield return new WaitForSeconds(context.GetEnemyData().attackCooldDown);
         Vector2 direction = ((Vector2)target.position - (Vector2)context.transform.position).normalized;

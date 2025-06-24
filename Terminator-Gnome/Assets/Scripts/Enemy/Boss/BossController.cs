@@ -20,6 +20,8 @@ public class BossController : MonoBehaviour, IDamageable
     [SerializeField] private float damageCooldown = 1f;
     private bool started = false;
 
+    private bool isDoingIdle;
+
     //public Action OnDeath;
     
 
@@ -52,10 +54,13 @@ public class BossController : MonoBehaviour, IDamageable
 
     IEnumerator Idle(int option)
     {
+        isDoingIdle = true;
         Debug.Log("Boss Idle");
         yield return new WaitForSeconds(idleTime);
         if (!isAlive) yield break;
         idleCoroutine = null;
+        isDoingIdle = false;
+
         if (attackCoroutine == null && option == 0) { attackCoroutine = StartCoroutine(MeleeAttack()); }
         if(attackCoroutine == null && option == 1) {  attackCoroutine = StartCoroutine(RangeAttack());}
     }

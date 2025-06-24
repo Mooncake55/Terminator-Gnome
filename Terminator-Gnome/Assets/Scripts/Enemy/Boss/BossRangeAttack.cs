@@ -12,6 +12,7 @@ public class BossRangeAttack : MonoBehaviour
     private Transform player;
     [SerializeField] private int waves;
 
+    [SerializeField] Animator aniamtor;
     private void Start()
     {
         player = GameManager.instance.GetPlayer().transform;
@@ -23,6 +24,7 @@ public class BossRangeAttack : MonoBehaviour
 
     IEnumerator FireSequence()
     {
+        aniamtor.SetBool("Fire", true);
         int count = 0;
         while(count <= waves)
         {
@@ -35,6 +37,7 @@ public class BossRangeAttack : MonoBehaviour
                 yield return new WaitForSeconds(attackDelay); // Dispara uno tras otro, no todos a la vez
             }
         }
+        aniamtor.SetBool("Fire", false);
         // Avisar al BossController que terminó el ataque (si usás evento)
         Debug.Log("Range attack finished");
         OnFinishedAttack?.Invoke();

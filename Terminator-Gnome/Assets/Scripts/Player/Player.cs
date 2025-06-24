@@ -74,6 +74,10 @@ public class Player : MonoBehaviour, IDamageable
         dashCoroutine = StartCoroutine(DashCoroutine(0.2f, changeDirection, direction));
         //isDashing = false;
     }
+    public void PushBack()
+    {
+        DashCoroutine(0.2f, true, lastDirection);
+    }
     IEnumerator DashCoroutine(float wait, bool changeDirection, Vector2 dir)
     {
         isDashing = true;
@@ -144,9 +148,11 @@ public class Player : MonoBehaviour, IDamageable
             Debug.Log($"Taken: "+amount+" Current: " + healthSystem._actualHealth);
         }     
     }
+    
     IEnumerator DamageCoroutine()
     {
         StartCoroutine(ChangeColour(data.damageCooldown));
+        PushBack();
         yield return new WaitForSeconds(data.damageCooldown);
         damageCoroutine = null;
     }

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDuration: 0.5
   attackCooldDown: 1.5
-  attackRange: 0.2
+  attackRange: 1.4
   attackDamage: 10
   moveSpeed: 3
   lifePoints: 10
   sprite: {fileID: 7852077892343169363, guid: b41b296041d399f4d80fe0318d640633, type: 3}
+  damageCooldown: 0

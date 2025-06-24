@@ -138,8 +138,10 @@ public class Player : MonoBehaviour, IDamageable
     { 
         if(damageCoroutine == null)
         {
+            Debug.Log("Player Taking Damage");
             healthSystem.TakeDamage(amount);
             damageCoroutine = StartCoroutine(DamageCoroutine());
+            Debug.Log($"Taken: "+amount+" Current: " + healthSystem._actualHealth);
         }     
     }
     IEnumerator DamageCoroutine()

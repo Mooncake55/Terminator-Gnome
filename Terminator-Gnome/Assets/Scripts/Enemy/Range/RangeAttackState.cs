@@ -8,15 +8,17 @@ public class RangeAttackState : IEnemyState
     private float attackRange;
     ProjectileFactory factory;
     private bool isAttacking;
+    Animator animator; 
     public RangeAttackState(EnemyController enemy)
     {
         Debug.Log("Entrando a RangeAttackState");
         context = enemy;
-        factory = context.GetFactory();
+        factory = context.GetFactory();    
         Enter();
     }
     public void Enter()
     {
+        animator = context.GetAnimator();
         target = context.GetTarget();
         attackRange = context.GetEnemyData().attackRange;
     }
@@ -36,6 +38,7 @@ public class RangeAttackState : IEnemyState
     }
     public IEnumerator Attack()
     {
+        //animator.SetBool("isAttacking", true);
         isAttacking = true;
         yield return new WaitForSeconds(context.GetEnemyData().attackCooldDown);
         Vector2 direction = ((Vector2)target.position - (Vector2)context.transform.position).normalized;
@@ -44,6 +47,7 @@ public class RangeAttackState : IEnemyState
     }
     public void Exit()
     {
+        animator.SetBool("isAttacking", false);
         throw new System.NotImplementedException();
 
     }

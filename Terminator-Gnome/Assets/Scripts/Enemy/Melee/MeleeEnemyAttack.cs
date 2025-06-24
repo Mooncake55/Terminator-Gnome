@@ -6,13 +6,13 @@ public class MeleeEnemyAttack : MonoBehaviour
 {
     private float damage;
     private SpriteRenderer hitBoxSprite;
-    private Animator animator;
+    [SerializeField] private Animator animator;
     private BoxCollider2D hitBoxCollider;
     private void Start()
     {
         //gameObject.SetActive(false);
         hitBoxSprite = GetComponent<SpriteRenderer>();
-        animator = GetComponentInParent<Animator>();
+        //animator = GetComponentInParent<Animator>();
         hitBoxCollider = GetComponent<BoxCollider2D>();
         hitBoxCollider.enabled = false;
     }
@@ -30,7 +30,7 @@ public class MeleeEnemyAttack : MonoBehaviour
     public void ActivateAttack(Vector2 dir, float duration, Transform joint, string animationParam)
     {
         //gameObject.SetActive(true);
-        animator.SetBool(animationParam, true);
+        //animator.SetBool(animationParam, true);
         hitBoxCollider.enabled = true;
         SetPosition(dir, joint);
         StartCoroutine(DoAttack(duration, animationParam));

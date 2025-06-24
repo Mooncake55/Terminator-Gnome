@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b3eeb03def770d04ea632abaf846dbb5
+guid: 4907fa023a314cb4394a4316c69133dc
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -70,7 +70,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -84,7 +84,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -108,7 +108,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -138,8 +138,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 40
-        height: 53
+        width: 33
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,8 +160,8 @@ TextureImporter:
         serializedVersion: 2
         x: 40
         y: 0
-        width: 40
-        height: 53
+        width: 33
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -180,10 +180,10 @@ TextureImporter:
       name: EnemyRange_FrontIdle_40x53_2
       rect:
         serializedVersion: 2
-        x: 80
+        x: 82
         y: 0
-        width: 40
-        height: 53
+        width: 31
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,10 +202,10 @@ TextureImporter:
       name: EnemyRange_FrontIdle_40x53_3
       rect:
         serializedVersion: 2
-        x: 120
+        x: 125
         y: 0
-        width: 40
-        height: 53
+        width: 28
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,10 +224,10 @@ TextureImporter:
       name: EnemyRange_FrontIdle_40x53_4
       rect:
         serializedVersion: 2
-        x: 160
+        x: 170
         y: 0
-        width: 40
-        height: 53
+        width: 23
+        height: 51
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -246,10 +246,10 @@ TextureImporter:
       name: EnemyRange_FrontIdle_40x53_5
       rect:
         serializedVersion: 2
-        x: 200
+        x: 210
         y: 0
-        width: 40
-        height: 53
+        width: 25
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -268,10 +268,10 @@ TextureImporter:
       name: EnemyRange_FrontIdle_40x53_6
       rect:
         serializedVersion: 2
-        x: 240
+        x: 250
         y: 0
-        width: 40
-        height: 53
+        width: 31
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -290,10 +290,10 @@ TextureImporter:
       name: EnemyRange_FrontIdle_40x53_7
       rect:
         serializedVersion: 2
-        x: 280
+        x: 290
         y: 0
-        width: 40
-        height: 53
+        width: 30
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -312,10 +312,10 @@ TextureImporter:
       name: EnemyRange_FrontIdle_40x53_8
       rect:
         serializedVersion: 2
-        x: 320
+        x: 330
         y: 0
-        width: 40
-        height: 53
+        width: 28
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,10 +334,10 @@ TextureImporter:
       name: EnemyRange_FrontIdle_40x53_9
       rect:
         serializedVersion: 2
-        x: 360
+        x: 370
         y: 0
-        width: 40
-        height: 53
+        width: 25
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -356,10 +356,10 @@ TextureImporter:
       name: EnemyRange_FrontIdle_40x53_10
       rect:
         serializedVersion: 2
-        x: 400
+        x: 410
         y: 0
-        width: 40
-        height: 53
+        width: 23
+        height: 51
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -378,10 +378,10 @@ TextureImporter:
       name: EnemyRange_FrontIdle_40x53_11
       rect:
         serializedVersion: 2
-        x: 440
+        x: 445
         y: 0
-        width: 40
-        height: 53
+        width: 28
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -400,7 +400,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2386c5d28ceeb854fa34599b6c6f84a5
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 

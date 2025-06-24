@@ -92,6 +92,7 @@ public class BasicSwordAttackState : IPlayerAttackState
                 // Flip visual si vas a la izquierda (solo si usás sprites mirando a la derecha)                
             }
             //meleeAttack.ActivateAttack(direction, meleeEnemy.attackDuration, joint, "isMeleeAttacking");
+            meleeAttack.SetDamage(damage);
             meleeAttack.ActivateAttack(direction, duration, joint, animation);
         }
         //yield return new WaitForSeconds(atkDuration);

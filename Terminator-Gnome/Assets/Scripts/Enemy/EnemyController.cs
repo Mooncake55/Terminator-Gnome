@@ -75,8 +75,10 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         if (damageCoroutine == null)
         {
+            Debug.Log("ENEMY Taking Damage");
             healthSystem.TakeDamage(amount);
             damageCoroutine = StartCoroutine(DamageCoroutine());
+            Debug.Log($"Taken: " + amount + " Current: " + healthSystem._actualHealth);
         }
     }
     IEnumerator DamageCoroutine()

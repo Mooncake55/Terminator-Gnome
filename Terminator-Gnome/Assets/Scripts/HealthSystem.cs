@@ -29,7 +29,7 @@ public class HealthSystem : MonoBehaviour
     //notifies the death of the GameObject that implements this system 
     public void TakeDamage(float damage)
     {
-        Debug.Log($"The"+gameObject+ "is Wounded");
+        //Debug.Log($"The"+gameObject+ "is Wounded");
         _actualHealth -= damage;
         if (_actualHealth < 0)
         {

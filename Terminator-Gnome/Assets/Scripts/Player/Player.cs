@@ -22,6 +22,7 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] Transform spawnPoint;
     [SerializeField] Transform joint;
     [SerializeField] bool isDashing = false; //Serialized in order to do tests easily
+    [SerializeField] SpriteRenderer hitBox;
 
     Coroutine damageCoroutine;
     Coroutine dashCoroutine;
@@ -140,7 +141,7 @@ public class Player : MonoBehaviour, IDamageable
 
     public void HandleDamage(float amount)
     { 
-        if(damageCoroutine == null)
+         if(damageCoroutine == null)
         {
             Debug.Log("Player Taking Damage");
             healthSystem.TakeDamage(amount);

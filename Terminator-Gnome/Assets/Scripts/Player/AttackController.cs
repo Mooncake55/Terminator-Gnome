@@ -17,7 +17,7 @@ public class AttackController : MonoBehaviour
     private bool isAttacking = false;
 
     private Coroutine currentCoroutine;
-
+    [SerializeField] SpriteRenderer hitBox;
     void Start()
     {
         //SearchAttacks();
@@ -45,6 +45,7 @@ public class AttackController : MonoBehaviour
     }
     public void ExecuteRangeAttack()
     {
+        hitBox.enabled = true;
         //Debug.Log("rangeAtk");
         //if(player == null) { return;}
         //float atkDuration = player.GetPlayerData().rangeAtkDuration;
@@ -63,6 +64,7 @@ public class AttackController : MonoBehaviour
     }
     public void HasFinishAttack()
     {
+        hitBox.enabled = false;
         isAttacking = false;
     }
     //IEnumerator AttackCoroutine(int option)

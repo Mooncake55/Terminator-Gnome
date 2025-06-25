@@ -21,3 +21,4 @@ MonoBehaviour:
   dashSpeed: 1
   dashDuration: 1.5
   dashCoolDown: 1
+  damageCooldown: 1.5

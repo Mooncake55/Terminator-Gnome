@@ -22,7 +22,7 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] Transform spawnPoint;
     [SerializeField] Transform joint;
     [SerializeField] bool isDashing = false; //Serialized in order to do tests easily
-    [SerializeField] SpriteRenderer hitBox;
+    
 
     Coroutine damageCoroutine;
     Coroutine dashCoroutine;

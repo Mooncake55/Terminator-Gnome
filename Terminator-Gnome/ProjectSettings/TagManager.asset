@@ -12,6 +12,7 @@ TagManager:
   - MeleeEnemyMovementState
   - MeleeEnemyAttackState
   - EnemyRange
+  - Venom
   layers:
   - Default
   - TransparentFX

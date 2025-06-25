@@ -463,11 +463,11 @@ Transform:
   m_GameObject: {fileID: 1992271086147114290}
   serializedVersion: 2
   m_LocalRotation: {x: -0.008726558, y: -0, z: -0, w: 0.999962}
-  m_LocalPosition: {x: 3.6498, y: 0.2274, z: 0.016}
+  m_LocalPosition: {x: 3.6567998, y: 0.4244, z: 0.016000003}
   m_LocalScale: {x: 6.2318645, y: 2.0072532, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2159010336666192989}
+  m_Father: {fileID: 7940192587610039729}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4213476125402392910
 SpriteRenderer:
@@ -555,6 +555,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4536558635418341916}
   - {fileID: 2774345194974462712}
   - {fileID: 361069116363217630}
   - {fileID: 1452258030620488978}
@@ -873,7 +874,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7940192587610039729}
-  - {fileID: 4536558635418341916}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 1, y: 0, z: 0}
 --- !u!114 &21833623852083994
@@ -986,7 +986,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   joint: {fileID: 7940192587610039729}
   isDashing: 0
-  hitBox: {fileID: 0}
+  venomDamage: 20
 --- !u!114 &5395342560028245666
 MonoBehaviour:
   m_ObjectHideFlags: 0

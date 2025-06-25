@@ -54,6 +54,9 @@ public class GameManager : MonoBehaviour
     }
     public GameObject GetPlayer() { return currentPlayer; }
     public Vector2 GetPlayerSpawnPoint() { return spawnPoint.position; }
-
+    public void SetPlayerSpawnPoint(Transform newSpawnPoint)
+    {
+        spawnPoint = newSpawnPoint;
+    }
 
 }

@@ -22,7 +22,9 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] Transform spawnPoint;
     [SerializeField] Transform joint;
     [SerializeField] bool isDashing = false; //Serialized in order to do tests easily
-    
+    [SerializeField] float venomDamage = 20f;
+
+
 
     Coroutine damageCoroutine;
     Coroutine dashCoroutine;
@@ -64,9 +66,21 @@ public class Player : MonoBehaviour, IDamageable
     void HandleDashInput() 
     {
         if(dashCoroutine != null) { return; }
-        FlipRender(lastDirection);
+        //FlipRender(lastDirection);
         dashCoroutine = StartCoroutine(DashCoroutine(data.dashCoolDown, false, lastDirection));
         isDashing = false;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Venom"))
+        {
+            if (isDashing) { return; }
+            if (!isDashing)
+            {
+                DashTo(lastDirection, true);
+                HandleDamage(venomDamage);
+            }   
+        }  
     }
     public void DashTo(Vector2 direction, bool changeDirection) 
     {
@@ -141,7 +155,7 @@ public class Player : MonoBehaviour, IDamageable
 
     public void HandleDamage(float amount)
     { 
-         if(damageCoroutine == null)
+        if(damageCoroutine == null)
         {
             Debug.Log("Player Taking Damage");
             healthSystem.TakeDamage(amount);

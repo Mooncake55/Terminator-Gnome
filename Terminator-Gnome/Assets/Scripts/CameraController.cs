@@ -63,7 +63,9 @@ public class CameraController : MonoBehaviour
             {
                 transform.position = targetPosition;
                 isMoving = false;
+
             }
+            OnCameraMoved?.Invoke();
         }
     }
 
